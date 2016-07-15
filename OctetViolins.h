@@ -19,7 +19,7 @@
 //#include "OctetViolins_Helper_Classes.hpp"
 
 #define GUI_WIDTH 760
-#define GUI_HEIGHT 640
+#define GUI_HEIGHT 680
 
 enum EParams
 {
@@ -61,6 +61,15 @@ enum EParams
 	kSource3,
 	kSource4,
 	
+	kDelay1,
+	kDelay2,
+	kDelay3,
+	kDelay4,
+	
+	kIRSelect1,
+	kIRSelect2,
+	kIRSelect3,
+	
 	kNumParams
 };
 
@@ -85,6 +94,9 @@ public:
 	
 private:
 	
+	void CheckVisibleIR();
+	void SetIRDisplay(int i, bool setParam);
+	long DelayInSamps(int i);
 	bool GetParamUpdated();
 	bool GetSoloChanged();
 	void LoadFiles(int diff, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR);
@@ -98,7 +110,7 @@ private:
 	void ClearParamCache();
 	bool UpdateParamCache(int start = 0, int end = kNumParams);
 	
-	//void UpdateControlAndParam(double value, IControl *control, bool paramChange);
+	void UpdateControlAndParam(double value, IControl *control, bool paramChange = false);
 
 	// Controls and Display
 	
@@ -114,7 +126,7 @@ private:
 	HISSTools_Button *mLPFSwitches[3];
 	HISSTools_Button *mMuteSwitches[3];
 	HISSTools_Button *mSoloSwitches[3];
-	
+	HISSTools_Button *mSelectSwitches[3];
 	HISSTools_Invisible_Tabs *mIRTab;
 	
 	// DSP
