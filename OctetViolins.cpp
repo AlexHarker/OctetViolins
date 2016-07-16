@@ -22,32 +22,50 @@ DWORD LoadingThread(LPVOID plugParam)
 	return NULL;
 }
 
-const char *paths[4][4] =
+const char *paths[4][8] =
 {
 	{
 		"IRs/Accelerometer_01_Treble.wav",
 		"IRs/Accelerometer_02_Soprano.wav",
 		"IRs/Accelerometer_03_Mezzo.wav",
 		"IRs/Accelerometer_04_Alto.wav",
+		"IRs/Accelerometer_05_Tenor.wav",
+		"IRs/Accelerometer_06_Baritone.wav",
+		"IRs/Accelerometer_07_Bass.wav",
+		"IRs/Accelerometer_08_Contrabass.wav",
 	},
 	{
 		"IRs/Neumann_01_Treble.wav",
 		"IRs/Neumann_02_Soprano.wav",
 		"IRs/Neumann_03_Mezzo.wav",
-		"IRs/Neumann_04_Alto.wav"
+		"IRs/Neumann_04_Alto.wav",
+		"IRs/Neumann_05_Tenor.wav",
+		"IRs/Neumann_06_Baritone.wav",
+		"IRs/Neumann_07_Bass.wav",
+		"IRs/Neumann_08_Contrabass.wav",
 	},
 	{
 		"IRs/Neumann_Pair_01_Treble.wav",
 		"IRs/Neumann_Pair_02_Soprano.wav",
 		"IRs/Neumann_Pair_03_Mezzo.wav",
 		"IRs/Neumann_Pair_04_Alto.wav",
+		"IRs/Neumann_Pair_05_Tenor.wav",
+		"IRs/Neumann_Pair_06_Baritone.wav",
+		"IRs/Neumann_Pair_07_Bass.wav",
+		"IRs/Neumann_Pair_08_Contrabass.wav",
 	},
 	{
 		"IRs/Gras_Pair_01_Treble.wav",
 		"IRs/Gras_Pair_02_Soprano.wav",
 		"IRs/Gras_Pair_03_Mezzo.wav",
 		"IRs/Gras_Pair_04_Alto.wav",
+		"IRs/Gras_Pair_05_Tenor.wav",
+		"IRs/Gras_Pair_06_Baritone.wav",
+		"IRs/Gras_Pair_07_Bass.wav",
+		"IRs/Gras_Pair_08_Contrabass.wav",
 	}
+	
+	
 };
 
 OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
@@ -68,12 +86,16 @@ OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
 		
 		int diff = i * (kIR2 - kIR1);
 		
-		GetParam(kIR1 + diff)->InitEnum("Instrument", 0, 4);
+		GetParam(kIR1 + diff)->InitEnum("Instrument", 2, 8);
 		GetParam(kIR1 + diff)->SetDisplayText(0, "Treble");
 		GetParam(kIR1 + diff)->SetDisplayText(1, "Soprano");
 		GetParam(kIR1 + diff)->SetDisplayText(2, "Mezzo");
 		GetParam(kIR1 + diff)->SetDisplayText(3, "Alto");
-	
+		GetParam(kIR1 + diff)->SetDisplayText(4, "Tenor");
+		GetParam(kIR1 + diff)->SetDisplayText(5, "Baritone");
+		GetParam(kIR1 + diff)->SetDisplayText(6, "Bass");
+		GetParam(kIR1 + diff)->SetDisplayText(7, "Contrabass");
+		
 		GetParam(kIRVolume1 + diff)->InitDouble("Amp", 0.0, -40, 30, 0.1, "dB");
 		GetParam(kIRTransposition1 + diff)->InitDouble("Transposition", 0, -12, 12, 0.1, "st");
 		GetParam(kIRHPFFreq1 + diff)->InitDouble("HPF Freq", 1000, 10, 20000, 1.0, "Hz", "", 2.0);
@@ -372,7 +394,7 @@ void OctetViolins::LoadFiles(int diff, HISSTools_RefPtr<double> &IRL, HISSTools_
 		CFURLGetFileSystemRepresentation(url, TRUE, (UInt8 *) bundlePath, (CFIndex) 4096);
 		
 		snprintf(fullPath, 4096, "%s/Contents/Resources/%s", bundlePath, paths[i][GetParam(kIR1 + diff)->Int()]);
-		
+
 		HISSTools::IAudioFile file(fullPath);
 		
 		if (GetParam(kSource1 + i)->Value() && file.isOpen() && !file.getErrorFlags() )
