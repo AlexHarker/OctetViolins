@@ -39,50 +39,9 @@ class HISSTools_Spectral_Display : public HISSTools::SpectrumPlot<HISSTools_Colo
 {
 
 public:
-
-    // FIX - not threadsafe, however...
-    
-    struct SafePointer
-    {
-        SafePointer()
-        {
-            mObject = NULL;
-        }
-        
-        ~SafePointer()
-        {
-            if (mObject)
-                mObject->deRegisterPointer(this);
-        }
-        
-        void acquire(HISSTools_Spectral_Display *object)
-        {
-            mObject = object;
-            mObject->registerPointer(this);
-        }
-
-        void release()
-        {
-            mObject = NULL;
-        }
-        
-        HISSTools_Spectral_Display *operator ->()
-        {
-            return mObject;
-        }
-        
-        operator HISSTools_Spectral_Display*()
-        {
-            return mObject;
-        }
-        
-    private:
-        
-        HISSTools_Spectral_Display *mObject;
-    };
     
 	HISSTools_Spectral_Display(IPlugBase* pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w, double h, unsigned long maxFFTSize, int numCurves = 1, const char *type = "", HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
-	: HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>(x, y, w, h), IControl(pPlug, IRECT()), HISSTools_Control_Layers(), mPointer(NULL)
+	: HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>(x, y, w, h), IControl(pPlug, IRECT()), HISSTools_Control_Layers()
 	{
 		mVecDraw = vecDraw;
         
@@ -142,22 +101,8 @@ public:
 	{		
 		//for (std::vector<HISSTools_Spectral_Curve *>::iteratorit = mCurves.begin(); it != mCurves.end(); it++)
 		//	delete (*it);
-        
-        if (mPointer)
-            mPointer->release();
 	}
 
-    void registerPointer(SafePointer *ptr)
-    {
-        mPointer = NULL;
-    }
-
-    
-    void deRegisterPointer(SafePointer *ptr)
-    {
-        mPointer = NULL;
-    }
-    
 public:
     
 	bool exportBitmap(char *path, double w, double h, double pad)
@@ -207,10 +152,6 @@ private:
 	// Drawing Object
 	
 	HISSTools_LICE_Vec_Lib *mVecDraw;
-    
-    // Unique SafePointer
-    
-    SafePointer *mPointer;
 };
 
 
