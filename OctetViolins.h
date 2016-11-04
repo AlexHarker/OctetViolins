@@ -73,6 +73,10 @@ enum EParams
 	kNumParams
 };
 
+
+static inline int numIRParams() { return kIR2 - kIR1; }
+
+
 class OctetViolins : public IPlug
 {
 	
@@ -91,6 +95,9 @@ public:
 	
 	void OnParamChange(int paramIdx, ParamChangeSource source);
 	void LoadUntilUpdated();
+	
+	void AddIR();
+	void RemoveIR();
 	
 private:
 	
@@ -116,6 +123,8 @@ private:
 	
 	HISSTools_Spectral_Display *mSpectralDisplay;
 	
+	IControl *mAddIRButtons[2];
+	IControl *mRemoveIRButton;
 	
 	HISSTools_Value *mSelections[3];
 	HISSTools_Dial *mAmps[3];
@@ -141,6 +150,10 @@ private:
 	
 	HISSTools_RefPtr <double> mIRs[4][2];
 	
+	// Default IR Setup
+	
+	double mIRDefaultValues[kIR2 - kIR1];
+	
 	// Temporary / Working Parameters
 	
 	double mSamplingRate;
@@ -152,6 +165,72 @@ private:
 	int mChanged[4];
 	
 	bool mSolo, mSoloChanged, mParamUpdated, mUpdateAudioEngine;
+};
+
+class AddIRButton : public HISSTools_Button
+{
+	
+public:
+	
+	AddIRButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme) : mPlug(pPlug), HISSTools_Button(mPlug, -1, vecDraw, x, y, w, h, type, designScheme)
+	{
+		mName = "+";
+	}
+	
+	void OnMouseDown(int x, int y, IMouseMod* pMod)
+	{
+		mValue = 1.0;
+		SetDirty(false);
+	}
+	
+	void OnMouseUp(int x, int y, IMouseMod* pMod)
+	{
+		mValue = 0.0;
+		SetDirty(false);
+		mPlug->AddIR();
+	}
+	
+private:
+	
+	OctetViolins *mPlug;
+};
+
+class RemoveIRButton : public HISSTools_Button
+{
+	
+public:
+	
+	RemoveIRButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w = 0, double h = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme) : mPlug(pPlug), HISSTools_Button(mPlug, -1, vecDraw, x, y, w, h, "remove", designScheme)
+	{
+		mName = "Delete";
+	}
+	
+	void OnMouseDown(int x, int y, IMouseMod* pMod)
+	{
+		mValue = 1.0;
+		SetDirty(false);
+	}
+	
+	void OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod)
+	{
+		mValue = mTargetRECT.Contains(x, y);
+		SetDirty(false);
+	}
+	
+	void OnMouseUp(int x, int y, IMouseMod* pMod)
+	{
+		OnMouseDrag(x, y, 0, 0, pMod);
+
+		if (mValue)
+			mPlug->RemoveIR();
+		
+		mValue = 0.0;
+		SetDirty();
+	}
+	
+private:
+	
+	OctetViolins *mPlug;
 };
 
 #endif
