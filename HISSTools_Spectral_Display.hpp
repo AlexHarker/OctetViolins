@@ -135,7 +135,7 @@ public:
 	bool Draw(IGraphics* pGraphics)
 	{	
 		mVecDraw->setBitmap(pGraphics->GetDrawBitmap());
-		cachedBackground(mVecDraw, mRECT);
+        mVecDraw->setClip(pGraphics->GetDrawRECT().Intersect(&mRECT));
 		
         draw(mVecDraw);
 		
