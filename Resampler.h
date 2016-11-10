@@ -1,8 +1,10 @@
 
 #include <assert.h>
+#include <vector>
 
 #include "AH_VectorOps.h"
 
+// FIX - move correct mul factors back into max object/other places
 // FIX - add memory allocation issue handling and replace calls to malloc if possible
 // N.B. - clean up for other usage (template / different phases / consider other windows etc.)
 
@@ -11,14 +13,9 @@ class Resampler
     
 public:
     
-    Resampler() : mFilter(NULL)
+    Resampler()
     {
         setFilter(10, 16384, 0.455, 11.0);
-    }
-
-    ~Resampler()
-    {
-        delete[] mFilter;
     }
 
 private:
@@ -51,7 +48,7 @@ private:
         
         unsigned long halfFilterLength = numZeros * numPoints;
         double oneOverBesselOfAlpha, val, sincArgument;
-        double *filter = new double[halfFilterLength + 2];
+        mFilter.resize(halfFilterLength + 2);
         
         // First find bessel function of alpha
         
@@ -61,7 +58,7 @@ private:
         
         // Limit Value
         
-        filter[0] = 2.0 * cf;
+        mFilter[0] = 2.0 * cf;
         
         for (unsigned long i = 1; i < halfFilterLength + 1; i++)
         {
@@ -73,16 +70,13 @@ private:
             // Multiply with Sinc Function
             
             sincArgument = M_PI * (double) i / numPoints;
-            filter[i] = (sin (2 * cf * sincArgument) / sincArgument) * val;
+            mFilter[i] = (sin (2 * cf * sincArgument) / sincArgument) * val;
         }
         
         // Guard sample for linear interpolation (N.B. - the max read index should be halfFilterLength)
         
-        filter[halfFilterLength + 1] = 0.0;
+        mFilter[halfFilterLength + 1] = 0.0;
         
-        delete[] mFilter;
-        
-        mFilter = filter;
         mNumZeros = numZeros;
         mNumPoints = numPoints;
     }
@@ -109,21 +103,16 @@ private:
         double perSample = num > denom ? (double) denom / (double) num : (double) 1;
         double oneOverPerSample = num > denom ? mNumZeros * (double) num / (double) denom : mNumZeros;
         
-        // FIX - what is the correct value here!
-        
         double ratio = (double) num / (double) denom;
-        double mul = ratio > 1.0 ? ratio : 1.0;
+        double mul = ratio < 1.0 ? ratio : 1.0;
         
         filterLength = oneOverPerSample + oneOverPerSample + 1;
         filterOffset = filterLength >> 1;
         
-        double *tempFilters;
-        double *currentFilter;
-        
         filterLength += (4 - (filterLength % 4));
         
-        tempFilters = (double *) ALIGNED_MALLOC(denom * filterLength * sizeof(double));
-        currentFilter = tempFilters;
+        double *tempFilters = (double *) ALIGNED_MALLOC(denom * filterLength * sizeof(double));
+        double *currentFilter = tempFilters;
         
         for (unsigned long i = 0, currentNum = 0; i < denom; i++, currentFilter += filterLength, currentNum += num)
         {
@@ -223,23 +212,19 @@ private:
     float *resampleRate(float *input, unsigned long inLength, double offset, unsigned long nSamps, double rate)
     {
         double oneOverPerSample = rate > 1.0 ? mNumZeros * rate : mNumZeros;
-        double mul = rate > 1.0 ? 1.0 / rate : 1.0;
+        double mul = rate < 1.0 ? rate : 1.0;
         long tempLength = oneOverPerSample + oneOverPerSample + 2.0;
         
         // Allocate memory
         
-        float *temp = new float[tempLength];
+        std::vector<float> temp(tempLength);
         float *output = new float[nSamps];
         
         // Resample
             
         for (unsigned long i = 0; i < nSamps; i++)
-            output[i] = mul * calcSample(input, inLength, temp, offset + (i * rate), rate);
-
-        // Free temp memory and return
+            output[i] = mul * calcSample(input, inLength, &temp[0], offset + (i * rate), rate);
         
-        delete[] temp;
-            
         return output;
     }
     
@@ -300,40 +285,38 @@ private:
         // Create the relevant filters
         
         double *tempFilters = createTempFilters(num, denom, filterLength, filterOffset);
-        double *currentFilter;
         
         // Allocate memory
         
         float *output = new float[nsamps];
-        float *inputTemp = (float *) ALIGNED_MALLOC((inLength + filterLength) * sizeof(float));
+        std::vector<float> inputTemp(inLength + filterLength);
         
         // Copy a padded version of the buffer....
         
-        memset(inputTemp, 0, filterOffset * sizeof(float));
-        memcpy(inputTemp + filterOffset, input, inLength * sizeof(float));
-        memset(inputTemp + filterOffset + inLength, 0, (filterLength - filterOffset) * sizeof(float));
+        memset(&inputTemp[0], 0, filterOffset * sizeof(float));
+        memcpy(&inputTemp[0] + filterOffset, input, inLength * sizeof(float));
+        memset(&inputTemp[0] + filterOffset + inLength, 0, (filterLength - filterOffset) * sizeof(float));
         
         // Resample
         
         for (unsigned long i = 0, currentOffset = 0; i < nsamps; currentOffset += num)
         {
-            currentFilter = tempFilters;
+            double *currentFilter = tempFilters;
 
             for (unsigned long j = 0; i < nsamps && j < denom; i++, j++, currentFilter += filterLength)
             {
                 long inputOffset = currentOffset + (j * num / denom);
                 
     #ifdef TARGET_INTEL
-                output[i] = applyFilterVector((vDouble *)currentFilter, inputTemp + inputOffset, filterLength);
+                output[i] = applyFilterVector((vDouble *)currentFilter, &inputTemp[0] + inputOffset, filterLength);
     #else
-                output[i] = applyFilterScalar(currentFilter, inputTemp + inputOffset, filterLength);
+                output[i] = applyFilterScalar(currentFilter, &inputTemp[0] + inputOffset, filterLength);
     #endif
             }
         }
         
         // Set not in use free temp memory and return
         
-        ALIGNED_FREE(inputTemp);
         ALIGNED_FREE(tempFilters);
 
         return output;
@@ -417,7 +400,7 @@ public:
     
 private:
     
-    double *mFilter;
+    std::vector<double> mFilter;
     long mNumZeros;
     long mNumPoints;
 };
