@@ -442,31 +442,6 @@
 		B88DD1471D11B62500E93319 /* TimeDomainConvolve.h in Headers */ = {isa = PBXBuildFile; fileRef = B88DD11D1D11B62500E93319 /* TimeDomainConvolve.h */; };
 		B88DD14A1D11B62F00E93319 /* HISSTools_FFT.hpp in Sources */ = {isa = PBXBuildFile; fileRef = B88DD1481D11B62F00E93319 /* HISSTools_FFT.hpp */; };
 		B88DD14B1D11B62F00E93319 /* HISSTools_FFT.hpp in Sources */ = {isa = PBXBuildFile; fileRef = B88DD1481D11B62F00E93319 /* HISSTools_FFT.hpp */; };
-		B8AFA5541CCC1A8800011C29 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5521CCC1A8800011C29 /* libcairo.a */; };
-		B8AFA5551CCC1A8800011C29 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5521CCC1A8800011C29 /* libcairo.a */; };
-		B8AFA5561CCC1A8800011C29 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5521CCC1A8800011C29 /* libcairo.a */; };
-		B8AFA5571CCC1A8800011C29 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5521CCC1A8800011C29 /* libcairo.a */; };
-		B8AFA5581CCC1A8800011C29 /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5521CCC1A8800011C29 /* libcairo.a */; };
-		B8AFA55D1CCC1CAF00011C29 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */; };
-		B8AFA55E1CCC1CAF00011C29 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */; };
-		B8AFA55F1CCC1CAF00011C29 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */; };
-		B8AFA5601CCC1CAF00011C29 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */; };
-		B8AFA5611CCC1CAF00011C29 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */; };
-		B8AFA56B1CCC20E000011C29 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5691CCC20E000011C29 /* libfreetype.a */; };
-		B8AFA56C1CCC20E000011C29 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5691CCC20E000011C29 /* libfreetype.a */; };
-		B8AFA56D1CCC20E000011C29 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5691CCC20E000011C29 /* libfreetype.a */; };
-		B8AFA56E1CCC20E000011C29 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5691CCC20E000011C29 /* libfreetype.a */; };
-		B8AFA56F1CCC20E000011C29 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5691CCC20E000011C29 /* libfreetype.a */; };
-		B8AFA5721CCC22E300011C29 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5701CCC22E300011C29 /* libbz2.a */; };
-		B8AFA5731CCC22E300011C29 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5701CCC22E300011C29 /* libbz2.a */; };
-		B8AFA5741CCC22E300011C29 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5701CCC22E300011C29 /* libbz2.a */; };
-		B8AFA5751CCC22E300011C29 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5701CCC22E300011C29 /* libbz2.a */; };
-		B8AFA5761CCC22E300011C29 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA5701CCC22E300011C29 /* libbz2.a */; };
-		B8AFA5801CCC237E00011C29 /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA57E1CCC237E00011C29 /* libpng15.a */; };
-		B8AFA5811CCC237E00011C29 /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA57E1CCC237E00011C29 /* libpng15.a */; };
-		B8AFA5821CCC237E00011C29 /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA57E1CCC237E00011C29 /* libpng15.a */; };
-		B8AFA5831CCC237E00011C29 /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA57E1CCC237E00011C29 /* libpng15.a */; };
-		B8AFA5841CCC237E00011C29 /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AFA57E1CCC237E00011C29 /* libpng15.a */; };
 		B8E9C5011D3789E4008DDA2F /* FFT_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E9C4FD1D3789E4008DDA2F /* FFT_Core.h */; };
 		B8E9C5021D3789E4008DDA2F /* FFT_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E9C4FD1D3789E4008DDA2F /* FFT_Core.h */; };
 		B8E9C5031D3789E4008DDA2F /* FFT_Header.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E9C4FE1D3789E4008DDA2F /* FFT_Header.h */; };
@@ -871,10 +846,10 @@
 		52FBBED00D0CF139001C8B8A /* OctetViolins.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OctetViolins.cpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		52FBBED20D0CF13D001C8B8A /* OctetViolins.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = OctetViolins.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		52FBBED30D0CF143001C8B8A /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
+		B81501C31D87FC8500822381 /* Resampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Resampler.h; sourceTree = "<group>"; };
 		B81EAC0817A97E6300632F71 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		B82359511D37C119004BB15C /* CrossfadedConvolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrossfadedConvolution.cpp; sourceTree = "<group>"; };
 		B82359521D37C119004BB15C /* CrossfadedConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrossfadedConvolution.h; sourceTree = "<group>"; };
-		B823595D1D37E232004BB15C /* Resampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Resampler.h; sourceTree = "<group>"; };
 		B82A7D9F1CCCEB4E00BB239B /* HISSTools_LICE_Vec_Lib_Cairo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_LICE_Vec_Lib_Cairo.hpp; sourceTree = "<group>"; };
 		B83FF6E51D379F91000F393F /* AcousticParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AcousticParameters.cpp; sourceTree = "<group>"; };
 		B83FF6E61D379F91000F393F /* AcousticParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcousticParameters.h; sourceTree = "<group>"; };
@@ -1004,11 +979,6 @@
 		B8AE253F17A9C52600757A60 /* HISSTools_Atomic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_Atomic.hpp; sourceTree = "<group>"; };
 		B8AE254017A9C52600757A60 /* HISSTools_Pointers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_Pointers.hpp; sourceTree = "<group>"; };
 		B8AE254117A9C52600757A60 /* HISSTools_ThreadSafety.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_ThreadSafety.hpp; sourceTree = "<group>"; };
-		B8AFA5521CCC1A8800011C29 /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcairo.a; path = ../HISSTools_Plugin_Common/HISSTools_Graphics/cairo/libcairo.a; sourceTree = "<group>"; };
-		B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpixman-1.a"; path = "../HISSTools_Plugin_Common/HISSTools_Graphics/cairo/libpixman-1.a"; sourceTree = "<group>"; };
-		B8AFA5691CCC20E000011C29 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../HISSTools_Plugin_Common/HISSTools_Graphics/cairo/libfreetype.a; sourceTree = "<group>"; };
-		B8AFA5701CCC22E300011C29 /* libbz2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbz2.a; path = ../HISSTools_Plugin_Common/HISSTools_Graphics/cairo/libbz2.a; sourceTree = "<group>"; };
-		B8AFA57E1CCC237E00011C29 /* libpng15.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng15.a; path = ../HISSTools_Plugin_Common/HISSTools_Graphics/cairo/libpng15.a; sourceTree = "<group>"; };
 		B8B079CA195B7F71001F48C0 /* HISSTools_IOStream.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_IOStream.hpp; sourceTree = "<group>"; };
 		B8E259211CCD916B00ECBF7D /* HISSTools_LICE_Raster_Cairo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_LICE_Raster_Cairo.hpp; sourceTree = "<group>"; };
 		B8E9C4FD1D3789E4008DDA2F /* FFT_Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFT_Core.h; sourceTree = "<group>"; };
@@ -1026,15 +996,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8AFA55D1CCC1CAF00011C29 /* libpixman-1.a in Frameworks */,
 				4F8D4C2F13E97806004F7633 /* lice.a in Frameworks */,
-				B8AFA5541CCC1A8800011C29 /* libcairo.a in Frameworks */,
 				4F20EF2D132C69FE0030E34C /* Cocoa.framework in Frameworks */,
-				B8AFA5721CCC22E300011C29 /* libbz2.a in Frameworks */,
 				4F20EF2E132C69FE0030E34C /* Carbon.framework in Frameworks */,
-				B8AFA5801CCC237E00011C29 /* libpng15.a in Frameworks */,
 				B81EAC0A17A97E6300632F71 /* Accelerate.framework in Frameworks */,
-				B8AFA56B1CCC20E000011C29 /* libfreetype.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1046,15 +1011,10 @@
 				4F3AE1D412C0E5E2001FD7A4 /* Carbon.framework in Frameworks */,
 				4F3AE1D512C0E5E2001FD7A4 /* Cocoa.framework in Frameworks */,
 				4F3AE1D612C0E5E2001FD7A4 /* AudioToolbox.framework in Frameworks */,
-				B8AFA5741CCC22E300011C29 /* libbz2.a in Frameworks */,
 				4F3AE1D712C0E5E2001FD7A4 /* AudioUnit.framework in Frameworks */,
-				B8AFA5821CCC237E00011C29 /* libpng15.a in Frameworks */,
 				4F3AE1D812C0E5E2001FD7A4 /* CoreServices.framework in Frameworks */,
 				4F3AE1D912C0E5E2001FD7A4 /* CoreAudio.framework in Frameworks */,
-				B8AFA5561CCC1A8800011C29 /* libcairo.a in Frameworks */,
-				B8AFA55F1CCC1CAF00011C29 /* libpixman-1.a in Frameworks */,
 				B81EAC0C17A97E6300632F71 /* Accelerate.framework in Frameworks */,
-				B8AFA56D1CCC20E000011C29 /* libfreetype.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1064,14 +1024,9 @@
 			files = (
 				4F8B6766158B4F74002FC25B /* libPluginLibrary.a in Frameworks */,
 				4F8D4C2913E97794004F7633 /* lice32.a in Frameworks */,
-				B8AFA5571CCC1A8800011C29 /* libcairo.a in Frameworks */,
 				4F7F5C6213E95EC8002918FD /* Cocoa.framework in Frameworks */,
 				4F7F5C6313E95EC8002918FD /* Carbon.framework in Frameworks */,
-				B8AFA5831CCC237E00011C29 /* libpng15.a in Frameworks */,
 				4F7F5CF713E96564002918FD /* System.framework in Frameworks */,
-				B8AFA56E1CCC20E000011C29 /* libfreetype.a in Frameworks */,
-				B8AFA5601CCC1CAF00011C29 /* libpixman-1.a in Frameworks */,
-				B8AFA5751CCC22E300011C29 /* libbz2.a in Frameworks */,
 				B81EAC0D17A97E6300632F71 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1081,14 +1036,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F9828F6140A9EEE00F3FCC1 /* lice.a in Frameworks */,
-				B8AFA5811CCC237E00011C29 /* libpng15.a in Frameworks */,
 				4F9828D8140A9EB700F3FCC1 /* libbase.a in Frameworks */,
-				B8AFA56C1CCC20E000011C29 /* libfreetype.a in Frameworks */,
 				4F9828DA140A9EB700F3FCC1 /* Cocoa.framework in Frameworks */,
 				4F9828DB140A9EB700F3FCC1 /* Carbon.framework in Frameworks */,
-				B8AFA55E1CCC1CAF00011C29 /* libpixman-1.a in Frameworks */,
-				B8AFA5551CCC1A8800011C29 /* libcairo.a in Frameworks */,
-				B8AFA5731CCC22E300011C29 /* libbz2.a in Frameworks */,
 				B81EAC0B17A97E6300632F71 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1098,14 +1048,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F3B0B44158B50A5001B0CEF /* libAAXLibrary.a in Frameworks */,
-				B8AFA5841CCC237E00011C29 /* libpng15.a in Frameworks */,
 				4FB600551567CBF90020189A /* lice.a in Frameworks */,
-				B8AFA56F1CCC20E000011C29 /* libfreetype.a in Frameworks */,
 				4FB6002C1567CB0A0020189A /* Cocoa.framework in Frameworks */,
 				4FB6002D1567CB0A0020189A /* Carbon.framework in Frameworks */,
-				B8AFA5611CCC1CAF00011C29 /* libpixman-1.a in Frameworks */,
-				B8AFA5581CCC1A8800011C29 /* libcairo.a in Frameworks */,
-				B8AFA5761CCC22E300011C29 /* libbz2.a in Frameworks */,
 				B81EAC0E17A97E6300632F71 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1131,13 +1076,13 @@
 		089C166AFE841209C02AAC07 /* IPlugExample */ = {
 			isa = PBXGroup;
 			children = (
-				B823595D1D37E232004BB15C /* Resampler.h */,
 				B85FE30617F34057002ADAB0 /* HISSTools_Spectral_Display.hpp */,
 				52FBBED30D0CF143001C8B8A /* resource.h */,
 				52FBBED20D0CF13D001C8B8A /* OctetViolins.h */,
 				52FBBED00D0CF139001C8B8A /* OctetViolins.cpp */,
 				B82359511D37C119004BB15C /* CrossfadedConvolution.cpp */,
 				B82359521D37C119004BB15C /* CrossfadedConvolution.h */,
+				B81501C31D87FC8500822381 /* Resampler.h */,
 				B8F3D3E31CC8FA7B0072FEDE /* HISSTools_Complied */,
 				B8AE24EC17A9C52600757A60 /* HISSTools_Plugin_Common */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -1151,7 +1096,6 @@
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				B88F5D3B1CCCC21900244917 /* cairo */,
 				4FF01613134E0BCD001447BA /* WDL */,
 				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
 			);
@@ -1810,18 +1754,6 @@
 				B83FF70A1D379F91000F393F /* HISSTools_FFT.h */,
 			);
 			path = HISSTools_FFT;
-			sourceTree = "<group>";
-		};
-		B88F5D3B1CCCC21900244917 /* cairo */ = {
-			isa = PBXGroup;
-			children = (
-				B8AFA57E1CCC237E00011C29 /* libpng15.a */,
-				B8AFA5701CCC22E300011C29 /* libbz2.a */,
-				B8AFA5691CCC20E000011C29 /* libfreetype.a */,
-				B8AFA55B1CCC1CAF00011C29 /* libpixman-1.a */,
-				B8AFA5521CCC1A8800011C29 /* libcairo.a */,
-			);
-			name = cairo;
 			sourceTree = "<group>";
 		};
 		B8AE24EC17A9C52600757A60 /* HISSTools_Plugin_Common */ = {
@@ -3030,7 +2962,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/alexharker/Documents/Plugin,
-					"Work/wdl-ol/Projects/HISSTools_Plugin_Common/HISSTools_Graphics/cairo",
 				);
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I $CA_SDK/AudioUnits/AUPublic/AUBase";
@@ -3058,7 +2989,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/alexharker/Documents/Plugin,
-					"Work/wdl-ol/Projects/HISSTools_Plugin_Common/HISSTools_Graphics/cairo",
 				);
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I $CA_SDK/AudioUnits/AUPublic/AUBase";
@@ -3086,7 +3016,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/alexharker/Documents/Plugin,
-					"Work/wdl-ol/Projects/HISSTools_Plugin_Common/HISSTools_Graphics/cairo",
 				);
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I $CA_SDK/AudioUnits/AUPublic/AUBase";
@@ -3504,7 +3433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = "$(APP_FOLDER)";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					"$(APP_DEFS)",
@@ -3515,7 +3444,6 @@
 					"$(inherited)",
 					"/Users/alexharker/Documents/Plugin\\ Work/wdl-ol/Projects/HISSTools_Plugin_Common/HISSTools_Graphics/cairo",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -3524,9 +3452,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = OctetViolins;
-				SDKROOT = macosx10.9;
 				SKIP_INSTALL = NO;
-				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3535,7 +3461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = "$(APP_FOLDER)";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					"$(APP_DEFS)",
@@ -3546,7 +3472,6 @@
 					"$(inherited)",
 					"/Users/alexharker/Documents/Plugin\\ Work/wdl-ol/Projects/HISSTools_Plugin_Common/HISSTools_Graphics/cairo",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -3555,9 +3480,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = OctetViolins;
-				SDKROOT = macosx10.9;
 				SKIP_INSTALL = NO;
-				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -3566,7 +3489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = "$(APP_FOLDER)";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					"$(APP_DEFS)",
@@ -3577,7 +3500,6 @@
 					"$(inherited)",
 					"/Users/alexharker/Documents/Plugin\\ Work/wdl-ol/Projects/HISSTools_Plugin_Common/HISSTools_Graphics/cairo",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -3586,9 +3508,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = OctetViolins;
-				SDKROOT = macosx10.9;
 				SKIP_INSTALL = NO;
-				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Tracer;
