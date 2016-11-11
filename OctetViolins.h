@@ -279,7 +279,6 @@ public:
 		else if (pMod->A && pMod->C)
 			mPlug->RemovePreset(mIdx);
 		else
-
 			mPlug->SetPreset(mIdx);
 	}
 	
@@ -289,4 +288,39 @@ private:
 	int mIdx;
 	WDL_String mLabel;
 };
+
+class FileSaveLoad : public HISSTools_Button
+{
+	
+public:
+
+	FileSaveLoad(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, const char *label, double x, double y, double w, double h, EFileAction action, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
+	: HISSTools_Button(pPlug, -1, vecDraw, x, y, w, h, type, designScheme), mFileAction(action), mPlug(pPlug)
+	{
+		mName = label;
+	}
+	
+	void OnMouseDown(int x, int y, IMouseMod* pMod)
+	{
+		WDL_String fileName;
+		WDL_String dir;
+		
+		SetValueFromPlug(1.0);
+		mPlug->GetGUI()->PromptForFile(&fileName, mFileAction, &dir, "octet");
+		
+		if (mFileAction == kFileOpen)
+			mPlug->ReadState(fileName.Get());
+		else
+			mPlug->WriteState(fileName.Get());
+
+		SetValueFromPlug(0.0);
+	}
+
+private:
+	
+	OctetViolins *mPlug;
+	EFileAction mFileAction;
+
+};
+
 #endif

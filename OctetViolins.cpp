@@ -294,7 +294,10 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 		mPresetButtons[i]->SetValueFromPlug(i == mPresetIdx);
 		mPresetButtons[i]->GrayOut(!mGUIPresets[i].Size());
 	}
-
+	
+	pGraphics->AttachControl(new FileSaveLoad(this, &mVecDraw, "Save", freqDispX + 540, freqDispY + dispHeight + 90, 65, 20, kFileSave, "tight"));
+	pGraphics->AttachControl(new FileSaveLoad(this, &mVecDraw, "Load", freqDispX + 615, freqDispY + dispHeight + 90, 65, 20, kFileOpen, "tight"));
+	
 	// IR Parameters
 	
 	// Invisible Tabs
@@ -443,7 +446,10 @@ void OctetViolins::SetPreset(int idx)
 		return;
 	
 	for (int i = 0; i < 10; i++)
+	{
 		mPresetButtons[i]->SetValueFromPlug(i == idx);
+		mPresetButtons[i]->GrayOut(!mGUIPresets[i].Size());
+	}
 	
 	if (mGUIPresets[idx].Size())
 		UnserializeParams(&mGUIPresets[idx], 0);
@@ -518,9 +524,6 @@ void OctetViolins::WriteState(const char *filePath)
 	{
 		file.write((char *)serialisedFile.GetBytes(), serialisedFile.Size());
 		file.close();
-		
-		if (!file.fail())
-			return;
 	}
 }
 
@@ -538,11 +541,11 @@ void OctetViolins::ReadState(const char *filePath)
 		
 		serialisedFile.Resize((int) size);
 		
-		file.seekg (0, std::ios::beg);
+		file.seekg(0, std::ios::beg);
 		file.read((char *)serialisedFile.GetBytes(), size);
 		file.close();
 		
-		if (!file.fail())
+		if (file.fail())
 			return;
 	}
 	
