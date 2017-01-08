@@ -45,13 +45,13 @@ public:
 	{
 		mVecDraw = vecDraw;
         
-		double freqMin = designScheme->getDimension("SpectralDisplayFreqMin", type);
-		double freqMax = designScheme->getDimension("SpectralDisplayFreqMax", type);
-		double dbMin = designScheme->getDimension("SpectralDisplayDbMin", type);
-		double dbMax = designScheme->getDimension("SpectralDisplayDbMax", type);
+		mDefFreqMin = mFreqMin = designScheme->getDimension("SpectralDisplayFreqMin", type);
+		mDefFreqMax = mFreqMax = designScheme->getDimension("SpectralDisplayFreqMax", type);
+		mDefDBMin = mDBMin = designScheme->getDimension("SpectralDisplayDbMin", type);
+		mDefDBMax = mDBMax = designScheme->getDimension("SpectralDisplayDbMax", type);
 
-        setRangeX(freqMin, freqMax, true);
-        setRangeY(dbMin, dbMax, false);
+        setRangeX(mFreqMin, mFreqMax, true);
+        setRangeY(mDBMin, mDBMax, false);
         
 		mFrameCS = designScheme->getColorSpec("SpectralDisplayFrame", type);
 		mGridCS = designScheme->getColorSpec("SpectralDisplayGrid", type);
@@ -95,6 +95,7 @@ public:
 		
 		fullBounds.addThickness(mFrameTK);
 		mRECT = fullBounds.iBounds(vecDraw->getScaling());
+        mTargetRECT = mRECT;
 	}
 		
 	~HISSTools_Spectral_Display()
@@ -132,7 +133,7 @@ public:
 	
 public:
 	
-	bool Draw(IGraphics* pGraphics)
+	virtual bool Draw(IGraphics* pGraphics)
 	{	
 		mVecDraw->setBitmap(pGraphics->GetDrawBitmap());
         mVecDraw->setClip(pGraphics->GetDrawRECT().Intersect(&mRECT));
@@ -146,12 +147,97 @@ public:
     {
         SetDirty(true);
     }
+
+    virtual void OnMouseDblClick(int x, int y, IMouseMod* pMod)
+    {
+        mFreqMin = mDefFreqMin;
+        mFreqMax = mDefFreqMax;
+        mDBMin = mDefDBMin;
+        mDBMax = mDefDBMax;
+
+        setRangeX(mDefFreqMin, mDefFreqMax, true);
+        setRangeY(mDefDBMin, mDefDBMax, false);
+    }
+    
+    virtual void OnMouseWheel(int x, int y, IMouseMod* pMod, int d)
+    {
+        x /= mVecDraw->getScaling();
+        y /= mVecDraw->getScaling();
+       
+        // FIX - clipping when too zoomed...
+        
+        double gearing = pow(1.2, ConvertMouseDeltaToNative(d));
+
+        mFreqMin = getScaling()->posToXVal(x - (x - getScaling()->getL()) * gearing);
+        mFreqMax = getScaling()->posToXVal(x - (x - getScaling()->getR()) * gearing);
+        
+        mDBMin = getScaling()->posToYVal(y + (getScaling()->getB() - y) * gearing);
+        mDBMax = getScaling()->posToYVal(y + (getScaling()->getT() - y) * gearing);
+        
+        mFreqMin = std::max(mFreqMin, mDefFreqMin);
+        mFreqMax = std::min(mFreqMax, mDefFreqMax);
+        
+        mDBMin = std::max(mDBMin, mDefDBMin);
+        mDBMax = std::min(mDBMax, mDefDBMax);
+        
+        setRangeX(mFreqMin, mFreqMax, true);
+        setRangeY(mDBMin, mDBMax, false);
+    }
+    
+    virtual void OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod)
+    {
+        // FIX - Hi-res deltas in WDL
+
+        // Calculate
+        
+        x = ConvertMouseDeltaToNative(-dX) / mVecDraw->getScaling();
+        y = ConvertMouseDeltaToNative(-dY) / mVecDraw->getScaling();
+        
+        double width = getScaling()->getWidth();
+        
+        if (x >= 0)
+        {
+            mFreqMax = getScaling()->posToXVal(getScaling()->getR() + x);
+            mFreqMax = std::min(mFreqMax, mDefFreqMax);
+            mFreqMin = getScaling()->posToXVal(getScaling()->xValToPos(mFreqMax) - width);
+        }
+        else
+        {
+            mFreqMin = getScaling()->posToXVal(getScaling()->getL() + x);
+            mFreqMin = std::max(mFreqMin, mDefFreqMin);
+            mFreqMax = getScaling()->posToXVal(getScaling()->xValToPos(mFreqMin) + width);
+        }
+        
+        double height = getScaling()->getHeight();
+        
+        if (y <= 0)
+        {
+            mDBMax = getScaling()->posToYVal(getScaling()->getT() + y);
+            mDBMax = std::min(mDBMax, mDefDBMax);
+            mDBMin = getScaling()->posToYVal(getScaling()->yValToPos(mDBMax) + height);
+        }
+        else
+        {
+            mDBMin = getScaling()->posToYVal(getScaling()->getB() + y);
+            mDBMin = std::max(mDBMin, mDefDBMin);
+            mDBMax = getScaling()->posToYVal(getScaling()->yValToPos(mDBMin) - height);
+        }
+        
+        // Set ranges
+        
+        setRangeX(mFreqMin, mFreqMax, true);
+        setRangeY(mDBMin, mDBMax, false);
+    }
     
 private:
 	
 	// Drawing Object
 	
 	HISSTools_LICE_Vec_Lib *mVecDraw;
+    
+    double mDrawingScale;
+    double mDefFreqMin, mDefFreqMax, mFreqMin, mFreqMax;
+    double mDefDBMin, mDefDBMax, mDBMin, mDBMax;
 };
 
 
