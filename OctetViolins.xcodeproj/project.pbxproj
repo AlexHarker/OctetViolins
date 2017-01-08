@@ -442,6 +442,12 @@
 		B88DD1471D11B62500E93319 /* TimeDomainConvolve.h in Headers */ = {isa = PBXBuildFile; fileRef = B88DD11D1D11B62500E93319 /* TimeDomainConvolve.h */; };
 		B88DD14A1D11B62F00E93319 /* HISSTools_FFT.hpp in Sources */ = {isa = PBXBuildFile; fileRef = B88DD1481D11B62F00E93319 /* HISSTools_FFT.hpp */; };
 		B88DD14B1D11B62F00E93319 /* HISSTools_FFT.hpp in Sources */ = {isa = PBXBuildFile; fileRef = B88DD1481D11B62F00E93319 /* HISSTools_FFT.hpp */; };
+		B89206E61E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */; };
+		B89206E71E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */; };
+		B89206E81E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */; };
+		B89206E91E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */; };
+		B89206EA1E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */; };
+		B89206EB1E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */; };
 		B8E9C5011D3789E4008DDA2F /* FFT_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E9C4FD1D3789E4008DDA2F /* FFT_Core.h */; };
 		B8E9C5021D3789E4008DDA2F /* FFT_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E9C4FD1D3789E4008DDA2F /* FFT_Core.h */; };
 		B8E9C5031D3789E4008DDA2F /* FFT_Header.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E9C4FE1D3789E4008DDA2F /* FFT_Header.h */; };
@@ -932,6 +938,8 @@
 		B88DD11C1D11B62500E93319 /* TimeDomainConvolve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeDomainConvolve.cpp; sourceTree = "<group>"; };
 		B88DD11D1D11B62500E93319 /* TimeDomainConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDomainConvolve.h; sourceTree = "<group>"; };
 		B88DD1481D11B62F00E93319 /* HISSTools_FFT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HISSTools_FFT.hpp; sourceTree = "<group>"; };
+		B89206E21E1FCC520026AC1C /* OctetViolins_Controls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctetViolins_Controls.h; sourceTree = "<group>"; };
+		B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OctetViolins_Controls.cpp; sourceTree = "<group>"; };
 		B8AE24FA17A9C52600757A60 /* HIRT_Core_Functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HIRT_Core_Functions.c; sourceTree = "<group>"; };
 		B8AE24FB17A9C52600757A60 /* HIRT_Core_Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRT_Core_Functions.h; sourceTree = "<group>"; };
 		B8AE24FE17A9C52600757A60 /* HIRT_Frame_Stats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HIRT_Frame_Stats.c; sourceTree = "<group>"; };
@@ -1079,11 +1087,13 @@
 				B85FE30617F34057002ADAB0 /* HISSTools_Spectral_Display.hpp */,
 				52FBBED30D0CF143001C8B8A /* resource.h */,
 				52FBBED20D0CF13D001C8B8A /* OctetViolins.h */,
+				B89206E21E1FCC520026AC1C /* OctetViolins_Controls.h */,
+				B89206E51E1FCCB70026AC1C /* OctetViolins_Controls.cpp */,
 				52FBBED00D0CF139001C8B8A /* OctetViolins.cpp */,
 				B82359511D37C119004BB15C /* CrossfadedConvolution.cpp */,
 				B82359521D37C119004BB15C /* CrossfadedConvolution.h */,
 				B81501C31D87FC8500822381 /* Resampler.h */,
-				B8F3D3E31CC8FA7B0072FEDE /* HISSTools_Complied */,
+				B8F3D3E31CC8FA7B0072FEDE /* HISSTools_Compiled */,
 				B8AE24EC17A9C52600757A60 /* HISSTools_Plugin_Common */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				32C88E010371C26100C91783 /* Other Sources */,
@@ -1894,7 +1904,7 @@
 			path = HISSTools_FFT;
 			sourceTree = "<group>";
 		};
-		B8F3D3E31CC8FA7B0072FEDE /* HISSTools_Complied */ = {
+		B8F3D3E31CC8FA7B0072FEDE /* HISSTools_Compiled */ = {
 			isa = PBXGroup;
 			children = (
 				B8C68F7A1D119B61007F71F3 /* Convolution */,
@@ -1918,7 +1928,7 @@
 				B87325DB1CC8FC1D008B0FF5 /* Threadsafety.cpp */,
 				B87325DC1CC8FC1D008B0FF5 /* Threadsafety.h */,
 			);
-			name = HISSTools_Complied;
+			name = HISSTools_Compiled;
 			path = "/Users/alexharker/Documents/Plugin Work/wdl-ol/Projects/OctetViolins/../../../../Research/HAART/haart-app/InternalDependencies/haart-core/haart-core";
 			sourceTree = "<absolute>";
 		};
@@ -2415,6 +2425,7 @@
 				B8EB51A31D1182B60019FA64 /* IAudioFile.cpp in Sources */,
 				B87325E61CC8FC1D008B0FF5 /* FrequencyCurve.cpp in Sources */,
 				B83FF75E1D379F91000F393F /* OAudioFile.cpp in Sources */,
+				B89206E71E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */,
 				B83FF7621D379F91000F393F /* Threadsafety.cpp in Sources */,
 				B83FF74E1D379F91000F393F /* HISSTools_FFT.cpp in Sources */,
 				B87325DE1CC8FC1D008B0FF5 /* ExcitationSignals.cpp in Sources */,
@@ -2442,6 +2453,7 @@
 				4F78D94D13B63BA50032E0F3 /* IGraphicsMac.mm in Sources */,
 				4F78D94E13B63BA50032E0F3 /* IGraphics.cpp in Sources */,
 				4F78D94F13B63BA50032E0F3 /* IGraphicsCarbon.cpp in Sources */,
+				B89206E91E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */,
 				B88DD1331D11B62500E93319 /* NToMonoConvolve.cpp in Sources */,
 				B8E9C5081D3789E4008DDA2F /* HISSTools_FFT.cpp in Sources */,
 				B87325E01CC8FC1D008B0FF5 /* ExcitationSignals.cpp in Sources */,
@@ -2474,6 +2486,7 @@
 				B83FF71C1D379F91000F393F /* AcousticParameters.cpp in Sources */,
 				B83FF7241D379F91000F393F /* BiquadFilter.cpp in Sources */,
 				B83FF7381D379F91000F393F /* FrequencyCurve.cpp in Sources */,
+				B89206EA1E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */,
 				B88DD12C1D11B62500E93319 /* MonoConvolve.cpp in Sources */,
 				B88DD1241D11B62500E93319 /* Convolver.cpp in Sources */,
 				4F7F5C5013E95EC8002918FD /* swell-gdi.mm in Sources */,
@@ -2546,6 +2559,7 @@
 				4F9828BF140A9EB700F3FCC1 /* Log.cpp in Sources */,
 				B83FF71B1D379F91000F393F /* AcousticParameters.cpp in Sources */,
 				B82359551D37C119004BB15C /* CrossfadedConvolution.cpp in Sources */,
+				B89206E81E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */,
 				B83FF7531D379F91000F393F /* IAudioFile.cpp in Sources */,
 				B83FF7471D379F91000F393F /* PartitionedConvolve.cpp in Sources */,
 				4F9828C0140A9EB700F3FCC1 /* IPopupMenu.cpp in Sources */,
@@ -2630,6 +2644,7 @@
 				4FB600231567CB0A0020189A /* IParam.cpp in Sources */,
 				B87325EA1CC8FC1D008B0FF5 /* FrequencyCurve.cpp in Sources */,
 				B83FF7551D379F91000F393F /* IAudioFile.cpp in Sources */,
+				B89206EB1E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */,
 				B82359581D37C119004BB15C /* CrossfadedConvolution.cpp in Sources */,
 				4FB600241567CB0A0020189A /* IControl.cpp in Sources */,
 				B83FF7291D379F91000F393F /* ButterworthFilter.cpp in Sources */,
@@ -2668,6 +2683,7 @@
 				4FD16D4413B635B2001D0217 /* swell.cpp in Sources */,
 				4F78D8C513B63A700032E0F3 /* RtMidi.cpp in Sources */,
 				B87325FF1CC8FC1D008B0FF5 /* Threadsafety.cpp in Sources */,
+				B89206E61E1FCCB70026AC1C /* OctetViolins_Controls.cpp in Sources */,
 				4F78D90A13B63BA50032E0F3 /* IPlugStandalone.cpp in Sources */,
 				4F78D90B13B63BA50032E0F3 /* IPlugBase.cpp in Sources */,
 				B86E9EAF1CC9548F00EED15D /* BaseAudioFile.cpp in Sources */,

@@ -2,6 +2,7 @@
 #include "IControl.h"
 
 #include "OctetViolins.h"
+#include "OctetViolins_Controls.h"
 #include "IPlug_include_in_plug_src.h"
 
 #include "resource.h"
