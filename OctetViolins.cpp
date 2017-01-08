@@ -11,16 +11,16 @@
 #include "Resampler.h"
 #include "Biquad.h"
 
+#include "HIRT_Core.hpp"
+
+// Number of Programs
+
 const int kNumPrograms = 1;
 
-DWORD LoadingThread(LPVOID plugParam)
-{
-	OctetViolins *plug = (OctetViolins *) plugParam;
-	
-	plug->LoadUntilUpdated();
-	
-	return NULL;
-}
+
+// IR Paths
+
+const char *correctionPath = "IRs/Correction.wav";
 
 const char *paths[4][8] =
 {
@@ -64,9 +64,85 @@ const char *paths[4][8] =
 		"IRs/Gras_Pair_07_Bass.wav",
 		"IRs/Gras_Pair_08_Contrabass.wav",
 	}
-	
-	
 };
+
+void GetIRPath(WDL_String& string, const char *filePath)
+{
+	// FIX - cross platform
+	
+	char bundlePath[4096];
+	
+	CFBundleRef requestedBundle = CFBundleGetBundleWithIdentifier(CFSTR(BUNDLE_ID));
+	CFURLRef url = CFBundleCopyBundleURL(requestedBundle);
+	CFURLGetFileSystemRepresentation(url, true, (UInt8 *) bundlePath, (CFIndex) 4096);
+	
+	string.Set(bundlePath);
+	string.Append("/Contents/Resources/");
+	string.Append(filePath);
+}
+
+// Visual Design
+
+class Design : public HISSTools_Design_Scheme
+{
+	
+public:
+	
+	Design() : HISSTools_Design_Scheme(true)
+	{
+		// FIX - why goes to default?
+		
+		addColorSpec("SpectralDisplayBackground", new HISSTools_Color_Spec(1.0, 1.0, 1.0, 1.0));
+		
+		addDimension("SpectralCurve1", 1.2);
+		addDimension("SpectralCurve2", 1.2);
+		addDimension("SpectralCurve3", 1.2);
+		addDimension("SpectralCurve4", 2.5);
+		
+		HISSTools_Color_Spec *col1 = new HISSTools_Color_Spec(0.7, 0.0, 0.0, 0.9);
+		HISSTools_Color_Spec *col2 = new HISSTools_Color_Spec(0.2, 0.7, 0.3, 0.9);
+		HISSTools_Color_Spec *col3 = new HISSTools_Color_Spec(0.1, 0.4, 0.7, 0.9);
+		HISSTools_Color_Spec *col4 = new HISSTools_Color_Spec(1.0, 1.0, 1.0, 0.7);
+		HISSTools_Color_Spec *col5 = new HISSTools_Color_Spec(0.3, 0.3, 0.3, 0.9);
+		HISSTools_Color_Spec *col6 = new HISSTools_Color_Spec(1.0, 0.1, 0.1, 0.9);
+		HISSTools_Color_Spec *col7 = new HISSTools_Color_Spec(0.4, 0.4, 0.9, 0.9);
+		
+		addColorSpec("SpectralCurve1", col1);
+		addColorSpec("SpectralCurve2", col2);
+		addColorSpec("SpectralCurve3", col3);
+		addColorSpec("SpectralCurve4", col4);
+		
+		addColorSpec("ButtonHandleOn", "1", col1);
+		addColorSpec("ButtonHandleOn", "2", col2);
+		addColorSpec("ButtonHandleOn", "3", col3);
+		addColorSpec("ButtonHandleOn", "preset", col7);
+		
+		addColorSpec("DialIndicator", "1",  col1);
+		addColorSpec("DialIndicator", "2", col2);
+		addColorSpec("DialIndicator", "3", col3);
+		
+		addColorSpec("ButtonHandleOff", "remove", col5);
+		addColorSpec("ButtonHandleOn", "remove", col6);
+		
+		addFlag("ValueDrawTriangle", "small", false);
+		addFlag("ValueDrawLabel", "nolabel", false);
+	}
+};
+
+Design theDesign;
+
+// Loading Thread Entry Point
+
+DWORD LoadingThread(LPVOID plugParam)
+{
+	OctetViolins *plug = (OctetViolins *) plugParam;
+	
+	plug->LoadUntilUpdated();
+	
+	return NULL;
+}
+
+// Constructor and Destructor
 
 OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
 :	IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo), mSamplingRate(44100.), mThread(NULL), mUpdateAudioEngine(false), mParamUpdated(false), mPresetIdx(-1)
@@ -148,6 +224,8 @@ OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
 	GetParam(kIRSelect2)->SetCanAutomate(false);
 	GetParam(kIRSelect3)->SetCanAutomate(false);
 	
+	GetParam(kCorrection)->InitBool("Correction", false);
+
 	MakeDefaultPreset("-", kNumPrograms);
 	
 	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT);
@@ -179,51 +257,7 @@ OctetViolins::~OctetViolins()
 		WaitForSingleObject(thread, INFINITE);
 }
 
-class Design : public HISSTools_Design_Scheme
-{
-	
-public:
-	
-	Design() : HISSTools_Design_Scheme(true)
-	{
-		// FIX - why goes to default?
-		
-		addColorSpec("SpectralDisplayBackground", new HISSTools_Color_Spec(1.0, 1.0, 1.0, 1.0));
-		
-		addDimension("SpectralCurve1", 1.2);
-		addDimension("SpectralCurve2", 1.2);
-		addDimension("SpectralCurve3", 1.2);
-		addDimension("SpectralCurve4", 2.5);
-		
-		HISSTools_Color_Spec *col1 = new HISSTools_Color_Spec(0.7, 0.0, 0.0, 0.9);
-		HISSTools_Color_Spec *col2 = new HISSTools_Color_Spec(0.2, 0.7, 0.3, 0.9);
-		HISSTools_Color_Spec *col3 = new HISSTools_Color_Spec(0.1, 0.4, 0.7, 0.9);
-		HISSTools_Color_Spec *col4 = new HISSTools_Color_Spec(1.0, 1.0, 1.0, 0.7);
-		HISSTools_Color_Spec *col5 = new HISSTools_Color_Spec(0.3, 0.3, 0.3, 0.9);
-		HISSTools_Color_Spec *col6 = new HISSTools_Color_Spec(1.0, 0.1, 0.1, 0.9);
-		
-		addColorSpec("SpectralCurve1", col1);
-		addColorSpec("SpectralCurve2", col2);
-		addColorSpec("SpectralCurve3", col3);
-		addColorSpec("SpectralCurve4", col4);
-		
-		addColorSpec("ButtonHandleOn", "1", col1);
-		addColorSpec("ButtonHandleOn", "2", col2);
-		addColorSpec("ButtonHandleOn", "3", col3);
-		
-		addColorSpec("DialIndicator", "1",  col1);
-		addColorSpec("DialIndicator", "2", col2);
-		addColorSpec("DialIndicator", "3", col3);
-		
-		addColorSpec("ButtonHandleOff", "remove", col5);
-		addColorSpec("ButtonHandleOn", "remove", col6);
-		
-		addFlag("ValueDrawTriangle", "small", false);
-		addFlag("ValueDrawLabel", "nolabel", false);
-	}
-};
-
-Design theDesign;
+// GUI Creation and Resizing
 
 void OctetViolins::CreateControls(IGraphics *pGraphics)
 {
@@ -283,10 +317,10 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 	// Presets
 	
 	for (int i = 0; i < 5; i++)
-		mPresetButtons[i + 0] = new PresetButton(this, &mVecDraw, i + 0, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 20, 20, 20, "tight");
+		mPresetButtons[i + 0] = new PresetButton(this, &mVecDraw, i + 0, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 20, 20, 20, "tight preset", &theDesign);
 	
 	for (int i = 0; i < 5; i++)
-		mPresetButtons[i + 5] = new PresetButton(this, &mVecDraw, i + 5, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 50, 20, 20, "tight");
+		mPresetButtons[i + 5] = new PresetButton(this, &mVecDraw, i + 5, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 50, 20, 20, "tight preset", &theDesign);
 	
 	for (int i = 0; i < 10; i++)
 	{
@@ -359,7 +393,9 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 	
 	mRemoveIRButton = new RemoveIRButton(this, &mVecDraw, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
 	pGraphics->AttachControl(mRemoveIRButton);
-							 
+	
+	pGraphics->AttachControl(new HISSTools_Button(this, kCorrection, &mVecDraw, freqDispX + 560, freqDispY + dispHeight + 150, 100, 20, "tight"));
+
 	pGraphics->AttachControl(mIRTab);
 	pGraphics->AttachPanelBackground(&bgrb);
 }
@@ -385,13 +421,7 @@ void OctetViolins::OnWindowResize()
 	RedrawParamControls();
 }
 
-void OctetViolins::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
-{
-	if (mUpdateAudioEngine && mConvolver.set(mIRs[3][0].get(), mIRs[3][1].get(), mIRs[3][0].getSize()))
-		mUpdateAudioEngine = false;
-	
-	mConvolver.process((const double **) inputs, outputs, nFrames);
-}
+// GUI Interactions
 
 void OctetViolins::AddIR()
 {
@@ -466,6 +496,8 @@ void OctetViolins::RemovePreset(int idx)
 	if (mPresetIdx == idx)
 		mPresetIdx = -1;
 }
+
+// State and Presets
 
 bool OctetViolins::SerializeState(ByteChunk* pChunk)
 {
@@ -552,6 +584,16 @@ void OctetViolins::ReadState(const char *filePath)
 	UnserializeState(&serialisedFile, 0);
 }
 
+// Process and Reset
+
+void OctetViolins::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
+{
+	if (mUpdateAudioEngine && mConvolver.set(mIRs[3][0].get(), mIRs[3][1].get(), mIRs[3][0].getSize()))
+		mUpdateAudioEngine = false;
+	
+	mConvolver.process((const double **) inputs, outputs, nFrames);
+}
+
 void OctetViolins::Reset()
 {
 	TRACE;
@@ -578,9 +620,14 @@ bool OctetViolins::GetParamUpdated()
 	bool paramUpdated = mParamUpdated;
 	mParamUpdated = false;
 	
+	if (!paramUpdated)
+	{
+		CloseHandle(mThread);
+		mThread = NULL;
+	}
+	
 	return paramUpdated;
 }
-
 
 bool OctetViolins::GetSoloChanged()
 {
@@ -610,16 +657,11 @@ void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTool
 	
 	for (int i = 0; i < 4; i++)
 	{
-		char fullPath[4096];
-		char bundlePath[4096];
+		WDL_String filePath;
 		
-		CFBundleRef requestedBundle = CFBundleGetBundleWithIdentifier(CFSTR(BUNDLE_ID));
-		CFURLRef url = CFBundleCopyBundleURL(requestedBundle);
-		CFURLGetFileSystemRepresentation(url, TRUE, (UInt8 *) bundlePath, (CFIndex) 4096);
+		GetIRPath(filePath, paths[i][GetParam(kIR1 + offset)->Int()]);
 		
-		snprintf(fullPath, 4096, "%s/Contents/Resources/%s", bundlePath, paths[i][GetParam(kIR1 + offset)->Int()]);
-
-		HISSTools::IAudioFile file(fullPath);
+		HISSTools::IAudioFile file(filePath.Get());
 		
 		if (GetParam(kSource1 + i)->Value() && file.isOpen() && !file.getErrorFlags() )
 		{
@@ -700,6 +742,7 @@ void OctetViolins::LoadIRs()
 	bool numIRsChange = UpdateParamCache(kNumIRs, kNumIRs + 1);
 	bool micChange = UpdateParamCache(kSource1, kDelay4 + 1);
 	bool soloChanged = GetSoloChanged();
+	bool correctionChanged = UpdateParamCache(kCorrection, kCorrection + 1);
 	int numIRs = GetParam(kNumIRs)->Int();
 	
 	for (int i = 0; i < 3 ; i++)
@@ -763,22 +806,54 @@ void OctetViolins::LoadIRs()
 			mIRs[i][0] = mIRs[i][1] = HISSTools_RefPtr<double>();
 	}
 
-	if (changed)
+	if (correctionChanged || changed)
 	{
 		SetChanged(3, true);
-		MixIRs(numIRs);
+		MixIRs(numIRs, GetParam(kCorrection)->Bool());
 		UpdateIRsAndDisplay();
 	}
 	else
 		SetChanged(3, false);
 }
 
-void OctetViolins::MixIRs(int numIRs)
+void OctetViolins::MixIRs(int numIRs, bool correctionOn)
 {
 	bool normalise = true;
 	double gain = normalise ? 1.0 / numIRs : 1.0;
 	
+	HISSTools_RefPtr <double> correction(1);
+	
 	long maxLength = 0;
+	
+	// If using correction load and resample the IR
+	
+	if (correctionOn)
+	{
+		WDL_String filePath;
+		
+		GetIRPath(filePath, correctionPath);
+	
+		HISSTools::IAudioFile file(filePath.Get());
+		
+		if (file.isOpen() && !file.getErrorFlags())
+		{
+			Resampler resampler;
+			HISSTools_RefPtr<float> correctionRaw(file.getFrames());
+			unsigned long outLength;
+
+			file.readChannel(correctionRaw.get(), file.getFrames(), 0);
+			float *resampledTemp = resampler.process(correctionRaw.get(), file.getFrames(), outLength, file.getSamplingRate(), mSamplingRate);
+
+			correction = HISSTools_RefPtr <double>(outLength);
+
+			for (unsigned long i = 0; i < outLength; i++)
+				correction[i] = resampledTemp[i];
+
+			delete[] resampledTemp;
+		}
+	}
+	
+	// Calculate the max length of the IRs
 	
 	for (int i = 0; i < 3 ; i++)
 		if (maxLength < mIRs[i][0].getSize())
@@ -788,12 +863,14 @@ void OctetViolins::MixIRs(int numIRs)
 		if (maxLength < mIRs[i][1].getSize())
 			maxLength = mIRs[i][1].getSize();
 	
-	mIRs[3][0] = HISSTools_RefPtr<double>(maxLength);
-	mIRs[3][1] = HISSTools_RefPtr<double>(maxLength);
+	long finalLength = maxLength + correction.getSize() - 1;
+	
+	mIRs[3][0] = HISSTools_RefPtr<double>(finalLength);
+	mIRs[3][1] = HISSTools_RefPtr<double>(finalLength);
 	
 	// Left
 
-	memset(mIRs[3][0].get(), 0, maxLength * sizeof(double));
+	memset(mIRs[3][0].get(), 0, finalLength * sizeof(double));
 
 	for (int i = 0; i < 3 ; i++)
 		for (unsigned long j = 0; j < mIRs[i][0].getSize(); j++)
@@ -801,11 +878,44 @@ void OctetViolins::MixIRs(int numIRs)
 	
 	// Right
 	
-	memset(mIRs[3][1].get(), 0, maxLength * sizeof(double));
+	memset(mIRs[3][1].get(), 0, finalLength * sizeof(double));
 
 	for (int i = 0; i < 3 ; i++)
 		for (unsigned long j = 0; j < mIRs[i][1].getSize(); j++)
 			mIRs[3][1][j] += (mIRs[i][1][j] * gain);
+	
+	// Correction
+	
+	if (correctionOn && (correction.getSize() > 1))
+	{
+		HIRT_Core offlineConvolver(finalLength);
+		long fftSize = offlineConvolver.nextPowerOf2(finalLength);
+	
+		HISSTools_RefPtr <double> correctedOutput(fftSize);
+		
+		Spectrum correctionSpectrum(fftSize);
+		Spectrum irSpectrum(fftSize);
+	
+		// Convert Correction
+		
+		offlineConvolver.timeToSpectrum(correction.get(), &correctionSpectrum, correction.getSize(), fftSize, mSamplingRate);
+		
+		// Apply Left
+		
+		offlineConvolver.timeToSpectrum(mIRs[3][0].get(), &irSpectrum, maxLength, fftSize, mSamplingRate);
+		offlineConvolver.convolve(&irSpectrum, &correctionSpectrum);
+		offlineConvolver.spectrumToTime(correctedOutput.get(), &irSpectrum);
+		
+		memcpy(mIRs[3][0].get(), correctedOutput.get(), finalLength * sizeof(double));
+		
+		// Apply Right
+		
+		offlineConvolver.timeToSpectrum(mIRs[3][1].get(), &irSpectrum, maxLength, fftSize, mSamplingRate);
+		offlineConvolver.convolve(&irSpectrum, &correctionSpectrum);
+		offlineConvolver.spectrumToTime(correctedOutput.get(), &irSpectrum);
+		
+		memcpy(mIRs[3][1].get(), correctedOutput.get(), finalLength * sizeof(double));
+	}
 }
 
 void OctetViolins::SetChanged(int i, bool state)
@@ -934,6 +1044,8 @@ void OctetViolins::SetIRDisplay(int i, bool setParam)
 	CheckVisibleIR();
 
 }
+
+// Parameters
 
 void OctetViolins::OnParamChange(int paramIdx, ParamChangeSource source)
 {

@@ -16,8 +16,6 @@
 
 #include "CrossfadedConvolution.h"
 
-//#include "OctetViolins_Helper_Classes.hpp"
-
 #define GUI_WIDTH 760
 #define GUI_HEIGHT 720
 
@@ -76,6 +74,8 @@ enum EParams
 	kIRSelect2,
 	kIRSelect3,
 	
+	kCorrection,
+	
 	kNumParams
 };
 
@@ -89,17 +89,17 @@ class OctetViolins : public IPlug
 	
 public:
 	
+	// Constructor and Destructor
+	
 	OctetViolins(IPlugInstanceInfo instanceInfo);
 	~OctetViolins();
+	
+	// GUI Creation and Resizing
 	
 	void CreateControls(IGraphics *pGraphics);
 	void OnWindowResize();
 	
-	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
-	void Reset();
-	
-	void OnParamChange(int paramIdx, ParamChangeSource source);
-	void LoadUntilUpdated();
+	// GUI Interactions
 	
 	void AddIR();
 	void RemoveIR();
@@ -108,11 +108,26 @@ public:
 	void SetPreset(int idx);
 	void RemovePreset(int idx);
 	
+	// State and Presets
+	
 	virtual bool SerializeState(ByteChunk* pChunk);
 	virtual int UnserializeState(ByteChunk* pChunk, int startPos);
 	
 	void WriteState(const char *filePath);
 	void ReadState(const char *filePath);
+	
+	// Process and Reset
+	
+	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
+	void Reset();
+	
+	// Loading
+	
+	void LoadUntilUpdated();
+	
+	// Parameters
+	
+	void OnParamChange(int paramIdx, ParamChangeSource source);
 
 private:
 	
@@ -123,7 +138,7 @@ private:
 	bool GetSoloChanged();
 	void LoadFiles(int diff, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR);
 	void LoadIRs();
-	void MixIRs(int numIRs);
+	void MixIRs(int numIRs, bool correctionOn);
 	void SetChanged(int i, bool state);
 	void UpdateIRsAndDisplay(bool displayOnly = false);
 	void DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long index, double samplingRate);
