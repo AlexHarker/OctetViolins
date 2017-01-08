@@ -560,19 +560,16 @@ void OctetViolins::Reset()
 	ClearParamCache();
 	mSamplingRate = GetSampleRate();
 
-	mConvolver.reset();
+	mConvolver.reset(mSamplingRate);
 }
+
+// Loading
 
 void OctetViolins::LoadUntilUpdated()
 {	
 	while (GetParamUpdated())
 		LoadIRs();
-	
-	IMutexLock lock(this);
-		
-	mThread = NULL;
 }
-
 
 bool OctetViolins::GetParamUpdated()
 {

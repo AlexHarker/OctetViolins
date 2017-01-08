@@ -13,7 +13,7 @@ void CrossfadedConvolution::FadedConvolution::set(const double *IRL, const doubl
 
 void CrossfadedConvolution::FadedConvolution::process(const double **inputs, double **outputs, int nFrames)
 {
-    int fadeSamps = 8000;
+    int fadeSamps = round(0.1 * mSamplingRate);
 
     mConvolver.process(inputs, outputs, 1, 2, nFrames);
 
@@ -70,8 +70,11 @@ void CrossfadedConvolution::process(const double **inputs, double **outputs, int
     }
 }
 
-void CrossfadedConvolution::reset()
+void CrossfadedConvolution::reset(double samplingRate)
 {
     for (int i = 0; i < 2; i++)
+    {
         mConvolvers[i].reset();
+        mConvolvers[i].setSamplingRate(samplingRate);
+    }
 }

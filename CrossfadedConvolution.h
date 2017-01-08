@@ -17,14 +17,17 @@ class CrossfadedConvolution
 
         void set(const double *IRL, const double *IRR, long length);
         void process(const double **inputs, double **outputs, int nFrames);
-        
-        void fade()     { mOn = false; }
         void reset()    { mConvolver.reset(); }
-        bool busy()     { return mFade != 0 || mOn; }
+        
+        void setSamplingRate(double samplingRate) { mSamplingRate = samplingRate; }
+        
+        void fade()                 { mOn = false; }
+        bool busy()                 { return mFade != 0 || mOn; }
         
     private:
         
         HISSTools::Convolver mConvolver;
+        double mSamplingRate;
         bool mOn;
         int mFade;
     };
@@ -35,7 +38,7 @@ public:
     
     bool set(const double *IRL, const double *IRR, long length);
     void process(const double **inputs, double **outputs, int nFrames);
-    void reset();
+    void reset(double samplingRate);
     
 private:
 
