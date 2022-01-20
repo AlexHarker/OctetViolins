@@ -4,26 +4,27 @@
 #define __HISSTOOLS_SPECTRAL_DISPLAY__
 
 
-#include <HISSTools_UI/HISSTools_Controls.hpp>
-#include "Spectrum_Plot.h"
+#include "HISSTools_Controls.hpp"
+#include "Spectral_Plot/Spectrum_Plot.h"
 
 
-class HISSTools_Spectral_Curve_Export : public HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>
+class HISSTools_Spectral_Curve_Export : public HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_VecLib>
 {
 
 public:
 	
-    HISSTools_Spectral_Curve_Export(HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w, double h, double thickness, HISSTools_Color_Spec *colorSpec, unsigned long maxFFTSize) : HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>(0, 0, w, h, thickness, colorSpec, maxFFTSize)
+    HISSTools_Spectral_Curve_Export(HISSTools_VecLib *vecDraw, double x, double y, double w, double h, double thickness, HISSTools_Color_Spec *colorSpec, unsigned long maxFFTSize) : HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_VecLib>(0, 0, w, h, thickness, colorSpec, maxFFTSize)
 	{}
 	
 	~HISSTools_Spectral_Curve_Export()
 	{}
 		
 public:
-		
-	void exportBitmap(HISSTools_LICE_Vec_Lib *vecDraw, LICE_IBitmap *destinationBitmap, double x, double y, double w, double h, double freqMin, double freqMax, double dbMin, double dbMax, double subSampleRender)
+    // FIX - LICE only
+    /*
+	void exportBitmap(HISSTools_VecLib *vecDraw, LICE_IBitmap *destinationBitmap, double x, double y, double w, double h, double freqMin, double freqMax, double dbMin, double dbMax, double subSampleRender)
 	{		
-        HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib> temp = HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>(x, y, w, h, mCurveTK, mCurveCS, mSpectrum->getFFTSize());
+        HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_VecLib> temp = HISSTools::SpectralCurve<HISSTools_Color_Spec *, HISSTools_VecLib>(x, y, w, h, mCurveTK, mCurveCS, mSpectrum->getFFTSize());
 				
 		temp.inputSpectrum(mSpectrum);
         temp.setDisplay(true);
@@ -31,17 +32,18 @@ public:
 		
 		return;
 	}
+     */
 };
 
 
-class HISSTools_Spectral_Display : public HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>,
-    public IControl, public HISSTools_Control_Layers
+class HISSTools_Spectral_Display : public HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_VecLib>,
+public iplug::igraphics::IControl, public HISSTools_Control_Layers
 {
 
 public:
     
-	HISSTools_Spectral_Display(IPlugBase* pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w, double h, unsigned long maxFFTSize, int numCurves = 1, const char *type = "", HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
-	: HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_LICE_Vec_Lib>(x, y, w, h), IControl(pPlug, IRECT()), HISSTools_Control_Layers()
+	HISSTools_Spectral_Display(HISSTools_VecLib *vecDraw, double x, double y, double w, double h, unsigned long maxFFTSize, int numCurves = 1, const char *type = "", HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
+	: HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_VecLib>(x, y, w, h), IControl( IRECT()), HISSTools_Control_Layers()
 	{
 		mVecDraw = vecDraw;
         
@@ -92,9 +94,9 @@ public:
 		// Bounds
 		
 		HISSTools_Bounds fullBounds(x, y, w, h);
-		
-		fullBounds.addThickness(mFrameTK);
-		mRECT = fullBounds.iBounds(vecDraw->getScaling());
+        fullBounds.addThickness(mFrameTK);
+        
+        mRECT = fullBounds;
         mTargetRECT = mRECT;
 	}
 		
@@ -105,32 +107,33 @@ public:
 	}
 
 public:
-    
+    // FIX - LICE only
+    /*
 	bool exportBitmap(char *path, double w, double h, double pad)
 	{
 		LICE_MemBitmap bitmap(w + 2 * pad, h + 2 * pad);
-        HISSTools_LICE_Vec_Lib drawObject(&bitmap, 8);
+        HISSTools_VecLib drawObject(&bitmap, 8);
         
         // FIX - find a better way of doing this!
 		// FIX - all size parameters must not be read from object...
-        /*
+        
 		mDrawX = pad;
 		mDrawY = pad;
 		mDrawW = w;
-		mDrawH = h;*/
+		mDrawH = h;
 
         // Clear / draw background / draw curves / write file
         
         LICE_Clear(&bitmap, LICE_RGBA(0, 0, 0, 0));
-        /*
+        
 		DrawBackground(&drawObject);
 		
         for (std::vector<HISSTools_Spectral_Curve *>::iterator it = mCurves.begin(); it != mCurves.end(); it++)
 			(*it)->exportBitmap(&drawObject, &bitmap, pad, pad, w, h, mFreqMin, mFreqMax, mDbMin, mDbMax, mSubSampleRender);
-		*/
+		
         return true;//LICE_WritePNG(path, &bitmap);
 	}
-	
+	*/
 public:
 	
 	virtual bool Draw(IGraphics* pGraphics)
@@ -156,26 +159,27 @@ public:
     
     virtual void OnMouseWheel(int x, int y, IMouseMod* pMod, int d)
     {
-        x /= mVecDraw->getScaling();
-        y /= mVecDraw->getScaling();
+        // FIX old iplug features?
+        //x /= mVecDraw->getScaling();
+        //y /= mVecDraw->getScaling();
                
-        double gearing = pow(1.2, ConvertMouseDeltaToNative(d));
+        double gearing = pow(1.2, d);
 
         if (!pMod->S)
         {
-            double freqLo = std::max(mFreqMin, getScaling()->posToXVal(x - ((x - getScaling()->getL()) * gearing)));
-            double freqHi = std::min(mFreqMax, getScaling()->posToXVal(x - ((x - getScaling()->getR()) * gearing)));
+            double freqLo = std::max(mFreqMin, getScaling().posToXVal(x - ((x - getScaling().getL()) * gearing)));
+            double freqHi = std::min(mFreqMax, getScaling().posToXVal(x - ((x - getScaling().getR()) * gearing)));
         
-            limitZoom(freqLo, freqHi, getScaling()->posToXVal(x), 1.0, true);
+            limitZoom(freqLo, freqHi, getScaling().posToXVal(x), 1.0, true);
             setRangeX(freqLo, freqHi, true);
         }
         
         if (!pMod->C)
         {
-            double dbLo = std::max(mDBMin, getScaling()->posToYVal(y + ((getScaling()->getB() - y) * gearing)));
-            double dbHi = std::min(mDBMax, getScaling()->posToYVal(y + ((getScaling()->getT() - y) * gearing)));
+            double dbLo = std::max(mDBMin, getScaling().posToYVal(y + ((getScaling().getB() - y) * gearing)));
+            double dbHi = std::min(mDBMax, getScaling().posToYVal(y + ((getScaling().getT() - y) * gearing)));
         
-            limitZoom(dbLo, dbHi, getScaling()->posToYVal(y), 20.0, false);
+            limitZoom(dbLo, dbHi, getScaling().posToYVal(y), 20.0, false);
             setRangeY(dbLo, dbHi, false);
         }
     }
@@ -186,20 +190,20 @@ public:
         
         // Calculate
         
-        x = ConvertMouseDeltaToNative(-dX) / mVecDraw->getScaling();
-        y = ConvertMouseDeltaToNative(-dY) / mVecDraw->getScaling();
+        x = -dX; // mVecDraw->getScaling();
+        y = -dY; // mVecDraw->getScaling();
         
         // Do X dragging
         
         if (x >= 0)
         {
-            freqHi = std::min(mFreqMax, getScaling()->posToXVal(getScaling()->getR() + x));
-            freqLo = getScaling()->posToXVal(getScaling()->xValToPos(freqHi) - getScaling()->getWidth());
+            freqHi = std::min(mFreqMax, getScaling().posToXVal(getScaling().getR() + x));
+            freqLo = getScaling().posToXVal(getScaling().xValToPos(freqHi) - getScaling().getWidth());
         }
         else
         {
-            freqLo = std::max(mFreqMin, getScaling()->posToXVal(getScaling()->getL() + x));
-            freqHi = getScaling()->posToXVal(getScaling()->xValToPos(freqLo) + getScaling()->getWidth());
+            freqLo = std::max(mFreqMin, getScaling().posToXVal(getScaling().getL() + x));
+            freqHi = getScaling().posToXVal(getScaling().xValToPos(freqLo) + getScaling().getWidth());
         }
         
         setRangeX(freqLo, freqHi, true);
@@ -208,13 +212,13 @@ public:
         
         if (y <= 0)
         {
-            dbHi = std::min(mDBMax, getScaling()->posToYVal(getScaling()->getT() + y));
-            dbLo = getScaling()->posToYVal(getScaling()->yValToPos(dbHi) + getScaling()->getHeight());
+            dbHi = std::min(mDBMax, getScaling().posToYVal(getScaling().getT() + y));
+            dbLo = getScaling().posToYVal(getScaling().yValToPos(dbHi) + getScaling().getHeight());
         }
         else
         {
-            dbLo = std::max(mDBMin, getScaling()->posToYVal(getScaling()->getB() + y));
-            dbHi = getScaling()->posToYVal(getScaling()->yValToPos(dbLo) - getScaling()->getHeight());
+            dbLo = std::max(mDBMin, getScaling().posToYVal(getScaling().getB() + y));
+            dbHi = getScaling().posToYVal(getScaling().yValToPos(dbLo) - getScaling().getHeight());
         }
         
         // Set ranges
@@ -259,7 +263,7 @@ private:
     
 	// Drawing Object
 	
-	HISSTools_LICE_Vec_Lib *mVecDraw;
+	HISSTools_VecLib *mVecDraw;
     
     double mDrawingScale;
     double mFreqMin, mFreqMax;
