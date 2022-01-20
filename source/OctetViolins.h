@@ -156,17 +156,6 @@ private:
 	IControl *mAddIRButtons[2];
 	IControl *mRemoveIRButton;
 	
-	HISSTools_Value *mSelections[3];
-	HISSTools_Value *mHPFSlopes[3];
-	HISSTools_Value *mLPFSlopes[3];
-	HISSTools_Dial *mAmps[3];
-	HISSTools_Dial *mTranspositions[3];
-	HISSTools_Dial *mHPFFreqs[3];
-	HISSTools_Dial *mLPFFreqs[3];
-	HISSTools_Button *mHPFSwitches[3];
-	HISSTools_Button *mLPFSwitches[3];
-	HISSTools_Button *mMuteSwitches[3];
-	HISSTools_Button *mSoloSwitches[3];
 	HISSTools_Button *mSelectSwitches[3];
 	HISSTools_Invisible_Tabs *mIRTab;
 	

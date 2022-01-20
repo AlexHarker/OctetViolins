@@ -330,7 +330,7 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
 	{
 		int offset = i * numIRParams();
 		
-		mSelections[i] = new HISSTools_Value(kIR1 + offset, freqDispX + 10, freqDispY + dispHeight + 60, 150, 30);
+		auto selection = new HISSTools_Value(kIR1 + offset, freqDispX + 10, freqDispY + dispHeight + 60, 150, 30);
 	
 		char dialStyle1[64];
 		char dialStyle2[64];
@@ -340,43 +340,43 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
 		sprintf(dialStyle2, "bipolar %d", i + 1);
 		sprintf(dialStyle3, "small %d", i + 1);
 	
-		mAmps[i] = new HISSTools_Dial(kIRVolume1 + offset, freqDispX + 10, freqDispY + dispHeight + 130, dialStyle1, &theDesign);
-		mTranspositions[i] = new HISSTools_Dial(kIRTransposition1 + offset, freqDispX + 120, freqDispY + dispHeight + 130, dialStyle2, &theDesign);
-		mHPFFreqs[i] = new HISSTools_Dial(kIRHPFFreq1 + offset, freqDispX + 245, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
-		mLPFFreqs[i] = new HISSTools_Dial(kIRLPFFreq1 + offset, freqDispX + 355, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
+		auto amp = new HISSTools_Dial(kIRVolume1 + offset, freqDispX + 10, freqDispY + dispHeight + 130, dialStyle1, &theDesign);
+		auto transposition = new HISSTools_Dial(kIRTransposition1 + offset, freqDispX + 120, freqDispY + dispHeight + 130, dialStyle2, &theDesign);
+        auto hpfFreq = new HISSTools_Dial(kIRHPFFreq1 + offset, freqDispX + 245, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
+		auto lpfFreq = new HISSTools_Dial(kIRLPFFreq1 + offset, freqDispX + 355, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
 		
-		mHPFSlopes[i] = new HISSTools_Value(kIRHPFSlope1 + offset, freqDispX + 240, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
-		mLPFSlopes[i] = new HISSTools_Value(kIRLPFSlope1 + offset, freqDispX + 350, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
+        auto hpfSlope = new HISSTools_Value(kIRHPFSlope1 + offset, freqDispX + 240, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
+        auto lpfSlope = new HISSTools_Value(kIRLPFSlope1 + offset, freqDispX + 350, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
 		
-		mHPFSwitches[i] = new HISSTools_Button(kIRHPFOn1 + offset, freqDispX + 240, freqDispY + dispHeight + 260, 70, 20);
-		mLPFSwitches[i] = new HISSTools_Button(kIRLPFOn1 + offset, freqDispX + 350, freqDispY + dispHeight + 260, 70, 20);
+        auto hpfSwitch = new HISSTools_Button(kIRHPFOn1 + offset, freqDispX + 240, freqDispY + dispHeight + 260, 70, 20);
+        auto lpfSwitch = new HISSTools_Button(kIRLPFOn1 + offset, freqDispX + 350, freqDispY + dispHeight + 260, 70, 20);
 	
-		mMuteSwitches[i] = new HISSTools_Button(kIRMute1 + offset, freqDispX + 460, freqDispY + dispHeight + 230, 70, 20);
-		mSoloSwitches[i] = new HISSTools_Button(kIRSolo1 + offset, freqDispX + 460, freqDispY + dispHeight + 190, 70, 20);
+		auto muteSwitch = new HISSTools_Button(kIRMute1 + offset, freqDispX + 460, freqDispY + dispHeight + 230, 70, 20);
+        auto soloSwitch = new HISSTools_Button(kIRSolo1 + offset, freqDispX + 460, freqDispY + dispHeight + 190, 70, 20);
 		
-		pGraphics->AttachControl(mSelections[i]);
-		pGraphics->AttachControl(mAmps[i]);
-		pGraphics->AttachControl(mTranspositions[i]);
-		pGraphics->AttachControl(mHPFFreqs[i]);
-		pGraphics->AttachControl(mLPFFreqs[i]);
-		pGraphics->AttachControl(mHPFSlopes[i]);
-		pGraphics->AttachControl(mLPFSlopes[i]);
-		pGraphics->AttachControl(mHPFSwitches[i]);
-		pGraphics->AttachControl(mLPFSwitches[i]);
-		pGraphics->AttachControl(mMuteSwitches[i]);
-		pGraphics->AttachControl(mSoloSwitches[i]);
+		pGraphics->AttachControl(selection);
+		pGraphics->AttachControl(amp);
+		pGraphics->AttachControl(transposition);
+		pGraphics->AttachControl(hpfFreq);
+		pGraphics->AttachControl(lpfFreq);
+		pGraphics->AttachControl(hpfSlope);
+		pGraphics->AttachControl(lpfSlope);
+		pGraphics->AttachControl(hpfSwitch);
+		pGraphics->AttachControl(lpfSwitch);
+		pGraphics->AttachControl(muteSwitch);
+		pGraphics->AttachControl(soloSwitch);
 		
-		mIRTab->attachControl(mSelections[i], i);
-		mIRTab->attachControl(mAmps[i], i);
-		mIRTab->attachControl(mTranspositions[i], i);
-		mIRTab->attachControl(mHPFFreqs[i], i);
-		mIRTab->attachControl(mLPFFreqs[i], i);
-		mIRTab->attachControl(mHPFSlopes[i], i);
-		mIRTab->attachControl(mLPFSlopes[i], i);
-		mIRTab->attachControl(mHPFSwitches[i], i);
-		mIRTab->attachControl(mLPFSwitches[i], i);
-		mIRTab->attachControl(mMuteSwitches[i], i);
-		mIRTab->attachControl(mSoloSwitches[i], i);
+		mIRTab->attachControl(selection, i);
+		mIRTab->attachControl(amp, i);
+		mIRTab->attachControl(transposition, i);
+		mIRTab->attachControl(hpfFreq, i);
+		mIRTab->attachControl(lpfFreq, i);
+		mIRTab->attachControl(hpfSlope, i);
+		mIRTab->attachControl(lpfSlope, i);
+		mIRTab->attachControl(hpfSwitch, i);
+		mIRTab->attachControl(lpfSwitch, i);
+		mIRTab->attachControl(muteSwitch, i);
+		mIRTab->attachControl(soloSwitch, i);
 	}
 	
 	mRemoveIRButton = new RemoveIRButton(this, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
@@ -926,6 +926,9 @@ void OctetViolins::FadeIR(HISSTools_RefPtr <double> ir,  uintptr_t fadeIn,  uint
 
 void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long index, double samplingRate)
 {
+    if (!GetUI())
+        return;
+    
 	if (IR.getSize() == 0)
 	{
 		PowerSpectrum nullSpectrum(0);
@@ -1053,6 +1056,8 @@ void OctetViolins::OnParamChangeUI(int paramIdx, EParamSource source)
  
     if (paramIdx == kNumIRs)
     {
+        if (!GetUI())
+            return;
         int num = GetParam(kNumIRs)->Int();
         
         CheckVisibleIR();
