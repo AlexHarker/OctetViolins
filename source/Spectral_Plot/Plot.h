@@ -291,7 +291,9 @@ namespace HISSTools
         
         double lineCentre(Renderer& renderer, double value)
         {
-            return (round(value * renderer.getScaling()) + 0.5) / renderer.getScaling();
+            // FIX (it's boring so assume that scale is always 1 and fix later)
+            //return (round(value * renderer.getScaling()) + 0.5) / renderer.getScaling();
+            return round(value) + 0.5;
         }
         
         void horizontalTick(Renderer& renderer, double y, bool flip, double length)

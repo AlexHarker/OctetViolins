@@ -6,16 +6,18 @@
 #include "IPlug_include_in_plug_src.h"
 
 #include "config.h"
-#include <math.h>
+#include <algorithm>
+#include <cmath>
 
-#include "IAudioFile.h"
 #include "Resampler.h"
 #include "Biquad.h"
+
+#include "HISSTools_Library/AudioFile/IAudioFile.h"
+#include "HISSTools_Library/SpectralProcessor.hpp"
 
 // Number of Programs
 
 const int kNumPrograms = 1;
-
 
 // IR Paths
 
@@ -143,8 +145,8 @@ DWORD LoadingThread(LPVOID plugParam)
 
 // Constructor and Destructor
 
-OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
-:	IPLUG_CTOR(kNumParams, kNumPrograms, instanceInfo), mSamplingRate(44100.), mThread(NULL), mUpdateAudioEngine(false), mParamUpdated(false), mPresetIdx(-1)
+OctetViolins::OctetViolins(InstanceInfo info)
+: Plugin(info, MakeConfig(kNumParams, kNumPrograms)), mSamplingRate(44100.), mThread(NULL), mUpdateAudioEngine(false), mParamUpdated(false), mPresetIdx(-1)
 {
 	TRACE;
 
@@ -152,8 +154,7 @@ OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
 	
 	GetParam(kNumIRs)->InitInt("Number of IRs", 1, 1, 3, "");
 	
-	GetParam(kIRVisible)->InitInt("Selected IR", 1, 1, 3, "");
-	GetParam(kIRVisible)->SetCanAutomate(false);
+	GetParam(kIRVisible)->InitInt("Selected IR", 1, 1, 3, "", IParam::kFlagCannotAutomate);
 	
 	for (int i = 0; i < 3; i++)
 	{
@@ -173,8 +174,8 @@ OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
 		
 		GetParam(kIRVolume1 + offset)->InitDouble("Amp", 0.0, -30, 30, 0.1, "dB");
 		GetParam(kIRTransposition1 + offset)->InitDouble("Transposition", 0, -12, 12, 0.1, "st");
-		GetParam(kIRHPFFreq1 + offset)->InitDouble("HPF Freq", 1000, 10, 20000, 1.0, "Hz", "", 2.0);
-		GetParam(kIRLPFFreq1 + offset)->InitDouble("LPF Freq", 1000, 10, 20000, 1.0, "Hz", "", 2.0);
+		GetParam(kIRHPFFreq1 + offset)->InitDouble("HPF Freq", 1000, 10, 20000, 1.0, "Hz", IParam::kFlagsNone, "", IParam::ShapePowCurve(2.0));
+		GetParam(kIRLPFFreq1 + offset)->InitDouble("LPF Freq", 1000, 10, 20000, 1.0, "Hz", IParam::kFlagsNone, "", IParam::ShapePowCurve(2.0));
 		
 		GetParam(kIRHPFSlope1 + offset)->InitEnum("HPF Slope", 0, 4);
 		GetParam(kIRHPFSlope1 + offset)->SetDisplayText(0, "6dB/oct");
@@ -205,35 +206,23 @@ OctetViolins::OctetViolins(IPlugInstanceInfo instanceInfo)
 		GetParam(kIRSolo1 + offset)->SetDisplayText(1, "On");
 	}
 	
-	GetParam(kSource1)->InitDouble("Accel", 0.0, 0.0, 1.0, 0.01, "", "", 2.0);
-	GetParam(kSource2)->InitDouble("Cardioid", 1.0, 0.0, 1.0, 0.01, "", "", 2.0);
-	GetParam(kSource3)->InitDouble("Pair 1", 0.0, 0.0, 1.0, 0.01, "", "", 2.0);
-	GetParam(kSource4)->InitDouble("Pair 2", 0.0, 0.0, 1.0, 0.01, "", "", 2.0);
+	GetParam(kSource1)->InitDouble("Accel", 0.0, 0.0, 1.0, 0.01, "", IParam::kFlagsNone, "", IParam::ShapePowCurve(2.0));
+	GetParam(kSource2)->InitDouble("Cardioid", 1.0, 0.0, 1.0, 0.01, "", IParam::kFlagsNone, "", IParam::ShapePowCurve(2.0));
+	GetParam(kSource3)->InitDouble("Pair 1", 0.0, 0.0, 1.0, 0.01, "", IParam::kFlagsNone, "", IParam::ShapePowCurve(2.0));
+	GetParam(kSource4)->InitDouble("Pair 2", 0.0, 0.0, 1.0, 0.01, "", IParam::kFlagsNone, "", IParam::ShapePowCurve(2.0));
 	
 	GetParam(kDelay1)->InitDouble("Delay", 0.0, 0.0, 20.0, 0.1, "ms");
 	GetParam(kDelay2)->InitDouble("Delay", 0.0, 0.0, 20.0, 0.1, "ms");
 	GetParam(kDelay3)->InitDouble("Delay", 0.0, 0.0, 20.0, 0.1, "ms");
 	GetParam(kDelay4)->InitDouble("Delay", 0.0, 0.0, 20.0, 0.1, "ms");
 	
-	GetParam(kIRSelect1)->InitBool("IR 1", true);
-	GetParam(kIRSelect2)->InitBool("IR 2", false);
-	GetParam(kIRSelect3)->InitBool("IR 3", false);
-	
-	GetParam(kIRSelect1)->SetCanAutomate(false);
-	GetParam(kIRSelect2)->SetCanAutomate(false);
-	GetParam(kIRSelect3)->SetCanAutomate(false);
+	GetParam(kIRSelect1)->InitBool("IR 1", true, "", IParam::kFlagCannotAutomate);
+    GetParam(kIRSelect2)->InitBool("IR 2", false, "", IParam::kFlagCannotAutomate);
+    GetParam(kIRSelect3)->InitBool("IR 3", false, "", IParam::kFlagCannotAutomate);
 	
 	GetParam(kCorrection)->InitBool("Correction", false);
 
 	MakeDefaultPreset("-", kNumPrograms);
-	
-	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT);
-
-	//pGraphics->SetStrictDrawing(true);
-	//pGraphics->SetAllowRetina(false);
-
-	CreateControls(pGraphics);
-	AttachGraphics(pGraphics);
 	
 	ClearParamCache();
 	OnParamReset(kReset);
@@ -246,20 +235,26 @@ OctetViolins::~OctetViolins()
 {
 	// Wait for the loading thread to complete before we exit
 	
-	IMutexLock lock(this);
-	
-	HANDLE thread = mThread;
-	
-	lock.Destroy();
-	
+    HANDLE thread = nullptr;
+    
+    if (true) // Scope for lock
+    {
+        WDL_MutexLock lock(&mMutex);
+        thread = mThread;
+        mThread = NULL;
+    }
+		
 	if (thread)
 		WaitForSingleObject(thread, INFINITE);
 }
 
 // GUI Creation and Resizing
 
-void OctetViolins::CreateControls(IGraphics *pGraphics)
+void OctetViolins::LayoutUI(IGraphics *pGraphics)
 {
+    if (pGraphics->NControls())
+        return;
+        
 	IColor bgrb = IColor(255, 140, 140, 140);
 				  
 	int freqDispX = 30;
@@ -267,25 +262,19 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 	int dispWidth = 700;
 	int dispHeight = 300;
 
-	// Setup Drawing
-	
-	mVecDraw.setBitmap(pGraphics->GetDrawBitmap());
-	mVecDraw.setScaling(pGraphics->GetScalingFactor());
-	
 	// Main Displays
 
-	mSpectralDisplay = new HISSTools_Spectral_Display(this, &mVecDraw, freqDispX, freqDispY, dispWidth, dispHeight, 1050000, 4, 0, &theDesign);
+	mSpectralDisplay = new HISSTools_Spectral_Display(freqDispX, freqDispY, dispWidth, dispHeight, 1050000, 4, 0, &theDesign);
 	
-	mSpectralDisplay->setRangeX(20.0, 22050., true);
-	mSpectralDisplay->setRangeY(-80.0, 20.0, false);
+	mSpectralDisplay->SetRanges(20.0, 22050.0, -80.0, 20.0);
 	
 	pGraphics->AttachControl(mSpectralDisplay);
 	
 	// Num IRs and Selection
 	
-	mSelectSwitches[0] = new HISSTools_Button(this, kIRSelect1, &mVecDraw, freqDispX, dispHeight + 50, 70, 25, "1", &theDesign);
-	mSelectSwitches[1] = new HISSTools_Button(this, kIRSelect2, &mVecDraw, freqDispX + 80, dispHeight + 50, 70, 25, "2", &theDesign);
-	mSelectSwitches[2] = new HISSTools_Button(this, kIRSelect3, &mVecDraw, freqDispX + 160, dispHeight + 50, 70, 25, "3", &theDesign);
+	mSelectSwitches[0] = new HISSTools_Button(kIRSelect1, freqDispX, dispHeight + 50, 70, 25, "1", &theDesign);
+	mSelectSwitches[1] = new HISSTools_Button(kIRSelect2, freqDispX + 80, dispHeight + 50, 70, 25, "2", &theDesign);
+	mSelectSwitches[2] = new HISSTools_Button(kIRSelect3, freqDispX + 160, dispHeight + 50, 70, 25, "3", &theDesign);
 	
 	pGraphics->AttachControl(mSelectSwitches[0]);
 	pGraphics->AttachControl(mSelectSwitches[1]);
@@ -293,8 +282,8 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 	
 	//	Add IRs
 	
-	mAddIRButtons[0] = new AddIRButton(this, &mVecDraw, freqDispX + 80, dispHeight + 50, 70, 25);
-	mAddIRButtons[1] = new AddIRButton(this, &mVecDraw, freqDispX + 160, dispHeight + 50, 70, 25);
+	mAddIRButtons[0] = new AddIRButton(this, freqDispX + 80, dispHeight + 50, 70, 25);
+	mAddIRButtons[1] = new AddIRButton(this, freqDispX + 160, dispHeight + 50, 70, 25);
 	
 	pGraphics->AttachControl(mAddIRButtons[0]);
 	pGraphics->AttachControl(mAddIRButtons[1]);
@@ -303,45 +292,45 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 	
 	dispHeight += 70;
 
-	pGraphics->AttachControl(new HISSTools_Value(this, kSource1, &mVecDraw, freqDispX + 200, freqDispY + dispHeight + 20, 60, 20));
-	pGraphics->AttachControl(new HISSTools_Value(this, kSource2, &mVecDraw, freqDispX + 280, freqDispY + dispHeight + 20, 60, 20));
-	pGraphics->AttachControl(new HISSTools_Value(this, kSource3, &mVecDraw, freqDispX + 360, freqDispY + dispHeight + 20, 60, 20));
-	pGraphics->AttachControl(new HISSTools_Value(this, kSource4, &mVecDraw, freqDispX + 440, freqDispY + dispHeight + 20, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kSource1, freqDispX + 200, freqDispY + dispHeight + 20, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kSource2, freqDispX + 280, freqDispY + dispHeight + 20, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kSource3, freqDispX + 360, freqDispY + dispHeight + 20, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kSource4, freqDispX + 440, freqDispY + dispHeight + 20, 60, 20));
 
-	pGraphics->AttachControl(new HISSTools_Value(this, kDelay1, &mVecDraw, freqDispX + 200, freqDispY + dispHeight + 70, 60, 20));
-	pGraphics->AttachControl(new HISSTools_Value(this, kDelay2, &mVecDraw, freqDispX + 280, freqDispY + dispHeight + 70, 60, 20));
-	pGraphics->AttachControl(new HISSTools_Value(this, kDelay3, &mVecDraw, freqDispX + 360, freqDispY + dispHeight + 70, 60, 20));
-	pGraphics->AttachControl(new HISSTools_Value(this, kDelay4, &mVecDraw, freqDispX + 440, freqDispY + dispHeight + 70, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kDelay1, freqDispX + 200, freqDispY + dispHeight + 70, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kDelay2, freqDispX + 280, freqDispY + dispHeight + 70, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kDelay3, freqDispX + 360, freqDispY + dispHeight + 70, 60, 20));
+	pGraphics->AttachControl(new HISSTools_Value(kDelay4, freqDispX + 440, freqDispY + dispHeight + 70, 60, 20));
 	
 	// Presets
 	
 	for (int i = 0; i < 5; i++)
-		mPresetButtons[i + 0] = new PresetButton(this, &mVecDraw, i + 0, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 20, 20, 20, "tight preset", &theDesign);
+		mPresetButtons[i + 0] = new PresetButton(this, i + 0, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 20, 20, 20, "tight preset", &theDesign);
 	
 	for (int i = 0; i < 5; i++)
-		mPresetButtons[i + 5] = new PresetButton(this, &mVecDraw, i + 5, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 50, 20, 20, "tight preset", &theDesign);
+		mPresetButtons[i + 5] = new PresetButton(this, i + 5, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 50, 20, 20, "tight preset", &theDesign);
 	
 	for (int i = 0; i < 10; i++)
 	{
 		pGraphics->AttachControl(mPresetButtons[i]);
-		mPresetButtons[i]->SetValueFromPlug(i == mPresetIdx);
-		mPresetButtons[i]->GrayOut(!mGUIPresets[i].Size());
+		mPresetButtons[i]->SetValueFromDelegate(i == mPresetIdx);
+		mPresetButtons[i]->SetDisabled(!mGUIPresets[i].Size());
 	}
 	
-	pGraphics->AttachControl(new FileSaveLoad(this, &mVecDraw, "Save", freqDispX + 540, freqDispY + dispHeight + 90, 65, 20, kFileSave, "tight"));
-	pGraphics->AttachControl(new FileSaveLoad(this, &mVecDraw, "Load", freqDispX + 615, freqDispY + dispHeight + 90, 65, 20, kFileOpen, "tight"));
+	pGraphics->AttachControl(new FileSaveLoad(this, "Save", freqDispX + 540, freqDispY + dispHeight + 90, 65, 20, EFileAction::Save, "tight"));
+	pGraphics->AttachControl(new FileSaveLoad(this, "Load", freqDispX + 615, freqDispY + dispHeight + 90, 65, 20, EFileAction::Open, "tight"));
 	
 	// IR Parameters
 	
 	// Invisible Tabs
 	
-	mIRTab = new HISSTools_Invisible_Tabs(this, kIRVisible);
+	mIRTab = new HISSTools_Invisible_Tabs(kIRVisible);
 
 	for (int i = 0; i < 3; i++)
 	{
 		int offset = i * numIRParams();
 		
-		mSelections[i] = new HISSTools_Value(this, kIR1 + offset, &mVecDraw, freqDispX + 10, freqDispY + dispHeight + 60, 150, 30);
+		mSelections[i] = new HISSTools_Value(kIR1 + offset, freqDispX + 10, freqDispY + dispHeight + 60, 150, 30);
 	
 		char dialStyle1[64];
 		char dialStyle2[64];
@@ -351,19 +340,19 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 		sprintf(dialStyle2, "bipolar %d", i + 1);
 		sprintf(dialStyle3, "small %d", i + 1);
 	
-		mAmps[i] = new HISSTools_Dial(this, kIRVolume1 + offset, &mVecDraw, freqDispX + 10, freqDispY + dispHeight + 130, dialStyle1, &theDesign);
-		mTranspositions[i] = new HISSTools_Dial(this, kIRTransposition1 + offset, &mVecDraw, freqDispX + 120, freqDispY + dispHeight + 130, dialStyle2, &theDesign);
-		mHPFFreqs[i] = new HISSTools_Dial(this, kIRHPFFreq1 + offset, &mVecDraw, freqDispX + 245, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
-		mLPFFreqs[i] = new HISSTools_Dial(this, kIRLPFFreq1 + offset, &mVecDraw, freqDispX + 355, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
+		mAmps[i] = new HISSTools_Dial(kIRVolume1 + offset, freqDispX + 10, freqDispY + dispHeight + 130, dialStyle1, &theDesign);
+		mTranspositions[i] = new HISSTools_Dial(kIRTransposition1 + offset, freqDispX + 120, freqDispY + dispHeight + 130, dialStyle2, &theDesign);
+		mHPFFreqs[i] = new HISSTools_Dial(kIRHPFFreq1 + offset, freqDispX + 245, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
+		mLPFFreqs[i] = new HISSTools_Dial(kIRLPFFreq1 + offset, freqDispX + 355, freqDispY + dispHeight + 130, dialStyle3, &theDesign);
 		
-		mHPFSlopes[i] = new HISSTools_Value(this, kIRHPFSlope1 + offset, &mVecDraw, freqDispX + 240, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
-		mLPFSlopes[i] = new HISSTools_Value(this, kIRLPFSlope1 + offset, &mVecDraw, freqDispX + 350, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
+		mHPFSlopes[i] = new HISSTools_Value(kIRHPFSlope1 + offset, freqDispX + 240, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
+		mLPFSlopes[i] = new HISSTools_Value(kIRLPFSlope1 + offset, freqDispX + 350, freqDispY + dispHeight + 230, 70, 20, "small nolabel", &theDesign);
 		
-		mHPFSwitches[i] = new HISSTools_Button(this, kIRHPFOn1 + offset, &mVecDraw, freqDispX + 240, freqDispY + dispHeight + 260, 70, 20);
-		mLPFSwitches[i] = new HISSTools_Button(this, kIRLPFOn1 + offset, &mVecDraw, freqDispX + 350, freqDispY + dispHeight + 260, 70, 20);
+		mHPFSwitches[i] = new HISSTools_Button(kIRHPFOn1 + offset, freqDispX + 240, freqDispY + dispHeight + 260, 70, 20);
+		mLPFSwitches[i] = new HISSTools_Button(kIRLPFOn1 + offset, freqDispX + 350, freqDispY + dispHeight + 260, 70, 20);
 	
-		mMuteSwitches[i] = new HISSTools_Button(this, kIRMute1 + offset, &mVecDraw, freqDispX + 460, freqDispY + dispHeight + 230, 70, 20);
-		mSoloSwitches[i] = new HISSTools_Button(this, kIRSolo1 + offset, &mVecDraw, freqDispX + 460, freqDispY + dispHeight + 190, 70, 20);
+		mMuteSwitches[i] = new HISSTools_Button(kIRMute1 + offset, freqDispX + 460, freqDispY + dispHeight + 230, 70, 20);
+		mSoloSwitches[i] = new HISSTools_Button(kIRSolo1 + offset, freqDispX + 460, freqDispY + dispHeight + 190, 70, 20);
 		
 		pGraphics->AttachControl(mSelections[i]);
 		pGraphics->AttachControl(mAmps[i]);
@@ -390,55 +379,43 @@ void OctetViolins::CreateControls(IGraphics *pGraphics)
 		mIRTab->attachControl(mSoloSwitches[i], i);
 	}
 	
-	mRemoveIRButton = new RemoveIRButton(this, &mVecDraw, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
+	mRemoveIRButton = new RemoveIRButton(this, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
 	pGraphics->AttachControl(mRemoveIRButton);
 	
-	pGraphics->AttachControl(new HISSTools_Button(this, kCorrection, &mVecDraw, freqDispX + 560, freqDispY + dispHeight + 150, 100, 20, "tight"));
+	pGraphics->AttachControl(new HISSTools_Button(kCorrection, freqDispX + 560, freqDispY + dispHeight + 150, 100, 20, "tight"));
 
 	pGraphics->AttachControl(mIRTab);
-	pGraphics->AttachPanelBackground(&bgrb);
-}
+	pGraphics->AttachPanelBackground(bgrb);
 
-void OctetViolins::OnWindowResize()
-{
-	CreateControls(GetGUI());
+    // Finalise Graphics
+    
+    pGraphics->EnableMouseOver(true);
+        
+	// Display curves
 	
-	// Set parameters on GUI
-	
-	for (unsigned int i = 0; i < kNumParams; i++)
-		GetGUI()->SetParameterFromPlug(i, GetParam(i)->GetDefaultNormalized(), true);
-
-	// Ensure display parameters are correct in all regards
-	
-	for (int i = 0; i < 4; i++)
-		SetChanged(i, true);
-	OnParamReset(kGUI);
 	UpdateIRsAndDisplay(true);
-	
-	// Redraw all the controls
-	
-	RedrawParamControls();
 }
 
 // GUI Interactions
 
 void OctetViolins::AddIR()
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 	
 	int numIRs = GetParam(kNumIRs)->Int();
 	
 	if (numIRs < 3)
 	{
 		GetParam(kNumIRs)->Set(numIRs + 1);
-		OnParamChange(kNumIRs, kGUI);
+		OnParamChange(kNumIRs, kUI, 0);
+        OnParamChangeUI(kNumIRs, kUI);
 		SetIRDisplay(numIRs, true);
 	}
 }
 
 void OctetViolins::RemoveIR()
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 	
 	int numIRs = GetParam(kNumIRs)->Int();
 	
@@ -456,16 +433,17 @@ void OctetViolins::RemoveIR()
 		for (int i = 0; i < numParams; i++)
 			GetParam(kIR1 + i + copyOffset)->Set(mIRDefaultValues[i]);
 
-		RedrawParamControls();
 		GetParam(kNumIRs)->Set(numIRs - 1);
-		OnParamChange(kNumIRs, kGUI);
+        OnParamChange(kNumIRs, kUI, 0);
+        OnParamChangeUI(kNumIRs, kUI);
+        SendCurrentParamValuesFromDelegate();
 	}
 }
 
 void OctetViolins::SavePreset(int idx)
 {
-	SerializeParams(&mGUIPresets[idx]);
-	mPresetButtons[idx]->GrayOut(!mGUIPresets[idx].Size());
+	SerializeParams(mGUIPresets[idx]);
+	mPresetButtons[idx]->SetDisabled(!mGUIPresets[idx].Size());
 	SetPreset(idx);
 }
 
@@ -476,12 +454,12 @@ void OctetViolins::SetPreset(int idx)
 	
 	for (int i = 0; i < 10; i++)
 	{
-		mPresetButtons[i]->SetValueFromPlug(i == idx);
-		mPresetButtons[i]->GrayOut(!mGUIPresets[i].Size());
+		mPresetButtons[i]->SetValueFromDelegate(i == idx);
+		mPresetButtons[i]->SetDisabled(!mGUIPresets[i].Size());
 	}
 	
 	if (mGUIPresets[idx].Size())
-		UnserializeParams(&mGUIPresets[idx], 0);
+		UnserializeParams(mGUIPresets[idx], 0);
 	
 	mPresetIdx = idx;
 }
@@ -489,8 +467,8 @@ void OctetViolins::SetPreset(int idx)
 void OctetViolins::RemovePreset(int idx)
 {
 	mGUIPresets[idx].Resize(0);
-	mPresetButtons[idx]->SetValueFromPlug(0.0);
-	mPresetButtons[idx]->GrayOut(true);
+	mPresetButtons[idx]->SetValueFromDelegate(0.0);
+	mPresetButtons[idx]->SetDisabled(true);
 	
 	if (mPresetIdx == idx)
 		mPresetIdx = -1;
@@ -498,54 +476,54 @@ void OctetViolins::RemovePreset(int idx)
 
 // State and Presets
 
-bool OctetViolins::SerializeState(ByteChunk* pChunk)
+bool OctetViolins::SerializeState(IByteChunk& chunk) const
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 
 	bool savedOK = true;
 
-	pChunk->Put(&mPresetIdx);
+    chunk.Put(&mPresetIdx);
 	
 	for (int i = 0; i < 10; i++)
 	{
 		int size = mGUIPresets[i].Size();
 		
-		pChunk->Put(&size);
+        chunk.Put(&size);
 		
 		if (size)
-			savedOK &= (pChunk->PutChunk(&mGUIPresets[i]) > 0);
+			savedOK &= (chunk.PutChunk(&mGUIPresets[i]) > 0);
 	}
 	
-	return savedOK && SerializeParams(pChunk);
+	return savedOK && SerializeParams(chunk);
 }
 
-int OctetViolins::UnserializeState(ByteChunk* pChunk, int startPos)
+int OctetViolins::UnserializeState(const IByteChunk& chunk, int startPos)
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 
-	startPos = pChunk->Get(&mPresetIdx, startPos);
+	startPos = chunk.Get(&mPresetIdx, startPos);
 	
 	for (int i = 0; i < 10; i++)
 	{
 		int size;
 		
-		startPos = pChunk->Get(&size, startPos);
+		startPos = chunk.Get(&size, startPos);
 		mGUIPresets[i].Resize(size);
 		
 		if (size)
-			startPos = pChunk->GetBytes(mGUIPresets[i].GetBytes(), size, startPos);
+			startPos = chunk.GetBytes(mGUIPresets[i].GetData(), size, startPos);
 	}
 	
 	SetPreset(mPresetIdx);
 	
-	return UnserializeParams(pChunk, startPos);
+	return UnserializeParams(chunk, startPos);
 }
 
 void OctetViolins::WriteState(const char *filePath)
 {
-	ByteChunk serialisedFile;
+	IByteChunk serialisedFile;
 
-	if (!SerializeState(&serialisedFile))
+	if (!SerializeState(serialisedFile))
 		return;
 	
 	std::streampos size;
@@ -553,14 +531,14 @@ void OctetViolins::WriteState(const char *filePath)
 	
 	if (file.is_open())
 	{
-		file.write((char *)serialisedFile.GetBytes(), serialisedFile.Size());
+		file.write((char *)serialisedFile.GetData(), serialisedFile.Size());
 		file.close();
 	}
 }
 
 void OctetViolins::ReadState(const char *filePath)
 {
-	ByteChunk serialisedFile;
+	IByteChunk serialisedFile;
 	
 	std::streampos size;
 	
@@ -573,19 +551,19 @@ void OctetViolins::ReadState(const char *filePath)
 		serialisedFile.Resize((int) size);
 		
 		file.seekg(0, std::ios::beg);
-		file.read((char *)serialisedFile.GetBytes(), size);
+		file.read((char *)serialisedFile.GetData(), size);
 		file.close();
 		
 		if (file.fail())
 			return;
 	}
 	
-	UnserializeState(&serialisedFile, 0);
+	UnserializeState(serialisedFile, 0);
 }
 
 // Process and Reset
 
-void OctetViolins::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
+void OctetViolins::ProcessBlock(double** inputs, double** outputs, int nFrames)
 {
 	if (mUpdateAudioEngine && mConvolver.set(mIRs[3][0].get(), mIRs[3][1].get(), mIRs[3][0].getSize()))
 		mUpdateAudioEngine = false;
@@ -593,10 +571,10 @@ void OctetViolins::ProcessDoubleReplacing(double** inputs, double** outputs, int
 	mConvolver.process((const double **) inputs, outputs, nFrames);
 }
 
-void OctetViolins::Reset()
+void OctetViolins::OnReset()
 {
 	TRACE;
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 	
 	ClearParamCache();
 	mSamplingRate = GetSampleRate();
@@ -614,15 +592,17 @@ void OctetViolins::LoadUntilUpdated()
 
 bool OctetViolins::GetParamUpdated()
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 	
 	bool paramUpdated = mParamUpdated;
 	mParamUpdated = false;
 	
 	if (!paramUpdated)
 	{
-		CloseHandle(mThread);
+		HANDLE thread = mThread;
 		mThread = NULL;
+		if (thread)
+			CloseHandle(thread);
 	}
 	
 	return paramUpdated;
@@ -630,7 +610,7 @@ bool OctetViolins::GetParamUpdated()
 
 bool OctetViolins::GetSoloChanged()
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 
 	bool soloChanged = mSoloChanged;
 	mSoloChanged = false;
@@ -698,18 +678,18 @@ void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTool
 	for (int i = 0; i < 4; i++)
 		delays[i] = DelayInSamps(i);
 	
-	int finalLength = 0;
+	long finalLength = 0;
 	
 	for (int i = 0; i < 4; i++)
 		if (filesL[i].getSize() && filesL[i].getSize() + delays[i] > finalLength)
-			finalLength = filesL[i].getSize() + delays[i];
+			finalLength = static_cast<long>(filesL[i].getSize()) + delays[i];
 	
 	// Combine
 
 	// Left
 	
 	IRL = HISSTools_RefPtr<double>(finalLength);
-	memset(IRL.get(), 0, finalLength * sizeof(double));
+    std::fill_n(IRL.get(), finalLength, 0.0);
 	
 	for (int i = 0; i < 4; i++)
 	{
@@ -723,7 +703,7 @@ void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTool
 	// Right
 	
 	IRR = HISSTools_RefPtr<double>(finalLength);
-	memset(IRR.get(), 0, finalLength * sizeof(double));
+    std::fill_n(IRR.get(), finalLength, 0.0);
 	
 	for (int i = 0; i < 4; i++)
 	{
@@ -869,7 +849,7 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
 	
 	// Left
 
-	memset(mIRs[3][0].get(), 0, finalLength * sizeof(double));
+    std::fill_n(mIRs[3][0].get(), finalLength, 0.0);
 
 	for (int i = 0; i < 3 ; i++)
 		for (unsigned long j = 0; j < mIRs[i][0].getSize(); j++)
@@ -877,7 +857,7 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
 	
 	// Right
 	
-	memset(mIRs[3][1].get(), 0, finalLength * sizeof(double));
+    std::fill_n(mIRs[3][1].get(), finalLength, 0.0);
 
 	for (int i = 0; i < 3 ; i++)
 		for (unsigned long j = 0; j < mIRs[i][1].getSize(); j++)
@@ -887,52 +867,44 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
 	
 	if (correctionOn && (correction.getSize() > 1))
 	{
-		HIRT_Core offlineConvolver(finalLength);
-		long fftSize = offlineConvolver.nextPowerOf2(finalLength);
+        auto edgeMode = spectral_processor<double>::EdgeMode::Linear;
+        auto length = static_cast<uintptr_t>(maxLength);
+        spectral_processor<double> processor(finalLength);
+        
+		long fftSize = processor.max_fft_size();
 	
-		HISSTools_RefPtr <double> correctedOutput(fftSize);
+		HISSTools_RefPtr<double> correctedOutput(fftSize);
 		
 		Spectrum correctionSpectrum(fftSize);
 		Spectrum irSpectrum(fftSize);
 	
 		// Convert Correction
 		
-		offlineConvolver.timeToSpectrum(correction.get(), &correctionSpectrum, correction.getSize(), fftSize, mSamplingRate);
+        spectral_processor<double>::in_ptr correctPtr { correction.get(), correction.getSize() };
 		
-		// Apply Left
+		// Apply Left and Right
 		
-		offlineConvolver.timeToSpectrum(mIRs[3][0].get(), &irSpectrum, maxLength, fftSize, mSamplingRate);
-		offlineConvolver.convolve(&irSpectrum, &correctionSpectrum);
-		offlineConvolver.spectrumToTime(correctedOutput.get(), &irSpectrum);
-		
-		memcpy(mIRs[3][0].get(), correctedOutput.get(), finalLength * sizeof(double));
-		
-		// Apply Right
-		
-		offlineConvolver.timeToSpectrum(mIRs[3][1].get(), &irSpectrum, maxLength, fftSize, mSamplingRate);
-		offlineConvolver.convolve(&irSpectrum, &correctionSpectrum);
-		offlineConvolver.spectrumToTime(correctedOutput.get(), &irSpectrum);
-		
-		memcpy(mIRs[3][1].get(), correctedOutput.get(), finalLength * sizeof(double));
+        processor.convolve(mIRs[3][0].get(), { mIRs[3][0].get(), length }, correctPtr, edgeMode);
+        processor.convolve(mIRs[3][1].get(), { mIRs[3][1].get(), length }, correctPtr, edgeMode);
 	}
 }
 
 void OctetViolins::SetChanged(int i, bool state)
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 	
 	mChanged[i] = state;
 }
 
 void OctetViolins::UpdateIRsAndDisplay(bool displayOnly)
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 
 	if (!displayOnly)
 		mUpdateAudioEngine = true;
 	
 	for (int i = 0; i < 4; i ++)
-		if (mChanged[i])
+		if (mChanged[i] || displayOnly)
 			DisplaySpectrum(mIRs[i], i, mSamplingRate);
 }
 
@@ -967,9 +939,11 @@ void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long i
 		
 		Spectrum fSpectrum(IR.getSize());
 		PowerSpectrum pSpectrum(fSpectrum.getFFTSize());
-		HISSTools_FFT fft(IR.getSize());
+        
+        spectral_processor<double> processor(fSpectrum.getFFTSize());
+        auto FFTSizeLog2 = processor.calc_fft_size_log2(IR.getSize());
+        processor.rfft(*fSpectrum.getSpectrum(), IR.get(), IR.getSize(), FFTSizeLog2);
 		
-		fft.timeToSpectrum(IR.get(), &fSpectrum, IR.getSize(), 0, samplingRate);
 		pSpectrum.calcPowerSpectrum(&fSpectrum);
 		
 		mSpectralDisplay->inputSpectrum(&pSpectrum, index);
@@ -979,7 +953,7 @@ void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long i
 
 bool OctetViolins::UpdateParamCache(int start, int end)
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 
 	bool change = false;
 	
@@ -1014,7 +988,7 @@ bool OctetViolins::UpdateParamCache(int start, int end)
 
 void OctetViolins::ClearParamCache()
 {
-	IMutexLock lock(this);
+    WDL_MutexLock lock(&mMutex);
 
 	for (int i = 0; i < kNumParams; i++)
 		mParamCache[i] = -1.0;
@@ -1023,68 +997,46 @@ void OctetViolins::ClearParamCache()
 
 void OctetViolins::CheckVisibleIR()
 {
-	int num = GetParam(kNumIRs)->Int();
+	/*
+     int num = GetParam(kNumIRs)->Int();
 	int sel = GetParam(kIRVisible)->Int();
 	
 	if (sel > num)
 		SetIRDisplay(num - 1, true);
+     */
 }
 
 void OctetViolins::SetIRDisplay(int i, bool setParam)
 {
+    /*
 	UpdateControlAndParam(i == 0, mSelectSwitches[0]);
 	UpdateControlAndParam(i == 1, mSelectSwitches[1]);
 	UpdateControlAndParam(i == 2, mSelectSwitches[2]);
-	mIRTab->setTabFromPlug(i);
+	mIRTab->SetTabFromPlug(i);
 	
 	if (setParam)
 		GetParam(kIRVisible)->Set(i + 1);
 	
 	CheckVisibleIR();
-
+    */
 }
 
 // Parameters
 
-void OctetViolins::OnParamChange(int paramIdx, ParamChangeSource source)
+void OctetViolins::OnParamChange(int paramIdx, EParamSource source, int sampleOffset)
 {
-	IMutexLock lock(this);
-	
-	WDL_String path;
-	
+    WDL_MutexLock lock(&mMutex);
+		
 	bool solo = mSolo;
 	mSolo = GetParam(kIRSolo1)->Bool() || GetParam(kIRSolo2)->Bool() || GetParam(kIRSolo3)->Bool();
 	mSoloChanged = mSolo != solo;
 	
-	if (paramIdx == kNumIRs)
-	{
-		int num = GetParam(kNumIRs)->Int();
-		
-		CheckVisibleIR();
-		
-		mSelectSwitches[1]->Hide(num < 2);
-		mSelectSwitches[2]->Hide(num < 3);
-		mAddIRButtons[0]->Hide(num != 1);
-		mAddIRButtons[1]->Hide(num != 2);
-		mRemoveIRButton->GrayOut(num < 2);
-	}
-	
 	switch (paramIdx)
 	{
-		case kIRVisible:
-			SetIRDisplay(GetParam(kIRVisible)->Int() - 1, false);
-			break;
-			
+        case kIRVisible:
 		case kIRSelect1:
-			SetIRDisplay(0, true);
-			break;
-			
 		case kIRSelect2:
-			SetIRDisplay(1, true);
-			break;
-			
 		case kIRSelect3:
-			SetIRDisplay(2, true);
 			break;
 			
 		default:
@@ -1095,12 +1047,46 @@ void OctetViolins::OnParamChange(int paramIdx, ParamChangeSource source)
 	 }
 }
 
+void OctetViolins::OnParamChangeUI(int paramIdx, EParamSource source)
+{
+    WDL_MutexLock lock(&mMutex);
+ 
+    if (paramIdx == kNumIRs)
+    {
+        int num = GetParam(kNumIRs)->Int();
+        
+        CheckVisibleIR();
+        
+        mSelectSwitches[1]->Hide(num < 2);
+        mSelectSwitches[2]->Hide(num < 3);
+        mAddIRButtons[0]->Hide(num != 1);
+        mAddIRButtons[1]->Hide(num != 2);
+        mRemoveIRButton->SetDisabled(num < 2);
+    }
+    
+    switch (paramIdx)
+    {
+        case kIRVisible:
+            SetIRDisplay(GetParam(kIRVisible)->Int() - 1, false);
+            break;
+            
+        case kIRSelect1:    SetIRDisplay(0, true);      break;
+        case kIRSelect2:    SetIRDisplay(1, true);      break;
+        case kIRSelect3:    SetIRDisplay(2, true);      break;
+            
+        default:
+            break;
+     }
+}
+
 
 void OctetViolins::UpdateControlAndParam(double value, IControl *control, bool paramChange)
 {
-	control->SetValueFromPlug(control->GetParam()->GetNormalized(value));
+	/*
+     control->SetValueFromPlug(control->GetParam()->GetNormalized(value));
 	control->GetParam()->Set(value);
 	
 	if (paramChange == true)
 		OnParamChange(control->ParamIdx(), kGUI);
+     */
 }

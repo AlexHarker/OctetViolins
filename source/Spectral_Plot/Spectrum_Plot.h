@@ -91,24 +91,29 @@ namespace HISSTools
                 renderer.setClip(this->getX(), this->getY(), this->getR(), this->getB());
                 renderer.setColor(this->mCurveCS);
                 
-                if (binToX(beg) > this->getX())
+                lastX = binToX(beg);
+                
+                if (lastX > this->getX())
                 {
                     renderer.startMultiLine(this->getX(), powToY(spectrum[beg]), this->mCurveTK);
-                    renderer.continueMultiLine(binToX(beg), powToY(spectrum[beg]));
+                    renderer.continueMultiLine(lastX, powToY(spectrum[beg]));
                 }
                 else
-                     renderer.startMultiLine(binToX(beg), powToY(spectrum[beg]), this->mCurveTK);
+                     renderer.startMultiLine(lastX, powToY(spectrum[beg]), this->mCurveTK);
                 
                 for (i = beg + 1; i < end; i++)
                 {
-                    lastX = renderer.getX();
-                    renderer.continueMultiLine(binToX(i), powToY(spectrum[i]));
+                    double nextX = binToX(i);
+                    bool exit = (nextX - lastX) < subSampleRender;
+                    lastX = nextX;
                     
-                    if ((renderer.getX() - lastX) < subSampleRender)
+                    renderer.continueMultiLine(nextX, powToY(spectrum[i]));
+                    
+                    if (exit)
                         break;
                 }
                 
-                for (X = renderer.getX(); i < end; )
+                for (X = lastX; i < end; )
                 {
                     minPointX = maxPointX = lastX = X;
                     

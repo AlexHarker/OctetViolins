@@ -9,9 +9,9 @@
 #include "HISSTools_ThreadSafety.hpp"
 #include "HISSTools_Spectral_Display.hpp"
 
-#include "HISSTools_FFT.hpp"
-
 #include "CrossfadedConvolution.h"
+
+#include "swell.h"
 
 #define GUI_WIDTH 760
 #define GUI_HEIGHT 720
@@ -79,8 +79,10 @@ enum EParams
 
 static inline int numIRParams() { return kIR2 - kIR1; }
 
+using namespace iplug;
+using namespace igraphics;
 
-class OctetViolins : public IPlug
+class OctetViolins : public Plugin
 {
 	enum MeasurementMode {kHarmonics, kEQ, kTone, kCalibration};
 	
@@ -88,14 +90,9 @@ public:
 	
 	// Constructor and Destructor
 	
-	OctetViolins(IPlugInstanceInfo instanceInfo);
+    OctetViolins(InstanceInfo info);
 	~OctetViolins();
-	
-	// GUI Creation and Resizing
-	
-	void CreateControls(IGraphics *pGraphics);
-	void OnWindowResize();
-	
+			
 	// GUI Interactions
 	
 	void AddIR();
@@ -107,16 +104,16 @@ public:
 	
 	// State and Presets
 	
-	virtual bool SerializeState(ByteChunk* pChunk);
-	virtual int UnserializeState(ByteChunk* pChunk, int startPos);
+    bool SerializeState(IByteChunk& chunk) const override;
+    int UnserializeState(const IByteChunk& chunk, int startPos) override;
 	
 	void WriteState(const char *filePath);
 	void ReadState(const char *filePath);
 	
 	// Process and Reset
 	
-	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
-	void Reset();
+    void ProcessBlock(double** inputs, double** outputs, int nFrames) override;
+	void OnReset() override;
 	
 	// Loading
 	
@@ -124,10 +121,15 @@ public:
 	
 	// Parameters
 	
-	void OnParamChange(int paramIdx, ParamChangeSource source);
-
+    void OnParamChange(int paramIdx, EParamSource source, int sampleOffset) override;
+    void OnParamChangeUI(int paramIdx, EParamSource source) override;
+    
 private:
 	
+    // GUI Creation
+
+    void LayoutUI(IGraphics *pGraphics) override;
+
 	void CheckVisibleIR();
 	void SetIRDisplay(int i, bool setParam);
 	long DelayInSamps(int i);
@@ -172,10 +174,6 @@ private:
 	
 	CrossfadedConvolution mConvolver;
 	
-	// Drawing
-	
-	HISSTools_LICE_Vec_Lib mVecDraw;	
-	
 	// IR Storage
 	
 	HISSTools_RefPtr <double> mIRs[4][2];
@@ -192,6 +190,8 @@ private:
 	
 	HANDLE mThread;
 	
+    mutable WDL_Mutex mMutex;
+
 	int mChanged[4];
 	
 	bool mSolo, mSoloChanged, mParamUpdated, mUpdateAudioEngine;
@@ -199,7 +199,7 @@ private:
 	// Presets
 	
 	int mPresetIdx;
-	ByteChunk mGUIPresets[10];
+	IByteChunk mGUIPresets[10];
 };
 
 #endif
