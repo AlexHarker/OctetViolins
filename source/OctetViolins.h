@@ -73,6 +73,16 @@ enum EParams
     kNumParams
 };
 
+enum ETags
+{
+    kAdd1,
+    kAdd2,
+    kDelete,
+    kSelect1,
+    kSelect2,
+    kSelect3
+};
+    
 
 static inline int numIRParams() { return kIR2 - kIR1; }
 
@@ -150,11 +160,6 @@ private:
     HISSTools_Spectral_Display *mSpectralDisplay;
     
     IControl *mPresetButtons[10];
-    IControl *mAddIRButtons[2];
-    IControl *mRemoveIRButton;
-    
-    HISSTools_Button *mSelectSwitches[3];
-    HISSTools_Invisible_Tabs *mIRTab;
     
     // DSP
     

@@ -279,21 +279,21 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
 	
 	// Num IRs and Selection
 	
-	mSelectSwitches[0] = new HISSTools_Button(kIRSelect1, freqDispX, dispHeight + 50, 70, 25, "1", &theDesign);
-	mSelectSwitches[1] = new HISSTools_Button(kIRSelect2, freqDispX + 80, dispHeight + 50, 70, 25, "2", &theDesign);
-	mSelectSwitches[2] = new HISSTools_Button(kIRSelect3, freqDispX + 160, dispHeight + 50, 70, 25, "3", &theDesign);
+	auto select1 = new HISSTools_Button(kIRSelect1, freqDispX, dispHeight + 50, 70, 25, "1", &theDesign);
+    auto select2 = new HISSTools_Button(kIRSelect2, freqDispX + 80, dispHeight + 50, 70, 25, "2", &theDesign);
+    auto select3 = new HISSTools_Button(kIRSelect3, freqDispX + 160, dispHeight + 50, 70, 25, "3", &theDesign);
 	
-	pGraphics->AttachControl(mSelectSwitches[0]);
-	pGraphics->AttachControl(mSelectSwitches[1]);
-	pGraphics->AttachControl(mSelectSwitches[2]);
+	pGraphics->AttachControl(select1, kSelect1);
+    pGraphics->AttachControl(select2, kSelect2);
+    pGraphics->AttachControl(select3, kSelect3);
 	
 	//	Add IRs
 	
-	mAddIRButtons[0] = new AddIRButton(this, freqDispX + 80, dispHeight + 50, 70, 25);
-	mAddIRButtons[1] = new AddIRButton(this, freqDispX + 160, dispHeight + 50, 70, 25);
+	auto add1 = new AddIRButton(this, freqDispX + 80, dispHeight + 50, 70, 25);
+	auto add2 = new AddIRButton(this, freqDispX + 160, dispHeight + 50, 70, 25);
 	
-	pGraphics->AttachControl(mAddIRButtons[0]);
-	pGraphics->AttachControl(mAddIRButtons[1]);
+	pGraphics->AttachControl(add1, kAdd1);
+	pGraphics->AttachControl(add2, kAdd2);
 	
 	// FIX - HACK
 	
@@ -331,7 +331,7 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
 	
 	// Invisible Tabs
 	
-	mIRTab = new HISSTools_Invisible_Tabs(kIRVisible);
+	auto tab = new HISSTools_Invisible_Tabs(kIRVisible);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -373,25 +373,25 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
 		pGraphics->AttachControl(muteSwitch);
 		pGraphics->AttachControl(soloSwitch);
 		
-		mIRTab->attachControl(selection, i);
-		mIRTab->attachControl(amp, i);
-		mIRTab->attachControl(transposition, i);
-		mIRTab->attachControl(hpfFreq, i);
-		mIRTab->attachControl(lpfFreq, i);
-		mIRTab->attachControl(hpfSlope, i);
-		mIRTab->attachControl(lpfSlope, i);
-		mIRTab->attachControl(hpfSwitch, i);
-		mIRTab->attachControl(lpfSwitch, i);
-		mIRTab->attachControl(muteSwitch, i);
-		mIRTab->attachControl(soloSwitch, i);
+        tab->attachControl(selection, i);
+        tab->attachControl(amp, i);
+        tab->attachControl(transposition, i);
+        tab->attachControl(hpfFreq, i);
+        tab->attachControl(lpfFreq, i);
+        tab->attachControl(hpfSlope, i);
+        tab->attachControl(lpfSlope, i);
+        tab->attachControl(hpfSwitch, i);
+        tab->attachControl(lpfSwitch, i);
+        tab->attachControl(muteSwitch, i);
+        tab->attachControl(soloSwitch, i);
 	}
 	
-	mRemoveIRButton = new RemoveIRButton(this, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
-	pGraphics->AttachControl(mRemoveIRButton);
+	auto remove = new RemoveIRButton(this, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
+	pGraphics->AttachControl(remove, kDelete);
 	
 	pGraphics->AttachControl(new HISSTools_Button(kCorrection, freqDispX + 560, freqDispY + dispHeight + 150, 100, 20, "tight"));
 
-	pGraphics->AttachControl(mIRTab);
+	pGraphics->AttachControl(tab);
 	pGraphics->AttachPanelBackground(bgrb);
 
     // Finalise Graphics
@@ -949,7 +949,9 @@ void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long i
 		
 		Spectrum fSpectrum(IR.getSize());
 		PowerSpectrum pSpectrum(fSpectrum.getFFTSize());
-        
+        fSpectrum.setSamplingRate(mSamplingRate);
+        pSpectrum.setSamplingRate(mSamplingRate);
+
         spectral_processor<double> processor(fSpectrum.getFFTSize());
         auto FFTSizeLog2 = processor.calc_fft_size_log2(IR.getSize());
         processor.rfft(*fSpectrum.getSpectrum(), IR.get(), IR.getSize(), FFTSizeLog2);
@@ -1007,28 +1009,29 @@ void OctetViolins::ClearParamCache()
 
 void OctetViolins::CheckVisibleIR()
 {
-	/*
-     int num = GetParam(kNumIRs)->Int();
+    int num = GetParam(kNumIRs)->Int();
 	int sel = GetParam(kIRVisible)->Int();
 	
 	if (sel > num)
 		SetIRDisplay(num - 1, true);
-     */
 }
 
 void OctetViolins::SetIRDisplay(int i, bool setParam)
 {
-    /*
-	UpdateControlAndParam(i == 0, mSelectSwitches[0]);
-	UpdateControlAndParam(i == 1, mSelectSwitches[1]);
-	UpdateControlAndParam(i == 2, mSelectSwitches[2]);
-	mIRTab->SetTabFromPlug(i);
+    if (!GetUI())
+        return;
+    
+	UpdateControlAndParam(i == 0, GetUI()->GetControlWithTag(kSelect1));
+    UpdateControlAndParam(i == 1, GetUI()->GetControlWithTag(kSelect2));
+    UpdateControlAndParam(i == 2, GetUI()->GetControlWithTag(kSelect3));
 	
 	if (setParam)
+    {
 		GetParam(kIRVisible)->Set(i + 1);
+        SendParameterValueFromDelegate(kIRVisible, i + 1, false);
+    }
 	
 	CheckVisibleIR();
-    */
 }
 
 // Parameters
@@ -1069,11 +1072,11 @@ void OctetViolins::OnParamChangeUI(int paramIdx, EParamSource source)
         
         CheckVisibleIR();
         
-        mSelectSwitches[1]->Hide(num < 2);
-        mSelectSwitches[2]->Hide(num < 3);
-        mAddIRButtons[0]->Hide(num != 1);
-        mAddIRButtons[1]->Hide(num != 2);
-        mRemoveIRButton->SetDisabled(num < 2);
+        GetUI()->GetControlWithTag(kSelect2)->Hide(num < 2);
+        GetUI()->GetControlWithTag(kSelect3)->Hide(num < 3);
+        GetUI()->GetControlWithTag(kAdd1)->Hide(num != 1);
+        GetUI()->GetControlWithTag(kAdd2)->Hide(num != 2);
+        GetUI()->GetControlWithTag(kDelete)->SetDisabled(num < 2);
     }
     
     switch (paramIdx)
@@ -1094,11 +1097,9 @@ void OctetViolins::OnParamChangeUI(int paramIdx, EParamSource source)
 
 void OctetViolins::UpdateControlAndParam(double value, IControl *control, bool paramChange)
 {
-	/*
-     control->SetValueFromPlug(control->GetParam()->GetNormalized(value));
-	control->GetParam()->Set(value);
+    control->SetValueFromDelegate(control->GetParam()->GetNormalized());
+	GetParam(control->GetParamIdx())->Set(value);
 	
-	if (paramChange == true)
-		OnParamChange(control->ParamIdx(), kGUI);
-     */
+	if (paramChange)
+		OnParamChangeUI(control->GetParamIdx(), kUI);
 }
