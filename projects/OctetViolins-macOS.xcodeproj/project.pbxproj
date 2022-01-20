@@ -289,14 +289,6 @@
 		B84AC116279991F300466600 /* CrossfadedConvolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC106279991F300466600 /* CrossfadedConvolution.cpp */; };
 		B84AC117279991F400466600 /* CrossfadedConvolution.h in Headers */ = {isa = PBXBuildFile; fileRef = B84AC107279991F300466600 /* CrossfadedConvolution.h */; };
 		B84AC118279991F400466600 /* HISSTools_Spectral_Display.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B84AC108279991F300466600 /* HISSTools_Spectral_Display.hpp */; };
-		B84AC119279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC11A279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC11B279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC11C279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC11D279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC11E279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC11F279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
-		B84AC120279991F400466600 /* OctetViolins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC109279991F300466600 /* OctetViolins.cpp */; };
 		B84AC121279991F400466600 /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */; };
 		B84AC122279991F400466600 /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */; };
 		B84AC123279991F400466600 /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */; };
@@ -832,7 +824,6 @@
 		B84AC106279991F300466600 /* CrossfadedConvolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CrossfadedConvolution.cpp; path = ../Source/CrossfadedConvolution.cpp; sourceTree = "<group>"; };
 		B84AC107279991F300466600 /* CrossfadedConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrossfadedConvolution.h; path = ../Source/CrossfadedConvolution.h; sourceTree = "<group>"; };
 		B84AC108279991F300466600 /* HISSTools_Spectral_Display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HISSTools_Spectral_Display.hpp; path = ../Source/HISSTools_Spectral_Display.hpp; sourceTree = "<group>"; };
-		B84AC109279991F300466600 /* OctetViolins.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OctetViolins.cpp; path = ../Source/OctetViolins.cpp; sourceTree = "<group>"; };
 		B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OctetViolins_Controls.cpp; path = ../Source/OctetViolins_Controls.cpp; sourceTree = "<group>"; };
 		B84AC10B279991F300466600 /* Resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resampler.h; path = ../Source/Resampler.h; sourceTree = "<group>"; };
 		B84AC10C279991F300466600 /* Biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Biquad.h; path = ../Source/Biquad.h; sourceTree = "<group>"; };
@@ -912,11 +903,10 @@
 			children = (
 				B81BF0D621F3A588002C1DA6 /* HISSTools_PluginLib */,
 				52FBBED30D0CF143001C8B8A /* config.h */,
-				B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */,
-				B84AC109279991F300466600 /* OctetViolins.cpp */,
 				4F3862EE2014BBEC0009F402 /* OctetViolins.h */,
 				4F3862ED2014BBEC0009F402 /* OctetViolins.cpp */,
 				B84AC104279991F300466600 /* OctetViolins_Controls.h */,
+				B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */,
 				B84AC10C279991F300466600 /* Biquad.h */,
 				B84AC107279991F300466600 /* CrossfadedConvolution.h */,
 				B84AC106279991F300466600 /* CrossfadedConvolution.cpp */,
@@ -2287,7 +2277,6 @@
 				4F63696E20A463090022C370 /* IControls.cpp in Sources */,
 				4F03A5AD20A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				B8F5C9F9228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
-				B84AC11A279991F400466600 /* OctetViolins.cpp in Sources */,
 				4F5F344220C0226200487201 /* IPlugPaths.mm in Sources */,
 				4F6369EC20A466470022C370 /* IControl.cpp in Sources */,
 				B84AC110279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
@@ -2315,7 +2304,6 @@
 				B84AC115279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
 				4F03A5B120A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				4FAEBD30209DAF76002E6392 /* IPlugAUv3.mm in Sources */,
-				B84AC11F279991F400466600 /* OctetViolins.cpp in Sources */,
 				4F6369E220A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F6369F020A466470022C370 /* IControl.cpp in Sources */,
 				4F63697220A463090022C370 /* IControls.cpp in Sources */,
@@ -2345,7 +2333,6 @@
 				B84AC112279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
 				4F6369E020A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F6369EE20A466470022C370 /* IControl.cpp in Sources */,
-				B84AC11C279991F400466600 /* OctetViolins.cpp in Sources */,
 				4F1A528C205D916F00CF2908 /* IPlugAU.cpp in Sources */,
 				4F63697020A463090022C370 /* IControls.cpp in Sources */,
 				4FD52131202A5B9B00A4D22A /* IPlugAU_view_factory.mm in Sources */,
@@ -2417,7 +2404,6 @@
 				4F815985205D50EB00393585 /* fcondition.cpp in Sources */,
 				4F9A82F9213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4F8C10E220BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
-				B84AC11B279991F400466600 /* OctetViolins.cpp in Sources */,
 				4F81597D205D50EB00393585 /* fbuffer.cpp in Sources */,
 				4F1A527E205D911A00CF2908 /* IPlugVST3.cpp in Sources */,
 				4F815988205D50EB00393585 /* coreiids.cpp in Sources */,
@@ -2450,7 +2436,6 @@
 				4FB600231567CB0A0020189A /* IPlugParameter.cpp in Sources */,
 				4FB600261567CB0A0020189A /* AAX_Exports.cpp in Sources */,
 				B84AC113279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
-				B84AC11D279991F400466600 /* OctetViolins.cpp in Sources */,
 				4FB600281567CB0A0020189A /* IPlugAAX_Describe.cpp in Sources */,
 				4FB1F58D20E4B007004157C8 /* IGraphicsMac.mm in Sources */,
 				B8D0830E231DA7A400913E5B /* IPlugProcessor.cpp in Sources */,
@@ -2466,7 +2451,6 @@
 				4FB1F58F20E4B009004157C8 /* IGraphicsMac.mm in Sources */,
 				4F6369F120A466470022C370 /* IControl.cpp in Sources */,
 				B84AC128279991F400466600 /* OctetViolins_Controls.cpp in Sources */,
-				B84AC120279991F400466600 /* OctetViolins.cpp in Sources */,
 				4F8C10E620BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
 				B8F5C9FE228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
 				4FC3EFF92086CE5700BD11FA /* parameterchanges.cpp in Sources */,
@@ -2485,7 +2469,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC119279991F400466600 /* OctetViolins.cpp in Sources */,
 				4F10D3D9203A6719003EF82A /* RtMidi.cpp in Sources */,
 				4F6369DD20A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F6369EB20A466470022C370 /* IControl.cpp in Sources */,
@@ -2544,7 +2527,6 @@
 				4FFBB91320863B0E00DDD0E7 /* vstpresetfile.cpp in Sources */,
 				4FFBB91520863B0E00DDD0E7 /* timer.cpp in Sources */,
 				4FFBB91720863B0E00DDD0E7 /* funknown.cpp in Sources */,
-				B84AC11E279991F400466600 /* OctetViolins.cpp in Sources */,
 				B8E42C8523D1F30D00FFE184 /* commoniids.cpp in Sources */,
 				4FFBB91820863B0E00DDD0E7 /* vstbus.cpp in Sources */,
 				4FFBB91920863B0E00DDD0E7 /* IPlugPluginBase.cpp in Sources */,
