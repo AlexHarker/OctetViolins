@@ -248,7 +248,12 @@ OctetViolins::~OctetViolins()
 		WaitForSingleObject(thread, INFINITE);
 }
 
-// GUI Creation and Resizing
+// GUI Creation
+
+IGraphics* OctetViolins::CreateGraphics()
+{
+  return MakeGraphics(*this, PLUG_WIDTH, PLUG_HEIGHT, 60, 1.);
+}
 
 void OctetViolins::LayoutUI(IGraphics *pGraphics)
 {
