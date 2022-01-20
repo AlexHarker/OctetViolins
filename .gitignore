@@ -1,10 +1,16 @@
 *.exe
-*.sdf
+ipch/
+*.aps
+*.ncb
+*.opendb
 *.opensdf
+*.sdf
+*.cachefile
 *.zip
 *.suo
 *.ncb
 *.vcproj.*
+*.vcxproj.user
 *.pkg
 *.dmg
 *.depend
@@ -13,12 +19,18 @@
 *.db
 *.LSOverride
 *.xcworkspace
-*.xcuserdata
+xcuserdata/
+*.xcuserdata/
+*.xcuserdatad/
 *.xcschememanagement.plist
-build-*
-build/
+build*
 ipch/*
 gui/*
 
 Icon?
 .DS_Stor*
+
+## VS
+.vs/
+*.tlog/
+*.user
