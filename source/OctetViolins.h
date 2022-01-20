@@ -3,16 +3,13 @@
 
 #include "IPlug_include_in_plug_hdr.h"
 
-#include <HISSTools_UI/HISSTools_Controls.hpp>
-#include <HISSTools_UI/HISSTools_Design_Scheme.hpp>
+#include "HISSTools_Controls.hpp"
+#include "HISSTools_Design_Scheme.hpp"
 
+#include "HISSTools_ThreadSafety.hpp"
 #include "HISSTools_Spectral_Display.hpp"
 
-#include "HISSTools_Utility/HISSTools_ThreadSafety.hpp"
-
 #include "HISSTools_FFT.hpp"
-#include "Spectrum.hpp"
-#include "PowerSpectrum.hpp"
 
 #include "CrossfadedConvolution.h"
 

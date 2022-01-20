@@ -5,14 +5,12 @@
 #include "OctetViolins_Controls.h"
 #include "IPlug_include_in_plug_src.h"
 
-#include "resource.h"
+#include "config.h"
 #include <math.h>
 
 #include "IAudioFile.h"
 #include "Resampler.h"
 #include "Biquad.h"
-
-#include "HIRT_Core.hpp"
 
 // Number of Programs
 

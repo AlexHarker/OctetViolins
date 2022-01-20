@@ -2,6 +2,8 @@
 #ifndef OCTETVIOLINS_CONTROLS_H
 #define OCTETVIOLINS_CONTROLS_H
 
+#include "HISSTools_Controls.hpp"
+
 class OctetViolins;
 
 // Add IR Button
@@ -11,7 +13,7 @@ class AddIRButton : public HISSTools_Button
     
 public:
     
-    AddIRButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
+    AddIRButton(OctetViolins *pPlug, HISSTools_VecLib *vecDraw, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
     virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
     virtual void OnMouseUp(int x, int y, IMouseMod* pMod);
@@ -28,7 +30,7 @@ class RemoveIRButton : public HISSTools_Button
     
 public:
     
-    RemoveIRButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w = 0, double h = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
+    RemoveIRButton(OctetViolins *pPlug, HISSTools_VecLib *vecDraw, double x, double y, double w = 0, double h = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
     virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
     virtual void OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod);
@@ -45,7 +47,7 @@ class PresetButton : public HISSTools_Button
     
 public:
     
-    PresetButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, int idx, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
+    PresetButton(OctetViolins *pPlug, HISSTools_VecLib *vecDraw, int idx, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
     virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
     
@@ -63,7 +65,7 @@ class FileSaveLoad : public HISSTools_Button
     
 public:
     
-    FileSaveLoad(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, const char *label, double x, double y, double w, double h, EFileAction action, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
+    FileSaveLoad(OctetViolins *pPlug, HISSTools_VecLib *vecDraw, const char *label, double x, double y, double w, double h, EFileAction action, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
     virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
     

@@ -4,7 +4,7 @@
 #define __HISSTOOLS_SPECTRAL_DISPLAY__
 
 
-#include <HISSTools_UI/HISSTools_Controls.hpp>
+#include "HISSTools_Controls.hpp"
 #include "Spectrum_Plot.h"
 
 

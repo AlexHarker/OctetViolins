@@ -3,7 +3,7 @@
 #ifndef __CROSSFADEDCONVOLUTION_
 #define __CROSSFADEDCONVOLUTION_
 
-#include "Convolver.h"
+#include "HISSTools_Library/HIRT_Multichannel_Convolution/Convolver.h"
 
 
 class CrossfadedConvolution
@@ -12,7 +12,7 @@ class CrossfadedConvolution
     {
     public:
         
-        FadedConvolution(): mConvolver(1, 2, HISSTools::Convolver::kLatencyZero), mOn (false), mFade(0) {}
+        FadedConvolution(): mConvolver(1, 2, kLatencyZero), mOn (false), mFade(0) {}
 
         void set(const double *IRL, const double *IRR, long length);
         void process(const double **inputs, double **outputs, int nFrames);
