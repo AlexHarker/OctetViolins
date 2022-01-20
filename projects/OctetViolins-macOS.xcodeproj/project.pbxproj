@@ -389,6 +389,13 @@
 		B84AC1A92799DECB00466600 /* swell-dlg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0413B634AA001D0217 /* swell-dlg.mm */; };
 		B84AC1AA2799DED200466600 /* swell-menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3D13B63595001D0217 /* swell-menu.mm */; };
 		B84AC1AB2799DED900466600 /* swell-wnd.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4113B635AB001D0217 /* swell-wnd.mm */; };
+		B84AC2B62799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
+		B84AC2B72799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
+		B84AC2B82799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
+		B84AC2B92799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
+		B84AC2BA2799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
+		B84AC2BB2799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
+		B84AC2BC2799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
 		B8D0830A231DA78500913E5B /* IPlugProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F61A8202807B9003F2573 /* IPlugProcessor.cpp */; };
 		B8D0830B231DA78900913E5B /* IPlugProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F61A8202807B9003F2573 /* IPlugProcessor.cpp */; };
 		B8D0830C231DA79700913E5B /* IPlugProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F61A8202807B9003F2573 /* IPlugProcessor.cpp */; };
@@ -941,6 +948,7 @@
 		B84AC17C2799DCFD00466600 /* HISSTools_FFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HISSTools_FFT.h; path = ../source/HISSTools_Library/HISSTools_FFT/HISSTools_FFT.h; sourceTree = "<group>"; };
 		B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HISSTools_FFT.cpp; path = ../source/HISSTools_Library/HISSTools_FFT/HISSTools_FFT.cpp; sourceTree = "<group>"; };
 		B84AC17E2799DCFD00466600 /* HISSTools_FFT_Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HISSTools_FFT_Core.h; path = ../source/HISSTools_Library/HISSTools_FFT/HISSTools_FFT_Core.h; sourceTree = "<group>"; };
+		B84AC2B52799E6E600466600 /* IRs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IRs; path = ../resources/IRs; sourceTree = "<group>"; };
 		B8F3700923D11B3E00291018 /* pluginfactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pluginfactory.cpp; sourceTree = "<group>"; };
 		B8F3700B23D11B5700291018 /* commoniids.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = commoniids.cpp; sourceTree = "<group>"; };
 		B8F3700D23D11B7500291018 /* IPlugVST3_ControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_ControllerBase.h; path = ../../../IPlug/VST3/IPlugVST3_ControllerBase.h; sourceTree = "<group>"; };
@@ -1048,6 +1056,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B84AC2B52799E6E600466600 /* IRs */,
 				4F1B4AE32014D33600BC64D4 /* OctetViolins-macOS-MainMenu.xib */,
 				4F3FB118202273A500622761 /* OctetViolins-macOS.entitlements */,
 				4F98C32C20A7678800F120A9 /* IPlugViewController.xib */,
@@ -2234,6 +2243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84AC2B72799E6E600466600 /* IRs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2241,6 +2251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84AC2B92799E6E600466600 /* IRs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2249,6 +2260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F98C32D20A7678800F120A9 /* IPlugViewController.xib in Resources */,
+				B84AC2BC2799E6E600466600 /* IRs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2256,6 +2268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84AC2B82799E6E600466600 /* IRs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2263,6 +2276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84AC2BA2799E6E600466600 /* IRs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2270,6 +2284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84AC2B62799E6E600466600 /* IRs in Resources */,
 				4F78D88613B6382B0032E0F3 /* OctetViolins.icns in Resources */,
 				4F1B4AE42014D33600BC64D4 /* OctetViolins-macOS-MainMenu.xib in Resources */,
 			);
@@ -2279,6 +2294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84AC2BB2799E6E600466600 /* IRs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
