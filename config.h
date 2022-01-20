@@ -32,8 +32,8 @@
 
 #define APP_SIGNAL_VECTOR_SIZE 64
 
-#define PLUG_WIDTH 945
-#define PLUG_HEIGHT 645
+#define PLUG_WIDTH 760
+#define PLUG_HEIGHT 720
 #define PLUG_HOST_RESIZE 0
 
 #if defined(AAX_API) && !defined(_PIDS_)

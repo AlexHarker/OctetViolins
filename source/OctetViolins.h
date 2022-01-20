@@ -13,9 +13,6 @@
 
 #include "swell.h"
 
-#define GUI_WIDTH 760
-#define GUI_HEIGHT 720
-
 enum EParams
 {
     kNumIRs,

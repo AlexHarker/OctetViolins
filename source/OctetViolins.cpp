@@ -260,6 +260,8 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
     if (pGraphics->NControls())
         return;
         
+    pGraphics->LoadFont("Arial Bold", "Arial", ETextStyle::Bold);
+
 	IColor bgrb = IColor(255, 140, 140, 140);
 				  
 	int freqDispX = 30;
