@@ -225,7 +225,7 @@ namespace HISSTools
             needsRedraw();
         }
         
-        void draw(Renderer *renderer)
+        void draw(Renderer& renderer)
         {
             drawBackground(renderer);
             
@@ -289,12 +289,12 @@ namespace HISSTools
             return nextGrid(grid, mGridYGap, mGridYLog);
         }
         
-        double lineCentre(Renderer *renderer, double value)
+        double lineCentre(Renderer& renderer, double value)
         {
-            return (round(value * renderer->getScaling()) + 0.5) / renderer->getScaling();
+            return (round(value * renderer.getScaling()) + 0.5) / renderer.getScaling();
         }
         
-        void horizontalTick(Renderer *renderer, double y, bool flip, double length)
+        void horizontalTick(Renderer& renderer, double y, bool flip, double length)
         {
             // FIX - Address this
             
@@ -304,12 +304,12 @@ namespace HISSTools
                 y = lineCentre(renderer, y);
                 double x = (flip == TRUE) ? mX - length : mX + mW;
              
-             renderer->line(x, y, x + length, y, mTickTK);
+             renderer.line(x, y, x + length, y, mTickTK);
              }
              */
         }
         
-        void verticalTick(Renderer *renderer, double x, bool flip, double length)
+        void verticalTick(Renderer& renderer, double x, bool flip, double length)
         {
             // FIX - Address this
             
@@ -319,46 +319,46 @@ namespace HISSTools
                 x = lineCentre(renderer, x);
                 double y = (flip == TRUE) ? mY - length : mY + mH;
              
-                renderer->line(x, y, x, y + length, mTickTK);
+                renderer.line(x, y, x, y + length, mTickTK);
              }
              */
         }
         
-        void horizontalLine(Renderer *renderer, double y)
+        void horizontalLine(Renderer& renderer, double y)
         {
             y = lineCentre(renderer, y);
             
             if (mScale.inY(y))
-                renderer->line(mScale.getX(), y, mScale.getX() + mScale.getWidth(), y, mGridTK);
+                renderer.line(mScale.getX(), y, mScale.getX() + mScale.getWidth(), y, mGridTK);
         }
         
-        void verticalLine(Renderer *renderer, double x)
+        void verticalLine(Renderer& renderer, double x)
         {
             x = lineCentre(renderer, x);
 
             if (mScale.inX(x))
-                renderer->line(x, mScale.getY(), x, mScale.getY() + mScale.getHeight(), mGridTK);
+                renderer.line(x, mScale.getY(), x, mScale.getY() + mScale.getHeight(), mGridTK);
         }
         
-        void horizontalBox(Renderer *renderer, double y1, double y2)
+        void horizontalBox(Renderer& renderer, double y1, double y2)
         {
             y1 = mScale.clipY(y1);
             y2 = mScale.clipY(y2);
             
             if (y1 != y2)
-                renderer->fillRect(mScale.getX(), y1, mScale.getWidth(), y2 - y1);
+                renderer.fillRect(mScale.getX(), y1, mScale.getWidth(), y2 - y1);
         }
         
-        void verticalBox(Renderer *renderer, double x1, double x2)
+        void verticalBox(Renderer& renderer, double x1, double x2)
         {
             x1 = mScale.clipX(x1);
             x2 = mScale.clipX(x2);
             
             if (x1 != x2)
-                renderer->fillRect(x1, mScale.getY(), x2 - x1, mScale.getHeight());
+                renderer.fillRect(x1, mScale.getY(), x2 - x1, mScale.getHeight());
         }
         
-        void drawBackground(Renderer *renderer)
+        void drawBackground(Renderer& renderer)
         {
             double l = mScale.getL();
             double r = mScale.getR();
@@ -368,12 +368,12 @@ namespace HISSTools
             
             // Background Color
             
-            renderer->setColor(mBackgroundCS);
-            renderer->fillRect(mScale.getX(), mScale.getY(), mScale.getWidth(), mScale.getHeight());
+            renderer.setColor(mBackgroundCS);
+            renderer.fillRect(mScale.getX(), mScale.getY(), mScale.getWidth(), mScale.getHeight());
       
             // Grid
             
-            renderer->setColor(mGridCS);
+            renderer.setColor(mGridCS);
             
             switch (mGridStyle)
             {
@@ -402,7 +402,7 @@ namespace HISSTools
                     break;
             }
             
-            renderer->setColor(mTickCS);
+            renderer.setColor(mTickCS);
             
             // Ticks
             
@@ -417,8 +417,8 @@ namespace HISSTools
             
             // Frame
             
-            renderer->setColor(mFrameCS);
-            renderer->frameRect(mScale.getX(), mScale.getY(), mScale.getWidth(), mScale.getHeight(), mFrameTK);
+            renderer.setColor(mFrameCS);
+            renderer.frameRect(mScale.getX(), mScale.getY(), mScale.getWidth(), mScale.getHeight(), mFrameTK);
         }
         
     protected:

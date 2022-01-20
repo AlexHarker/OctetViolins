@@ -42,11 +42,9 @@ public iplug::igraphics::IControl, public HISSTools_Control_Layers
 
 public:
     
-	HISSTools_Spectral_Display(HISSTools_VecLib *vecDraw, double x, double y, double w, double h, unsigned long maxFFTSize, int numCurves = 1, const char *type = "", HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
+	HISSTools_Spectral_Display(double x, double y, double w, double h, unsigned long maxFFTSize, int numCurves = 1, const char *type = "", HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
 	: HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_VecLib>(x, y, w, h), IControl( IRECT()), HISSTools_Control_Layers()
 	{
-		mVecDraw = vecDraw;
-        
 		mFreqMin = designScheme->getDimension("SpectralDisplayFreqMin", type);
 		mFreqMax = designScheme->getDimension("SpectralDisplayFreqMax", type);
 		mDBMin = designScheme->getDimension("SpectralDisplayDbMin", type);
@@ -136,28 +134,25 @@ public:
 	*/
 public:
 	
-	virtual bool Draw(IGraphics* pGraphics)
+    void Draw(IGraphics& graphics) override
 	{	
-		mVecDraw->setBitmap(pGraphics->GetDrawBitmap());
-        mVecDraw->setClip(pGraphics->GetDrawRECT().Intersect(&mRECT));
-		
-        draw(mVecDraw);
-		
-		return true;
+        HISSTools_VecLib vecDraw(graphics);
+
+        draw(vecDraw);		
 	}
 	
-    void needsRedraw()
+    void needsRedraw() override
     {
         SetDirty(true);
     }
 
-    virtual void OnMouseDblClick(int x, int y, IMouseMod* pMod)
+    void OnMouseDblClick(float x, float y, const IMouseMod& mod) override
     {
         setRangeX(mFreqMin, mFreqMax, true);
         setRangeY(mDBMin, mDBMax, false);
     }
     
-    virtual void OnMouseWheel(int x, int y, IMouseMod* pMod, int d)
+    void OnMouseWheel(float x, float y, const IMouseMod& mod, float d) override
     {
         // FIX old iplug features?
         //x /= mVecDraw->getScaling();
@@ -165,7 +160,7 @@ public:
                
         double gearing = pow(1.2, d);
 
-        if (!pMod->S)
+        if (!mod.S)
         {
             double freqLo = std::max(mFreqMin, getScaling().posToXVal(x - ((x - getScaling().getL()) * gearing)));
             double freqHi = std::min(mFreqMax, getScaling().posToXVal(x - ((x - getScaling().getR()) * gearing)));
@@ -174,7 +169,7 @@ public:
             setRangeX(freqLo, freqHi, true);
         }
         
-        if (!pMod->C)
+        if (!mod.C)
         {
             double dbLo = std::max(mDBMin, getScaling().posToYVal(y + ((getScaling().getB() - y) * gearing)));
             double dbHi = std::min(mDBMax, getScaling().posToYVal(y + ((getScaling().getT() - y) * gearing)));
@@ -184,7 +179,7 @@ public:
         }
     }
     
-    virtual void OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod)
+    void OnMouseDrag(float x, float y, float dX, float dY, const IMouseMod& mod) override
     {
         double freqLo, freqHi, dbLo, dbHi;
         
@@ -262,9 +257,7 @@ private:
     }
     
 	// Drawing Object
-	
-	HISSTools_VecLib *mVecDraw;
-    
+	    
     double mDrawingScale;
     double mFreqMin, mFreqMax;
     double mDBMin, mDBMax;

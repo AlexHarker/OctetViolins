@@ -10,13 +10,12 @@ class OctetViolins;
 
 class AddIRButton : public HISSTools_Button
 {
-    
 public:
     
     AddIRButton(OctetViolins *pPlug, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
-    virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
-    virtual void OnMouseUp(int x, int y, IMouseMod* pMod);
+    void OnMouseDown(float x, float y, const IMouseMod& mod) override;
+    void OnMouseUp(float x, float y, const IMouseMod& mod) override;
     
 private:
     
@@ -27,14 +26,14 @@ private:
 
 class RemoveIRButton : public HISSTools_Button
 {
-    
 public:
     
     RemoveIRButton(OctetViolins *pPlug, double x, double y, double w = 0, double h = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
-    virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
-    virtual void OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod);
-    virtual void OnMouseUp(int x, int y, IMouseMod* pMod);
+    void OnMouseDown(float x, float y, const IMouseMod& mod) override;
+    void OnMouseDrag(float x, float y, float dX, float dY, const IMouseMod& mod) override;
+    void OnMouseUp(float x, float y, const IMouseMod& mod) override;
+    
 private:
     
     OctetViolins *mPlug;
@@ -44,30 +43,27 @@ private:
 
 class PresetButton : public HISSTools_Button
 {
-    
 public:
     
     PresetButton(OctetViolins *pPlug, int idx, double x, double y, double w = 0, double h = 0, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
-    virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
+    void OnMouseDown(float x, float y, const IMouseMod& mod) override;
     
 private:
     
     OctetViolins *mPlug;
     int mIdx;
-    WDL_String mLabel;
 };
 
 // File Save and Load Buttons
 
 class FileSaveLoad : public HISSTools_Button
 {
-    
 public:
     
     FileSaveLoad(OctetViolins *pPlug, const char *label, double x, double y, double w, double h, EFileAction action, const char *type = 0, HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme);
     
-    virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
+    void OnMouseDown(float x, float y, const IMouseMod& mod) override;
     
 private:
     

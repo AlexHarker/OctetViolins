@@ -66,7 +66,7 @@ namespace HISSTools
         
     public:
 
-        void draw(Renderer *renderer, double freqMin, double freqMax, double dbMin, double dbMax, double subSampleRender = 1.0)
+        void draw(Renderer& renderer, double freqMin, double freqMax, double dbMin, double dbMax, double subSampleRender = 1.0)
         {
             double minPointX, minPointY, maxPointX, maxPointY, X, lastX;
             double *spectrum = mSpectrum->getSpectrum();
@@ -88,27 +88,27 @@ namespace HISSTools
 
                 // FIX - this should be intersected with any pre-existing clipping...
                 
-                renderer->setClip(this->getX(), this->getY(), this->getR(), this->getB());
-                renderer->setColor(this->mCurveCS);
+                renderer.setClip(this->getX(), this->getY(), this->getR(), this->getB());
+                renderer.setColor(this->mCurveCS);
                 
                 if (binToX(beg) > this->getX())
                 {
-                    renderer->startMultiLine(this->getX(), powToY(spectrum[beg]), this->mCurveTK);
-                    renderer->continueMultiLine(binToX(beg), powToY(spectrum[beg]));
+                    renderer.startMultiLine(this->getX(), powToY(spectrum[beg]), this->mCurveTK);
+                    renderer.continueMultiLine(binToX(beg), powToY(spectrum[beg]));
                 }
                 else
-                     renderer->startMultiLine(binToX(beg), powToY(spectrum[beg]), this->mCurveTK);
+                     renderer.startMultiLine(binToX(beg), powToY(spectrum[beg]), this->mCurveTK);
                 
                 for (i = beg + 1; i < end; i++)
                 {
-                    lastX = renderer->getX();
-                    renderer->continueMultiLine(binToX(i), powToY(spectrum[i]));
+                    lastX = renderer.getX();
+                    renderer.continueMultiLine(binToX(i), powToY(spectrum[i]));
                     
-                    if ((renderer->getX() - lastX) < subSampleRender)
+                    if ((renderer.getX() - lastX) < subSampleRender)
                         break;
                 }
                 
-                for (X = renderer->getX(); i < end; )
+                for (X = renderer.getX(); i < end; )
                 {
                     minPointX = maxPointX = lastX = X;
                     
@@ -134,18 +134,18 @@ namespace HISSTools
                     
                     if (minPointX < maxPointX)
                     {
-                        renderer->continueMultiLine(minPointX, powToY(minPointY));
-                        renderer->continueMultiLine(maxPointX, powToY(maxPointY));
+                        renderer.continueMultiLine(minPointX, powToY(minPointY));
+                        renderer.continueMultiLine(maxPointX, powToY(maxPointY));
                     }
                     else
                     {
-                        renderer->continueMultiLine(maxPointX, powToY(maxPointY));
-                        renderer->continueMultiLine(minPointX, powToY(minPointY));
+                        renderer.continueMultiLine(maxPointX, powToY(maxPointY));
+                        renderer.continueMultiLine(minPointX, powToY(minPointY));
                     }	
                 }
                 
-                renderer->finishMultiLine();
-                renderer->setClip();
+                renderer.finishMultiLine();
+                renderer.setClip();
             }
         }
         
