@@ -6,40 +6,36 @@
 
 // Add IR Button
 
-AddIRButton::AddIRButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w, double h, const char *type, HISSTools_Design_Scheme *designScheme) : HISSTools_Button(mPlug, -1, vecDraw, x, y, w, h, type, designScheme), mPlug(pPlug)
-{
-    mName = "+";
-}
+AddIRButton::AddIRButton(OctetViolins *pPlug, double x, double y, double w, double h, const char *type, HISSTools_Design_Scheme *designScheme) : HISSTools_Button(kNoParameter, x, y, w, h, type, designScheme, "+"), mPlug(pPlug)
+{}
 
 void AddIRButton::OnMouseDown(int x, int y, IMouseMod* pMod)
 {
-    mValue = 1.0;
+    SetValue(1.0);
     SetDirty(false);
 }
 
 void AddIRButton::OnMouseUp(int x, int y, IMouseMod* pMod)
 {
-    mValue = 0.0;
+    SetValue(0.0);
     SetDirty(false);
     mPlug->AddIR();
 }
 
 // Remove IR Button
 
-RemoveIRButton::RemoveIRButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, double x, double y, double w, double h, HISSTools_Design_Scheme *designScheme) : HISSTools_Button(mPlug, -1, vecDraw, x, y, w, h, "remove", designScheme), mPlug(pPlug)
-{
-    mName = "Delete";
-}
+RemoveIRButton::RemoveIRButton(OctetViolins *pPlug, double x, double y, double w, double h, HISSTools_Design_Scheme *designScheme) : HISSTools_Button(kNoParameter, x, y, w, h, "remove", designScheme, "Delete"), mPlug(pPlug)
+{}
 
 void RemoveIRButton::OnMouseDown(int x, int y, IMouseMod* pMod)
 {
-    mValue = 1.0;
+    SetValue(1.0);
     SetDirty(false);
 }
 
 void RemoveIRButton::OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod)
 {
-    mValue = mTargetRECT.Contains(x, y);
+    SetValue(mTargetRECT.Contains(x, y));
     SetDirty(false);
 }
 
@@ -47,20 +43,19 @@ void RemoveIRButton::OnMouseUp(int x, int y, IMouseMod* pMod)
 {
     OnMouseDrag(x, y, 0, 0, pMod);
     
-    if (mValue)
+    if (GetValue())
         mPlug->RemoveIR();
     
-    mValue = 0.0;
+    SetValue(0.0);
     SetDirty();
 }
 
 // Preset Button
 
-PresetButton::PresetButton::PresetButton(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, int idx, double x, double y, double w, double h, const char *type, HISSTools_Design_Scheme *designScheme) : HISSTools_Button(mPlug, -1, vecDraw, x, y, w, h, type, designScheme), mPlug(pPlug), mIdx(idx)
+PresetButton::PresetButton::PresetButton(OctetViolins *pPlug, int idx, double x, double y, double w, double h, const char *type, HISSTools_Design_Scheme *designScheme) : HISSTools_Button(kNoParameter, x, y, w, h, type, designScheme), mPlug(pPlug), mIdx(idx)
 {
-    mLabel.SetFormatted(32, "%d", idx + 1);
-    mName = mLabel.Get();
-    mMEWhenGrayed = true;
+    mDisplayName.SetFormatted(32, "%d", idx + 1);
+    SetMouseEventsWhenDisabled(true);
 }
 
 void PresetButton::OnMouseDown(int x, int y, IMouseMod* pMod)
@@ -69,7 +64,7 @@ void PresetButton::OnMouseDown(int x, int y, IMouseMod* pMod)
     
     if (pMod->S && !pMod->A && !pMod->C)
         mPlug->SavePreset(mIdx);
-    else if (mGrayed)
+    else if (IsDisabled())
         return;
     else if (pMod->A && pMod->C)
         mPlug->RemovePreset(mIdx);
@@ -79,24 +74,23 @@ void PresetButton::OnMouseDown(int x, int y, IMouseMod* pMod)
 
 // File Save and Load Buttons
 
-FileSaveLoad::FileSaveLoad(OctetViolins *pPlug, HISSTools_LICE_Vec_Lib *vecDraw, const char *label, double x, double y, double w, double h, EFileAction action, const char *type, HISSTools_Design_Scheme *designScheme)
-: HISSTools_Button(pPlug, -1, vecDraw, x, y, w, h, type, designScheme), mFileAction(action), mPlug(pPlug)
-{
-    mName = label;
-}
+FileSaveLoad::FileSaveLoad(OctetViolins *pPlug, const char *label, double x, double y, double w, double h, EFileAction action, const char *type, HISSTools_Design_Scheme *designScheme)
+: HISSTools_Button(kNoParameter, x, y, w, h, type, designScheme, label), mFileAction(action), mPlug(pPlug)
+{}
 
 void FileSaveLoad::OnMouseDown(int x, int y, IMouseMod* pMod)
 {
     WDL_String fileName;
     WDL_String dir;
     
-    SetValueFromPlug(1.0);
-    mPlug->GetGUI()->PromptForFile(&fileName, mFileAction, &dir, "octet");
+    SetValueFromDelegate(1.0);
     
-    if (mFileAction == kFileOpen)
+    mPlug->GetUI()->PromptForFile(fileName, dir, mFileAction, "octet");
+    
+    if (mFileAction == EFileAction::Open)
         mPlug->ReadState(fileName.Get());
     else
         mPlug->WriteState(fileName.Get());
     
-    SetValueFromPlug(0.0);
+    SetValueFromDelegate(0.0);
 }
