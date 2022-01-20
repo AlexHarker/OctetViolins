@@ -18,62 +18,62 @@
 
 enum EParams
 {
-	kNumIRs,
-	kIRVisible,
-	
-	kIR1,
-	kIRVolume1,
-	kIRTransposition1,
-	kIRHPFFreq1,
-	kIRLPFFreq1,
-	kIRHPFSlope1,
-	kIRLPFSlope1,
-	kIRHPFOn1,
-	kIRLPFOn1,
-	kIRMute1,
-	kIRSolo1,
-	
-	kIR2,
-	kIRVolume2,
-	kIRTransposition2,
-	kIRHPFFreq2,
-	kIRLPFFreq2,
-	kIRHPFSlope2,
-	kIRLPFSlope2,
-	kIRHPFOn2,
-	kIRLPFOn2,
-	kIRMute2,
-	kIRSolo2,
-	
-	kIR3,
-	kIRVolume3,
-	kIRTransposition3,
-	kIRHPFFreq3,
-	kIRLPFFreq3,
-	kIRHPFSlope3,
-	kIRLPFSlope3,
-	kIRHPFOn3,
-	kIRLPFOn3,
-	kIRMute3,
-	kIRSolo3,
-	
-	kSource1,
-	kSource2,
-	kSource3,
-	kSource4,
-	
-	kDelay1,
-	kDelay2,
-	kDelay3,
-	kDelay4,
-	
-	kIRSelect1,
-	kIRSelect2,
-	kIRSelect3,
-	
-	kCorrection,
-	
-	kNumParams
+    kNumIRs,
+    kIRVisible,
+    
+    kIR1,
+    kIRVolume1,
+    kIRTransposition1,
+    kIRHPFFreq1,
+    kIRLPFFreq1,
+    kIRHPFSlope1,
+    kIRLPFSlope1,
+    kIRHPFOn1,
+    kIRLPFOn1,
+    kIRMute1,
+    kIRSolo1,
+    
+    kIR2,
+    kIRVolume2,
+    kIRTransposition2,
+    kIRHPFFreq2,
+    kIRLPFFreq2,
+    kIRHPFSlope2,
+    kIRLPFSlope2,
+    kIRHPFOn2,
+    kIRLPFOn2,
+    kIRMute2,
+    kIRSolo2,
+    
+    kIR3,
+    kIRVolume3,
+    kIRTransposition3,
+    kIRHPFFreq3,
+    kIRLPFFreq3,
+    kIRHPFSlope3,
+    kIRLPFSlope3,
+    kIRHPFOn3,
+    kIRLPFOn3,
+    kIRMute3,
+    kIRSolo3,
+    
+    kSource1,
+    kSource2,
+    kSource3,
+    kSource4,
+    
+    kDelay1,
+    kDelay2,
+    kDelay3,
+    kDelay4,
+    
+    kIRSelect1,
+    kIRSelect2,
+    kIRSelect3,
+    
+    kCorrection,
+    
+    kNumParams
 };
 
 
@@ -84,111 +84,112 @@ using namespace igraphics;
 
 class OctetViolins : public Plugin
 {
-	enum MeasurementMode {kHarmonics, kEQ, kTone, kCalibration};
-	
+    enum MeasurementMode {kHarmonics, kEQ, kTone, kCalibration};
+    
 public:
-	
-	// Constructor and Destructor
-	
+    
+    // Constructor and Destructor
+    
     OctetViolins(InstanceInfo info);
-	~OctetViolins();
-			
-	// GUI Interactions
-	
-	void AddIR();
-	void RemoveIR();
-	
-	void SavePreset(int idx);
-	void SetPreset(int idx);
-	void RemovePreset(int idx);
-	
-	// State and Presets
-	
+    ~OctetViolins();
+            
+    // GUI Interactions
+    
+    void AddIR();
+    void RemoveIR();
+    
+    void SavePreset(int idx);
+    void SetPreset(int idx);
+    void RemovePreset(int idx);
+    
+    // State and Presets
+    
     bool SerializeState(IByteChunk& chunk) const override;
     int UnserializeState(const IByteChunk& chunk, int startPos) override;
-	
-	void WriteState(const char *filePath);
-	void ReadState(const char *filePath);
-	
-	// Process and Reset
-	
+    
+    void WriteState(const char *filePath);
+    void ReadState(const char *filePath);
+    
+    // Process and Reset
+    
     void ProcessBlock(double** inputs, double** outputs, int nFrames) override;
-	void OnReset() override;
-	
-	// Loading
-	
-	void LoadUntilUpdated();
-	
-	// Parameters
-	
+    void OnReset() override;
+    
+    // Loading
+    
+    void LoadUntilUpdated();
+    
+    // Parameters
+    
     void OnParamChange(int paramIdx, EParamSource source, int sampleOffset) override;
     void OnParamChangeUI(int paramIdx, EParamSource source) override;
     
 private:
-	
+    
     // GUI Creation
-
+    IGraphics* CreateGraphics() override;
     void LayoutUI(IGraphics *pGraphics) override;
 
-	void CheckVisibleIR();
-	void SetIRDisplay(int i, bool setParam);
-	long DelayInSamps(int i);
-	bool GetParamUpdated();
-	bool GetSoloChanged();
-	void LoadFiles(int diff, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR);
-	void LoadIRs();
-	void MixIRs(int numIRs, bool correctionOn);
-	void SetChanged(int i, bool state);
-	void UpdateIRsAndDisplay(bool displayOnly = false);
-	void DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long index, double samplingRate);
-	void FadeIR(HISSTools_RefPtr <double> ir,  uintptr_t fadeIn,  uintptr_t fadeOut);
-	
-	void ClearParamCache();
-	bool UpdateParamCache(int start = 0, int end = kNumParams);
-	
-	void UpdateControlAndParam(double value, IControl *control, bool paramChange = false);
+    void CheckVisibleIR();
+    void SetIRDisplay(int i, bool setParam);
+    long DelayInSamps(int i);
+    bool GetParamUpdated();
+    bool GetSoloChanged();
+    void LoadFiles(int diff, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR);
+    void LoadIRs();
+    void MixIRs(int numIRs, bool correctionOn);
+    void SetChanged(int i, bool state);
+    void UpdateIRsAndDisplay(bool displayOnly = false);
+    void DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long index, double samplingRate);
+    void FadeIR(HISSTools_RefPtr <double> ir,  uintptr_t fadeIn,  uintptr_t fadeOut);
+    
+    void ClearParamCache();
+    bool UpdateParamCache(int start = 0, int end = kNumParams);
+    
+    void UpdateControlAndParam(double value, IControl *control, bool paramChange = false);
 
-	// Controls and Display
-	
-	HISSTools_Spectral_Display *mSpectralDisplay;
-	
-	IControl *mPresetButtons[10];
-	IControl *mAddIRButtons[2];
-	IControl *mRemoveIRButton;
-	
-	HISSTools_Button *mSelectSwitches[3];
-	HISSTools_Invisible_Tabs *mIRTab;
-	
-	// DSP
-	
-	CrossfadedConvolution mConvolver;
-	
-	// IR Storage
-	
-	HISSTools_RefPtr <double> mIRs[4][2];
-	
-	// Default IR Setup
-	
-	double mIRDefaultValues[kIR2 - kIR1];
-	
-	// Temporary / Working Parameters
-	
-	double mSamplingRate;
-	
-	double mParamCache[kNumParams];
-	
-	HANDLE mThread;
-	
+    // Controls and Display
+    
+    HISSTools_Spectral_Display *mSpectralDisplay;
+    
+    IControl *mPresetButtons[10];
+    IControl *mAddIRButtons[2];
+    IControl *mRemoveIRButton;
+    
+    HISSTools_Button *mSelectSwitches[3];
+    HISSTools_Invisible_Tabs *mIRTab;
+    
+    // DSP
+    
+    CrossfadedConvolution mConvolver;
+    
+    // IR Storage
+    
+  HISSTools_RefPtr <double> mIRs[4][2];
+    
+    // Default IR Setup
+    
+    double mIRDefaultValues[kIR2 - kIR1];
+    
+    // Temporary / Working Parameters
+    
+    double mSamplingRate;
+    
+    double mParamCache[kNumParams];
+    
+    HANDLE mThread;
+    
     mutable WDL_Mutex mMutex;
 
-	int mChanged[4];
-	
-	bool mSolo, mSoloChanged, mParamUpdated, mUpdateAudioEngine;
-	
-	// Presets
-	
-	int mPresetIdx;
-	IByteChunk mGUIPresets[10];
+    int mChanged[4];
+    
+    bool mSolo, mSoloChanged, mParamUpdated, mUpdateAudioEngine;
+    
+    // Presets
+    
+    int mPresetIdx;
+    IByteChunk mGUIPresets[10];
 };
 
 #endif
+
