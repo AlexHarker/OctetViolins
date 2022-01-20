@@ -319,8 +319,8 @@
 		4FFF107720A0E5A500D3092F /* wdlendian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wdlendian.h; path = ../../../WDL/wdlendian.h; sourceTree = "<group>"; };
 		4FFF108220A0FB1400D3092F /* common-ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-ios.xcconfig"; path = "../../../common-ios.xcconfig"; sourceTree = "<group>"; };
 		4FFF108420A1036200D3092F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../config.h; sourceTree = "<group>"; };
-		4FFF108720A1036200D3092F /* OctetViolins.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OctetViolins.cpp; path = ../OctetViolins.cpp; sourceTree = "<group>"; };
-		4FFF108820A1036200D3092F /* OctetViolins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OctetViolins.h; path = ../OctetViolins.h; sourceTree = "<group>"; };
+		4FFF108720A1036200D3092F /* OctetViolins.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OctetViolins.cpp; path = ../source/OctetViolins.cpp; sourceTree = "<group>"; };
+		4FFF108820A1036200D3092F /* OctetViolins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OctetViolins.h; path = ../source/OctetViolins.h; sourceTree = "<group>"; };
 		91236D0D1B08F42B00734C5E /* OctetViolins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctetViolins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91236D551B08F52D00734C5E /* OctetViolinsFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctetViolinsFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91236D771B08F59300734C5E /* OctetViolinsAppExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OctetViolinsAppExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };

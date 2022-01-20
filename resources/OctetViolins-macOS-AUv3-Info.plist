@@ -30,15 +30,15 @@
 			<array>
 				<dict>
 					<key>description</key>
-					<string>HISSTools Granular</string>
+					<string>Octet Violins</string>
 					<key>manufacturer</key>
 					<string>AHAR</string>
 					<key>name</key>
-					<string>Alex Harker: HISSTools Granular</string>
+					<string>Alex Harker: Octet Violins</string>
 					<key>sandboxSafe</key>
 					<true/>
 					<key>subtype</key>
-					<string>HTGn</string>
+					<string>AHOV</string>
 					<key>tags</key>
 					<array>
 						<string>Effects</string>
