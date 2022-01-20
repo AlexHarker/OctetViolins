@@ -4,7 +4,7 @@
 #define __HISSTOOLS_SPECTRAL_DISPLAY__
 
 
-#include "HISSTools_Controls.hpp"
+#include <HISSTools_UI/HISSTools_Controls.hpp>
 #include "Spectrum_Plot.h"
 
 
@@ -45,10 +45,10 @@ public:
 	{
 		mVecDraw = vecDraw;
         
-		mDefFreqMin = mFreqMin = designScheme->getDimension("SpectralDisplayFreqMin", type);
-		mDefFreqMax = mFreqMax = designScheme->getDimension("SpectralDisplayFreqMax", type);
-		mDefDBMin = mDBMin = designScheme->getDimension("SpectralDisplayDbMin", type);
-		mDefDBMax = mDBMax = designScheme->getDimension("SpectralDisplayDbMax", type);
+		mFreqMin = designScheme->getDimension("SpectralDisplayFreqMin", type);
+		mFreqMax = designScheme->getDimension("SpectralDisplayFreqMax", type);
+		mDBMin = designScheme->getDimension("SpectralDisplayDbMin", type);
+		mDBMax = designScheme->getDimension("SpectralDisplayDbMax", type);
 
         setRangeX(mFreqMin, mFreqMax, true);
         setRangeY(mDBMin, mDBMax, false);
@@ -150,80 +150,84 @@ public:
 
     virtual void OnMouseDblClick(int x, int y, IMouseMod* pMod)
     {
-        mFreqMin = mDefFreqMin;
-        mFreqMax = mDefFreqMax;
-        mDBMin = mDefDBMin;
-        mDBMax = mDefDBMax;
-
-        setRangeX(mDefFreqMin, mDefFreqMax, true);
-        setRangeY(mDefDBMin, mDefDBMax, false);
+        setRangeX(mFreqMin, mFreqMax, true);
+        setRangeY(mDBMin, mDBMax, false);
     }
     
     virtual void OnMouseWheel(int x, int y, IMouseMod* pMod, int d)
     {
         x /= mVecDraw->getScaling();
         y /= mVecDraw->getScaling();
-       
-        // FIX - clipping when too zoomed...
-        
+               
         double gearing = pow(1.2, ConvertMouseDeltaToNative(d));
 
-        mFreqMin = getScaling()->posToXVal(x - (x - getScaling()->getL()) * gearing);
-        mFreqMax = getScaling()->posToXVal(x - (x - getScaling()->getR()) * gearing);
+        if (!pMod->S)
+        {
+            double freqLo = std::max(mFreqMin, getScaling()->posToXVal(x - ((x - getScaling()->getL()) * gearing)));
+            double freqHi = std::min(mFreqMax, getScaling()->posToXVal(x - ((x - getScaling()->getR()) * gearing)));
         
-        mDBMin = getScaling()->posToYVal(y + (getScaling()->getB() - y) * gearing);
-        mDBMax = getScaling()->posToYVal(y + (getScaling()->getT() - y) * gearing);
+            limitZoom(freqLo, freqHi, getScaling()->posToXVal(x), 1.0, true);
+            setRangeX(freqLo, freqHi, true);
+        }
         
-        mFreqMin = std::max(mFreqMin, mDefFreqMin);
-        mFreqMax = std::min(mFreqMax, mDefFreqMax);
+        if (!pMod->C)
+        {
+            double dbLo = std::max(mDBMin, getScaling()->posToYVal(y + ((getScaling()->getB() - y) * gearing)));
+            double dbHi = std::min(mDBMax, getScaling()->posToYVal(y + ((getScaling()->getT() - y) * gearing)));
         
-        mDBMin = std::max(mDBMin, mDefDBMin);
-        mDBMax = std::min(mDBMax, mDefDBMax);
-        
-        setRangeX(mFreqMin, mFreqMax, true);
-        setRangeY(mDBMin, mDBMax, false);
+            limitZoom(dbLo, dbHi, getScaling()->posToYVal(y), 20.0, false);
+            setRangeY(dbLo, dbHi, false);
+        }
     }
     
     virtual void OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod)
     {
-        // FIX - Hi-res deltas in WDL
-
+        double freqLo, freqHi, dbLo, dbHi;
+        
         // Calculate
         
         x = ConvertMouseDeltaToNative(-dX) / mVecDraw->getScaling();
         y = ConvertMouseDeltaToNative(-dY) / mVecDraw->getScaling();
         
-        double width = getScaling()->getWidth();
+        // Do X dragging
         
         if (x >= 0)
         {
-            mFreqMax = getScaling()->posToXVal(getScaling()->getR() + x);
-            mFreqMax = std::min(mFreqMax, mDefFreqMax);
-            mFreqMin = getScaling()->posToXVal(getScaling()->xValToPos(mFreqMax) - width);
+            freqHi = std::min(mFreqMax, getScaling()->posToXVal(getScaling()->getR() + x));
+            freqLo = getScaling()->posToXVal(getScaling()->xValToPos(freqHi) - getScaling()->getWidth());
         }
         else
         {
-            mFreqMin = getScaling()->posToXVal(getScaling()->getL() + x);
-            mFreqMin = std::max(mFreqMin, mDefFreqMin);
-            mFreqMax = getScaling()->posToXVal(getScaling()->xValToPos(mFreqMin) + width);
+            freqLo = std::max(mFreqMin, getScaling()->posToXVal(getScaling()->getL() + x));
+            freqHi = getScaling()->posToXVal(getScaling()->xValToPos(freqLo) + getScaling()->getWidth());
         }
         
-        double height = getScaling()->getHeight();
+        setRangeX(freqLo, freqHi, true);
+        
+        // Do Y dragging
         
         if (y <= 0)
         {
-            mDBMax = getScaling()->posToYVal(getScaling()->getT() + y);
-            mDBMax = std::min(mDBMax, mDefDBMax);
-            mDBMin = getScaling()->posToYVal(getScaling()->yValToPos(mDBMax) + height);
+            dbHi = std::min(mDBMax, getScaling()->posToYVal(getScaling()->getT() + y));
+            dbLo = getScaling()->posToYVal(getScaling()->yValToPos(dbHi) + getScaling()->getHeight());
         }
         else
         {
-            mDBMin = getScaling()->posToYVal(getScaling()->getB() + y);
-            mDBMin = std::max(mDBMin, mDefDBMin);
-            mDBMax = getScaling()->posToYVal(getScaling()->yValToPos(mDBMin) - height);
+            dbLo = std::max(mDBMin, getScaling()->posToYVal(getScaling()->getB() + y));
+            dbHi = getScaling()->posToYVal(getScaling()->yValToPos(dbLo) - getScaling()->getHeight());
         }
         
         // Set ranges
+        
+        setRangeY(dbLo, dbHi, false);
+    }
+    
+    void SetRanges(double freqMin, double freqMax, double dbMin, double dbMax)
+    {
+        mFreqMin = freqMin;
+        mFreqMax = freqMax;
+        mDBMin = dbMin;
+        mDBMax = dbMax;
         
         setRangeX(mFreqMin, mFreqMax, true);
         setRangeY(mDBMin, mDBMax, false);
@@ -231,13 +235,35 @@ public:
     
 private:
 	
+    void limitZoom(double &lo, double &hi, double pivot, double limit, bool logarithmic)
+    {
+        double loI = logarithmic ? log2(lo) : lo;
+        double hiI = logarithmic ? log2(hi) : hi;
+        
+        if ((hiI - loI) < limit)
+        {
+            pivot = logarithmic ? log2(pivot) : pivot;
+            
+            double ratio = (pivot - loI) / (hiI - loI);
+        
+            lo = pivot - ratio * limit;
+            hi = pivot + (1.0 - ratio) * limit;
+            
+            if (logarithmic)
+            {
+                lo = exp2(lo);
+                hi = exp2(hi);
+            }
+        }
+    }
+    
 	// Drawing Object
 	
 	HISSTools_LICE_Vec_Lib *mVecDraw;
     
     double mDrawingScale;
-    double mDefFreqMin, mDefFreqMax, mFreqMin, mFreqMax;
-    double mDefDBMin, mDefDBMax, mDBMin, mDBMax;
+    double mFreqMin, mFreqMax;
+    double mDBMin, mDBMax;
 };
 
 
