@@ -2,7 +2,7 @@
 
 BASEDIR=$(dirname $0)
 
-EXPORT_PATH="$BASEDIR/../build-mac/HISSTools_Granular"
+EXPORT_PATH="$BASEDIR/../build-mac/OctetViolins"
 ZIP_PATH="$EXPORT_PATH.zip"
 
 find "$EXPORT_PATH" -name '.DS_Store' -type f -delete || exit 1
