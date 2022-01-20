@@ -2,6 +2,8 @@
 
 #include "CrossfadedConvolution.h"
 
+#include <algorithm>
+#include <cmath>
 
 void CrossfadedConvolution::FadedConvolution::set(const double *IRL, const double *IRR, long length)
 {
@@ -13,7 +15,7 @@ void CrossfadedConvolution::FadedConvolution::set(const double *IRL, const doubl
 
 void CrossfadedConvolution::FadedConvolution::process(const double **inputs, double **outputs, int nFrames)
 {
-    int fadeSamps = round(0.1 * mSamplingRate);
+    int fadeSamps = std::round(0.1 * mSamplingRate);
 
     mConvolver.process(inputs, outputs, 1, 2, nFrames);
 
@@ -27,7 +29,6 @@ void CrossfadedConvolution::FadedConvolution::process(const double **inputs, dou
         outputs[0][i] *= fade;
         outputs[1][i] *= fade;
     }
-    
 }
 
 bool CrossfadedConvolution::set(const double *IRL, const double *IRR, long length)
@@ -53,8 +54,8 @@ void CrossfadedConvolution::process(const double **inputs, double **outputs, int
     temps[0] = tempL;
     temps[1] = tempR;
     
-    memset(outputs[0], 0, sizeof(double) * nFrames);
-    memset(outputs[1], 0, sizeof(double) * nFrames);
+    std::fill_n(outputs[0], nFrames, 0.0);
+    std::fill_n(outputs[1], nFrames, 0.0);
     
     for (int i = 0; i < 2; i++)
     {

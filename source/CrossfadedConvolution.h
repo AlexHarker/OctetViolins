@@ -10,7 +10,6 @@ class CrossfadedConvolution
 {
     class FadedConvolution   
     {
-    
     public:
         
         FadedConvolution(): mConvolver(1, 2, HISSTools::Convolver::kLatencyZero), mOn (false), mFade(0) {}
@@ -44,7 +43,6 @@ private:
 
     FadedConvolution mConvolvers[2];
     int mFree;
-    
 };
 
 #endif
