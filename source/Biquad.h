@@ -287,7 +287,7 @@ template <typename T> struct ButterworthHPF
     
 private:
     
-    std::vector<Biquad <T> > mBiquads;
+    std::vector<Biquad <T>> mBiquads;
     
     unsigned long mOrder;
     unsigned long mN;
