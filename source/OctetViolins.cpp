@@ -876,21 +876,11 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
 	{
         auto edgeMode = spectral_processor<double>::EdgeMode::Linear;
         auto length = static_cast<uintptr_t>(maxLength);
-        spectral_processor<double> processor(finalLength);
-        
-		long fftSize = processor.max_fft_size();
-	
-		HISSTools_RefPtr<double> correctedOutput(fftSize);
-		
-		Spectrum correctionSpectrum(fftSize);
-		Spectrum irSpectrum(fftSize);
-	
-		// Convert Correction
-		
         spectral_processor<double>::in_ptr correctPtr { correction.get(), correction.getSize() };
-		
-		// Apply Left and Right
-		
+        spectral_processor<double> processor(finalLength);
+        		
+		// Apply Correction
+				
         processor.convolve(mIRs[3][0].get(), { mIRs[3][0].get(), length }, correctPtr, edgeMode);
         processor.convolve(mIRs[3][1].get(), { mIRs[3][1].get(), length }, correctPtr, edgeMode);
 	}
