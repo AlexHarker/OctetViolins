@@ -984,9 +984,7 @@ bool OctetViolins::UpdateParamCache(int start, int end)
 void OctetViolins::ClearParamCache()
 {
     WDL_MutexLock lock(&mMutex);
-
-	for (int i = 0; i < kNumParams; i++)
-		mParamCache[i] = -1.0;
+    std::fill_n(mParamCache, kNumParams, -1.0);
 }
 
 
