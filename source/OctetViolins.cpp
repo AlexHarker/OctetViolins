@@ -964,19 +964,12 @@ bool OctetViolins::UpdateParamCache(int start, int end)
 		double param = GetParam(i)->GetNormalized();
 		
 		if (i == kIRVisible ||
-			(i == kIRHPFFreq1 && !GetParam(kIRHPFOn1)->Bool()) ||
-			(i == kIRHPFFreq2 && !GetParam(kIRHPFOn2)->Bool()) ||
-			(i == kIRHPFFreq3 && !GetParam(kIRHPFOn3)->Bool()) ||
-			(i == kIRLPFFreq1 && !GetParam(kIRLPFOn1)->Bool()) ||
-			(i == kIRLPFFreq2 && !GetParam(kIRLPFOn2)->Bool()) ||
-			(i == kIRLPFFreq3 && !GetParam(kIRLPFOn3)->Bool()) ||
-			(i == kIRHPFSlope1 && !GetParam(kIRHPFOn1)->Bool()) ||
-			(i == kIRHPFSlope2 && !GetParam(kIRHPFOn2)->Bool()) ||
-			(i == kIRHPFSlope3 && !GetParam(kIRHPFOn3)->Bool()) ||
-			(i == kIRLPFSlope1 && !GetParam(kIRLPFOn1)->Bool()) ||
-			(i == kIRLPFSlope2 && !GetParam(kIRLPFOn2)->Bool()) ||
-			(i == kIRLPFSlope3 && !GetParam(kIRLPFOn3)->Bool())
-			)
+            ((i == kIRHPFFreq1 || i == kIRHPFSlope1) && !GetParam(kIRHPFOn1)->Bool()) ||
+			((i == kIRHPFFreq2 || i == kIRHPFSlope2) && !GetParam(kIRHPFOn2)->Bool()) ||
+			((i == kIRHPFFreq3 || i == kIRHPFSlope3) && !GetParam(kIRHPFOn3)->Bool()) ||
+			((i == kIRLPFFreq1 || i == kIRLPFSlope1) && !GetParam(kIRLPFOn1)->Bool()) ||
+			((i == kIRLPFFreq2 || i == kIRLPFSlope2) && !GetParam(kIRLPFOn2)->Bool()) ||
+			((i == kIRLPFFreq3 || i == kIRLPFSlope3) && !GetParam(kIRLPFOn3)->Bool()))
 			param = -1.0;
 		
 		if (mParamCache[i] != param)
