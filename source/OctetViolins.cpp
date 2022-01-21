@@ -1043,7 +1043,6 @@ void OctetViolins::OnParamChange(int paramIdx, EParamSource source, int sampleOf
 			break;
 			
 		default:
-		
 			mParamUpdated = true;
 			if (!mThread)
 				mThread = CreateThread(NULL, 0, LoadingThread, this, 0, NULL);
@@ -1054,19 +1053,20 @@ void OctetViolins::OnParamChangeUI(int paramIdx, EParamSource source)
 {
     WDL_MutexLock lock(&mMutex);
  
+    if (!GetUI())
+        return;
+    
     if (paramIdx == kNumIRs)
     {
-        if (!GetUI())
-            return;
-        int num = GetParam(kNumIRs)->Int();
+        int numIRs = GetParam(kNumIRs)->Int();
         
         CheckVisibleIR();
         
-        GetUI()->GetControlWithTag(kSelect2)->Hide(num < 2);
-        GetUI()->GetControlWithTag(kSelect3)->Hide(num < 3);
-        GetUI()->GetControlWithTag(kAdd1)->Hide(num != 1);
-        GetUI()->GetControlWithTag(kAdd2)->Hide(num != 2);
-        GetUI()->GetControlWithTag(kDelete)->SetDisabled(num < 2);
+        GetUI()->GetControlWithTag(kSelect2)->Hide(numIRs < 2);
+        GetUI()->GetControlWithTag(kSelect3)->Hide(numIRs < 3);
+        GetUI()->GetControlWithTag(kAdd1)->Hide(numIRs != 1);
+        GetUI()->GetControlWithTag(kAdd2)->Hide(numIRs != 2);
+        GetUI()->GetControlWithTag(kDelete)->SetDisabled(numIRs < 2);
     }
     
     switch (paramIdx)
