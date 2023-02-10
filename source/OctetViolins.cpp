@@ -71,14 +71,8 @@ void GetIRPath(WDL_String& string, const char *filePath)
 {
 	// FIX - cross platform
 	
-	char bundlePath[4096];
-	
-	CFBundleRef requestedBundle = CFBundleGetBundleWithIdentifier(CFSTR(BUNDLE_ID));
-	CFURLRef url = CFBundleCopyBundleURL(requestedBundle);
-	CFURLGetFileSystemRepresentation(url, true, (UInt8 *) bundlePath, (CFIndex) 4096);
-	
-	string.Set(bundlePath);
-	string.Append("/Contents/Resources/");
+    BundleResourcePath(string, BUNDLE_ID);
+    string.Append("/");
 	string.Append(filePath);
 }
 
@@ -398,7 +392,7 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
     
     pGraphics->EnableMouseOver(true);
         
-	// Display curves
+	// Display Curves
 	
 	UpdateIRsAndDisplay(true);
 }
@@ -627,7 +621,7 @@ bool OctetViolins::GetSoloChanged()
 
 long OctetViolins::DelayInSamps(int i)
 {
-	return round (GetParam(kDelay1 + i)->Value() * mSamplingRate / 1000.0);
+	return round(GetParam(kDelay1 + i)->Value() * mSamplingRate / 1000.0);
 }
 
 void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR)
