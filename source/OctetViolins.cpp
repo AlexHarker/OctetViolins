@@ -716,6 +716,17 @@ void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTool
 	}
 }
 
+template <template<class U> class T>
+void ApplyFilter(double *io, unsigned long length, double freq, int order, double samplingRate)
+{
+    T<double> filter = T<double>(4);
+    
+    filter.set(freq, order, samplingRate);
+ 
+    for (unsigned long i = 0; i < length; i++, io++)
+        *io = filter(*io);
+}
+
 void OctetViolins::LoadIRs()
 {
 	bool changed = false;
@@ -754,32 +765,20 @@ void OctetViolins::LoadIRs()
 			
 			if (GetParam(kIRHPFOn1 + offset)->Bool())
 			{
-				ButterworthHPF<double> HPF = ButterworthHPF<double>(4);
-				
-				HPF.set(GetParam(kIRHPFFreq1 + offset)->Value(), GetParam(kIRHPFSlope1 + offset)->Int() + 1, mSamplingRate);
+                double freq = GetParam(kIRHPFFreq1 + offset)->Value();
+                int order = GetParam(kIRHPFSlope1 + offset)->Int() + 1;
 			 
-				for (unsigned long j = 0; j < outLength; j++)
-					 IRL[j] = HPF(IRL[j]);
-				
-				HPF.reset();
-				
-				for (unsigned long j = 0; j < outLength; j++)
-					IRR[j] = HPF(IRR[j]);
+                ApplyFilter<ButterworthHPF>(IRL.get(), outLength, freq, order, mSamplingRate);
+                ApplyFilter<ButterworthHPF>(IRR.get(), outLength, freq, order, mSamplingRate);
 			}
 			
 			if (GetParam(kIRLPFOn1 + offset)->Bool())
 			{
-				ButterworthLPF<double> LPF = ButterworthLPF<double>(4);
-				
-				LPF.set(GetParam(kIRLPFFreq1 + offset)->Value(), GetParam(kIRLPFSlope1 + offset)->Int() + 1, mSamplingRate);
-				
-				for (unsigned long j = 0; j < outLength; j++)
-					IRL[j] = LPF(IRL[j]);
-				
-				LPF.reset();
-				
-				for (unsigned long j = 0; j < outLength; j++)
-					IRR[j] = LPF(IRR[j]);
+                double freq = GetParam(kIRLPFFreq1 + offset)->Value();
+                int order = GetParam(kIRLPFSlope1 + offset)->Int() + 1;
+             
+                ApplyFilter<ButterworthLPF>(IRL.get(), outLength,freq, order, mSamplingRate);
+                ApplyFilter<ButterworthLPF>(IRR.get(), outLength, freq, order, mSamplingRate);
 			}
 		}
 		else
