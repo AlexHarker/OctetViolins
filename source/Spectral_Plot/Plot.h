@@ -119,7 +119,7 @@ namespace HISSTools
                 mCurveTK = thickness;
             }
             
-            void setColor(ColorSpec *colorSpec)
+            void setColor(ColorSpecification *colorSpec)
             {
                 mCurveCS = colorSpec;
             }
