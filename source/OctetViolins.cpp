@@ -70,8 +70,11 @@ const char *paths[4][8] =
 void GetIRPath(WDL_String& string, const char *filePath)
 {
     // FIX - cross platform
-    
+#if defined OS_MAC || defined OS_IOS
     BundleResourcePath(string, BUNDLE_ID);
+#else
+    AppSupportPath(string, false);
+#endif
     string.Append("/");
     string.Append(filePath);
 }
