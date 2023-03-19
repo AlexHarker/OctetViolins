@@ -33,7 +33,7 @@ class CrossfadedConvolution
     
 public:
     
-    CrossfadedConvolution() : mFree(0) {}
+    CrossfadedConvolution() : mTemporary(1024), mFree(0) {}
     
     bool set(const double *IRL, const double *IRR, long length);
     void process(const double **inputs, double **outputs, int nFrames);
@@ -41,6 +41,7 @@ public:
     
 private:
 
+    std::vector<double> mTemporary;
     FadedConvolution mConvolvers[2];
     int mFree;
 };

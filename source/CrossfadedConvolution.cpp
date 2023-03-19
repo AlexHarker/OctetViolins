@@ -45,14 +45,13 @@ bool CrossfadedConvolution::set(const double *IRL, const double *IRR, long lengt
 
 void CrossfadedConvolution::process(const double **inputs, double **outputs, int nFrames)
 {
-    // FIX - later
-    
-    double tempL[nFrames];
-    double tempR[nFrames];
+    if ((nFrames * 2) > mTemporary.size())
+      mTemporary.resize(nFrames * 2);
+  
     double *temps[2];
     
-    temps[0] = tempL;
-    temps[1] = tempR;
+    temps[0] = mTemporary.data();
+    temps[1] = temps[0] + nFrames;
     
     std::fill_n(outputs[0], nFrames, 0.0);
     std::fill_n(outputs[1], nFrames, 0.0);
@@ -64,9 +63,9 @@ void CrossfadedConvolution::process(const double **inputs, double **outputs, int
             mConvolvers[i].process(inputs, temps, nFrames);
             
             for (int j = 0; j < nFrames; j++)
-                outputs[0][j] += tempL[j];
+                outputs[0][j] += temps[0][j];
             for (int j = 0; j < nFrames; j++)
-                outputs[1][j] += tempR[j];
+                outputs[1][j] += temps[1][j];
         }
     }
 }
