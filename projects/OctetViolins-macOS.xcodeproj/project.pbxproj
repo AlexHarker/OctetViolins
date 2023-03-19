@@ -354,41 +354,6 @@
 		B84AC1832799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
 		B84AC1842799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
 		B84AC1852799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1862799DD5300466600 /* swell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4313B635B2001D0217 /* swell.cpp */; };
-		B84AC1882799DDA200466600 /* swell-misc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3F13B635A0001D0217 /* swell-misc.mm */; };
-		B84AC1892799DDBA00466600 /* swell-wnd.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4113B635AB001D0217 /* swell-wnd.mm */; };
-		B84AC18A2799DDD400466600 /* swell-gdi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0B13B634BF001D0217 /* swell-gdi.mm */; };
-		B84AC18B2799DDE400466600 /* swell-dlg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0413B634AA001D0217 /* swell-dlg.mm */; };
-		B84AC18D2799DE1400466600 /* swell-kb.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3913B63582001D0217 /* swell-kb.mm */; };
-		B84AC18E2799DE2E00466600 /* swell-menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3D13B63595001D0217 /* swell-menu.mm */; };
-		B84AC1902799DE4F00466600 /* swell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4313B635B2001D0217 /* swell.cpp */; };
-		B84AC1912799DE5500466600 /* swell-menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3D13B63595001D0217 /* swell-menu.mm */; };
-		B84AC1922799DE5700466600 /* swell-wnd.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4113B635AB001D0217 /* swell-wnd.mm */; };
-		B84AC1932799DE5A00466600 /* swell-misc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3F13B635A0001D0217 /* swell-misc.mm */; };
-		B84AC1942799DE5D00466600 /* swell-dlg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0413B634AA001D0217 /* swell-dlg.mm */; };
-		B84AC1952799DE6100466600 /* swell-gdi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0B13B634BF001D0217 /* swell-gdi.mm */; };
-		B84AC1962799DE6E00466600 /* swell-kb.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3913B63582001D0217 /* swell-kb.mm */; };
-		B84AC1972799DE7200466600 /* swell-kb.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3913B63582001D0217 /* swell-kb.mm */; };
-		B84AC1982799DE7500466600 /* swell-dlg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0413B634AA001D0217 /* swell-dlg.mm */; };
-		B84AC1992799DE7700466600 /* swell-wnd.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4113B635AB001D0217 /* swell-wnd.mm */; };
-		B84AC19A2799DE7B00466600 /* swell-misc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3F13B635A0001D0217 /* swell-misc.mm */; };
-		B84AC19B2799DE7E00466600 /* swell-gdi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0B13B634BF001D0217 /* swell-gdi.mm */; };
-		B84AC19C2799DE8300466600 /* swell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4313B635B2001D0217 /* swell.cpp */; };
-		B84AC19D2799DE9800466600 /* swell-menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3D13B63595001D0217 /* swell-menu.mm */; };
-		B84AC19E2799DE9E00466600 /* swell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4313B635B2001D0217 /* swell.cpp */; };
-		B84AC19F2799DEA100466600 /* swell-kb.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3913B63582001D0217 /* swell-kb.mm */; };
-		B84AC1A02799DEA200466600 /* swell-dlg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0413B634AA001D0217 /* swell-dlg.mm */; };
-		B84AC1A12799DEA400466600 /* swell-menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3D13B63595001D0217 /* swell-menu.mm */; };
-		B84AC1A22799DEA700466600 /* swell-wnd.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4113B635AB001D0217 /* swell-wnd.mm */; };
-		B84AC1A32799DEB300466600 /* swell-gdi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0B13B634BF001D0217 /* swell-gdi.mm */; };
-		B84AC1A42799DEBB00466600 /* swell-misc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3F13B635A0001D0217 /* swell-misc.mm */; };
-		B84AC1A52799DEC100466600 /* swell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4313B635B2001D0217 /* swell.cpp */; };
-		B84AC1A62799DEC400466600 /* swell-gdi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0B13B634BF001D0217 /* swell-gdi.mm */; };
-		B84AC1A72799DEC700466600 /* swell-misc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3F13B635A0001D0217 /* swell-misc.mm */; };
-		B84AC1A82799DEC900466600 /* swell-kb.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3913B63582001D0217 /* swell-kb.mm */; };
-		B84AC1A92799DECB00466600 /* swell-dlg.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0413B634AA001D0217 /* swell-dlg.mm */; };
-		B84AC1AA2799DED200466600 /* swell-menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D3D13B63595001D0217 /* swell-menu.mm */; };
-		B84AC1AB2799DED900466600 /* swell-wnd.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4113B635AB001D0217 /* swell-wnd.mm */; };
 		B84AC2B62799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
 		B84AC2B72799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
 		B84AC2B82799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
@@ -2454,13 +2419,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC19C2799DE8300466600 /* swell.cpp in Sources */,
-				B84AC1972799DE7200466600 /* swell-kb.mm in Sources */,
-				B84AC1982799DE7500466600 /* swell-dlg.mm in Sources */,
-				B84AC1992799DE7700466600 /* swell-wnd.mm in Sources */,
-				B84AC19B2799DE7E00466600 /* swell-gdi.mm in Sources */,
-				B84AC19D2799DE9800466600 /* swell-menu.mm in Sources */,
-				B84AC19A2799DE7B00466600 /* swell-misc.mm in Sources */,
 				4FDAC0EB207D76C600299363 /* IPlugTimer.cpp in Sources */,
 				4F63696E20A463090022C370 /* IControls.cpp in Sources */,
 				B84AC16E2799DCE200466600 /* Convolver.cpp in Sources */,
@@ -2533,13 +2491,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC1862799DD5300466600 /* swell.cpp in Sources */,
-				B84AC1882799DDA200466600 /* swell-misc.mm in Sources */,
-				B84AC1892799DDBA00466600 /* swell-wnd.mm in Sources */,
-				B84AC18A2799DDD400466600 /* swell-gdi.mm in Sources */,
-				B84AC18B2799DDE400466600 /* swell-dlg.mm in Sources */,
-				B84AC18D2799DE1400466600 /* swell-kb.mm in Sources */,
-				B84AC18E2799DE2E00466600 /* swell-menu.mm in Sources */,
 				4F03A5AF20A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				B84AC112279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
 				B84AC1692799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
@@ -2577,13 +2528,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC1902799DE4F00466600 /* swell.cpp in Sources */,
-				B84AC1952799DE6100466600 /* swell-gdi.mm in Sources */,
-				B84AC1922799DE5700466600 /* swell-wnd.mm in Sources */,
-				B84AC1912799DE5500466600 /* swell-menu.mm in Sources */,
-				B84AC1942799DE5D00466600 /* swell-dlg.mm in Sources */,
-				B84AC1962799DE6E00466600 /* swell-kb.mm in Sources */,
-				B84AC1932799DE5A00466600 /* swell-misc.mm in Sources */,
 				B84AC1452799DBD300466600 /* BaseAudioFile.cpp in Sources */,
 				4F81597C205D50EB00393585 /* baseiids.cpp in Sources */,
 				4FDAC0EC207D76C600299363 /* IPlugTimer.cpp in Sources */,
@@ -2650,13 +2594,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC19E2799DE9E00466600 /* swell.cpp in Sources */,
-				B84AC19F2799DEA100466600 /* swell-kb.mm in Sources */,
-				B84AC1A12799DEA400466600 /* swell-menu.mm in Sources */,
-				B84AC1A22799DEA700466600 /* swell-wnd.mm in Sources */,
-				B84AC1A02799DEA200466600 /* swell-dlg.mm in Sources */,
-				B84AC1A32799DEB300466600 /* swell-gdi.mm in Sources */,
-				B84AC1A42799DEBB00466600 /* swell-misc.mm in Sources */,
 				B84AC1782799DCE200466600 /* MonoConvolve.cpp in Sources */,
 				B84AC1712799DCE200466600 /* Convolver.cpp in Sources */,
 				4F3862F32014BBEC0009F402 /* OctetViolins.cpp in Sources */,
@@ -2769,13 +2706,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC1A52799DEC100466600 /* swell.cpp in Sources */,
-				B84AC1A62799DEC400466600 /* swell-gdi.mm in Sources */,
-				B84AC1A72799DEC700466600 /* swell-misc.mm in Sources */,
-				B84AC1A92799DECB00466600 /* swell-dlg.mm in Sources */,
-				B84AC1A82799DEC900466600 /* swell-kb.mm in Sources */,
-				B84AC1AB2799DED900466600 /* swell-wnd.mm in Sources */,
-				B84AC1AA2799DED200466600 /* swell-menu.mm in Sources */,
 				B84AC16B2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				4FFBB90520863B0E00DDD0E7 /* baseiids.cpp in Sources */,
 				4FFBB90620863B0E00DDD0E7 /* IPlugTimer.cpp in Sources */,

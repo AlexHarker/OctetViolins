@@ -5,13 +5,12 @@
 
 #include "HISSTools_Controls.hpp"
 #include "HISSTools_Design_Scheme.hpp"
-
 #include "HISSTools_ThreadSafety.hpp"
 #include "HISSTools_Spectral_Display.hpp"
 
 #include "CrossfadedConvolution.h"
 
-#include "swell.h"
+#include <thread>
 
 enum EParams
 {
@@ -167,7 +166,7 @@ private:
     
     // IR Storage
     
-  HISSTools_RefPtr <double> mIRs[4][2];
+    HISSTools_RefPtr <double> mIRs[4][2];
     
     // Default IR Setup
     
@@ -179,7 +178,7 @@ private:
     
     double mParamCache[kNumParams];
     
-    HANDLE mThread;
+    std::thread mThread;
     
     mutable WDL_Mutex mMutex;
 

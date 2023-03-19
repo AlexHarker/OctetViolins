@@ -128,19 +128,19 @@ Design theDesign;
 
 // Loading Thread Entry Point
 
-DWORD LoadingThread(LPVOID plugParam)
+void LoadingThread(OctetViolins * pPlugin)
 {
-	OctetViolins *plug = (OctetViolins *) plugParam;
-	
-	plug->LoadUntilUpdated();
-	
-	return NULL;
+    pPlugin->LoadUntilUpdated();
 }
 
 // Constructor and Destructor
 
 OctetViolins::OctetViolins(InstanceInfo info)
-: Plugin(info, MakeConfig(kNumParams, kNumPrograms)), mSamplingRate(44100.), mThread(NULL), mUpdateAudioEngine(false), mParamUpdated(false), mPresetIdx(-1)
+: Plugin(info, MakeConfig(kNumParams, kNumPrograms))
+, mSamplingRate(44100.)
+, mUpdateAudioEngine(false)
+, mParamUpdated(false)
+, mPresetIdx(-1)
 {
 	TRACE;
 
@@ -227,19 +227,12 @@ OctetViolins::OctetViolins(InstanceInfo info)
 
 OctetViolins::~OctetViolins()
 {
+    WDL_MutexLock lock(&mMutex);
+
 	// Wait for the loading thread to complete before we exit
 	
-    HANDLE thread = nullptr;
-    
-    if (true) // Scope for lock
-    {
-        WDL_MutexLock lock(&mMutex);
-        thread = mThread;
-        mThread = NULL;
-    }
-		
-	if (thread)
-		WaitForSingleObject(thread, INFINITE);
+    if (mThread.joinable())
+        mThread.join();
 }
 
 // GUI Creation
@@ -600,10 +593,8 @@ bool OctetViolins::GetParamUpdated()
 	
 	if (!paramUpdated)
 	{
-		HANDLE thread = mThread;
-		mThread = NULL;
-		if (thread)
-			CloseHandle(thread);
+		if (mThread.joinable())
+            mThread.join();
 	}
 	
 	return paramUpdated;
@@ -1028,8 +1019,8 @@ void OctetViolins::OnParamChange(int paramIdx, EParamSource source, int sampleOf
 			
 		default:
 			mParamUpdated = true;
-			if (!mThread)
-				mThread = CreateThread(NULL, 0, LoadingThread, this, 0, NULL);
+			if (!mThread.joinable())
+                mThread = std::thread(&LoadingThread, this);
 	 }
 }
 
