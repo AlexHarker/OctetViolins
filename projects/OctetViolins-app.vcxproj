@@ -321,14 +321,18 @@
     <ClInclude Include="..\..\..\IPlug\IPlugUtilities.h" />
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_hdr.h" />
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_src.h" />
-    <ClInclude Include="..\OctetViolins.h" />
+    <ClInclude Include="..\source\AH_VectorOps.h" />
+    <ClInclude Include="..\source\Biquad.h" />
+    <ClInclude Include="..\source\CrossfadedConvolution.h" />
+    <ClInclude Include="..\source\HISSTools_Spectral_Display.hpp" />
+    <ClInclude Include="..\source\OctetViolins.h" />
     <ClInclude Include="..\resources\resource.h" />
-    <ClInclude Include="..\src\Buffer.h" />
-    <ClInclude Include="..\src\Granular.h" />
-    <ClInclude Include="..\src\List.h" />
-    <ClInclude Include="..\src\Nonlinear.h" />
-    <ClInclude Include="..\src\SallenAndKey.h" />
-    <ClInclude Include="..\src\Waveform.h" />
+    <ClInclude Include="..\source\OctetViolins_Controls.h" />
+    <ClInclude Include="..\source\Resampler.h" />
+    <ClInclude Include="..\source\Spectral_Plot\Plot.h" />
+    <ClInclude Include="..\source\Spectral_Plot\PowerSpectrum.hpp" />
+    <ClInclude Include="..\source\Spectral_Plot\Spectrum.hpp" />
+    <ClInclude Include="..\source\Spectral_Plot\Spectrum_Plot.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Dependencies\IPlug\RTAudio\include\asio.cpp" />
@@ -410,11 +414,17 @@
     <ClCompile Include="..\..\..\IPlug\IPlugPluginBase.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugProcessor.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugTimer.cpp" />
-    <ClCompile Include="..\OctetViolins.cpp" />
-    <ClCompile Include="..\src\Granular.cpp" />
-    <ClCompile Include="..\src\HISSTools_Library\AudioFile\BaseAudioFile.cpp" />
-    <ClCompile Include="..\src\HISSTools_Library\AudioFile\IAudioFile.cpp" />
-    <ClCompile Include="..\src\Waveform.cpp" />
+    <ClCompile Include="..\source\CrossfadedConvolution.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\Convolver.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\MonoConvolve.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\NToMonoConvolve.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\PartitionedConvolve.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\TimeDomainConvolve.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\HISSTools_FFT\HISSTools_FFT.cpp" />
+    <ClCompile Include="..\source\OctetViolins.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\AudioFile\BaseAudioFile.cpp" />
+    <ClCompile Include="..\source\HISSTools_Library\AudioFile\IAudioFile.cpp" />
+    <ClCompile Include="..\source\OctetViolins_Controls.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\resources\main.rc" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\OctetViolins.cpp" />
+    <ClCompile Include="..\source\OctetViolins.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugAPIBase.cpp">
       <Filter>IPlug</Filter>
     </ClCompile>
@@ -65,22 +65,40 @@
     <ClCompile Include="..\..\..\IGraphics\Drawing\IGraphicsSkia.cpp">
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Granular.cpp">
-      <Filter>DSP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Waveform.cpp">
-      <Filter>DSP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\HISSTools_Library\AudioFile\BaseAudioFile.cpp">
+    <ClCompile Include="..\source\HISSTools_Library\AudioFile\BaseAudioFile.cpp">
       <Filter>HISSTools_Library</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\HISSTools_Library\AudioFile\IAudioFile.cpp">
+    <ClCompile Include="..\source\HISSTools_Library\AudioFile\IAudioFile.cpp">
       <Filter>HISSTools_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\HISSTools_Library\HISSTools_FFT\HISSTools_FFT.cpp">
+      <Filter>HISSTools_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CrossfadedConvolution.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\OctetViolins_Controls.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\Convolver.cpp">
+      <Filter>HISSTools_Library\Convolution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\MonoConvolve.cpp">
+      <Filter>HISSTools_Library\Convolution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\NToMonoConvolve.cpp">
+      <Filter>HISSTools_Library\Convolution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\PartitionedConvolve.cpp">
+      <Filter>HISSTools_Library\Convolution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\TimeDomainConvolve.cpp">
+      <Filter>HISSTools_Library\Convolution</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../config.h" />
-    <ClInclude Include="..\OctetViolins.h" />
+    <ClInclude Include="..\source\OctetViolins.h" />
     <ClInclude Include="..\..\..\IPlug\IPlugAPIBase.h">
       <Filter>IPlug</Filter>
     </ClInclude>
@@ -234,23 +252,35 @@
     <ClInclude Include="..\..\..\IGraphics\Drawing\IGraphicsSkia.h">
       <Filter>IGraphics\Drawing</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Buffer.h">
-      <Filter>DSP</Filter>
+    <ClInclude Include="..\source\AH_VectorOps.h">
+      <Filter>Plugin</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Granular.h">
-      <Filter>DSP</Filter>
+    <ClInclude Include="..\source\Biquad.h">
+      <Filter>Plugin</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\List.h">
-      <Filter>DSP</Filter>
+    <ClInclude Include="..\source\CrossfadedConvolution.h">
+      <Filter>Plugin</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Nonlinear.h">
-      <Filter>DSP</Filter>
+    <ClInclude Include="..\source\HISSTools_Spectral_Display.hpp">
+      <Filter>Plugin</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\SallenAndKey.h">
-      <Filter>DSP</Filter>
+    <ClInclude Include="..\source\OctetViolins_Controls.h">
+      <Filter>Plugin</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Waveform.h">
-      <Filter>DSP</Filter>
+    <ClInclude Include="..\source\Resampler.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Spectral_Plot\Plot.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Spectral_Plot\PowerSpectrum.hpp">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Spectral_Plot\Spectrum.hpp">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Spectral_Plot\Spectrum_Plot.h">
+      <Filter>Plugin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,11 +308,14 @@
     <Filter Include="config">
       <UniqueIdentifier>{8c338368-7512-426b-af83-0f50719ca0bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DSP">
-      <UniqueIdentifier>{781180e6-da58-41db-8a01-990491537433}</UniqueIdentifier>
-    </Filter>
     <Filter Include="HISSTools_Library">
       <UniqueIdentifier>{bd499525-e282-49ac-b6c9-849cd427be5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugin">
+      <UniqueIdentifier>{b3670493-8c0f-4e7e-88d6-5fc68c5d6e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HISSTools_Library\Convolution">
+      <UniqueIdentifier>{23beca93-e705-4fa1-853b-2ded78a2ef8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
