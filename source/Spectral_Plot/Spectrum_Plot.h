@@ -161,10 +161,7 @@ namespace HISSTools
         
         bool inputSpectrum(PowerSpectrum *inSpectrum)
         {
-            if (mSpectrum->copy(inSpectrum) == true)
-                return true;
-        
-            return false;
+            return mSpectrum->copy(inSpectrum);
         }
         
     protected:
@@ -206,7 +203,7 @@ namespace HISSTools
         
         void inputSpectrum(PowerSpectrum *inSpectrum, unsigned long curve = 0)
         {
-            if (this->mCurves[curve]->inputSpectrum(inSpectrum) == true)
+            if (this->mCurves[curve]->inputSpectrum(inSpectrum))
                 this->needsRedraw();
         }
         
