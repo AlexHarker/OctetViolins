@@ -139,7 +139,6 @@ private:
     void CheckVisibleIR();
     void SetIRDisplay(int i, bool setParam);
     long DelayInSamps(int i);
-    bool GetParamUpdated();
     bool GetSoloChanged();
     void LoadFiles(int diff, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR);
     void LoadIRs();
@@ -184,7 +183,11 @@ private:
 
     int mChanged[4];
     
-    bool mSolo, mSoloChanged, mParamUpdated, mUpdateAudioEngine;
+    bool mSolo;
+    bool mSoloChanged;
+    bool mParamUpdated;
+    bool mThreadJoining;
+    bool mUpdateAudioEngine;
     
     // Presets
     

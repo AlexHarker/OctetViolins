@@ -143,6 +143,7 @@ OctetViolins::OctetViolins(InstanceInfo info)
 , mSamplingRate(44100.)
 , mUpdateAudioEngine(false)
 , mParamUpdated(false)
+, mThreadJoining(false)
 , mPresetIdx(-1)
 {
     TRACE;
@@ -230,11 +231,16 @@ OctetViolins::OctetViolins(InstanceInfo info)
 
 OctetViolins::~OctetViolins()
 {
-    WDL_MutexLock lock(&mMutex);
-
+    auto join = [&]()
+    {
+        WDL_MutexLock lock(&mMutex);
+        mThreadJoining = mThread.joinable();
+        return mThreadJoining;
+    };
+    
     // Wait for the loading thread to complete before we exit
     
-    if (mThread.joinable())
+    if (join())
         mThread.join();
 }
 
@@ -583,24 +589,21 @@ void OctetViolins::OnReset()
 
 void OctetViolins::LoadUntilUpdated()
 {
-    while (GetParamUpdated())
-        LoadIRs();
-}
-
-bool OctetViolins::GetParamUpdated()
-{
-    WDL_MutexLock lock(&mMutex);
-    
-    bool paramUpdated = mParamUpdated;
-    mParamUpdated = false;
-    
-    if (!paramUpdated)
+    auto getParamUpdated = [&]()
     {
-        if (mThread.joinable())
-            mThread.join();
-    }
+        WDL_MutexLock lock(&mMutex);
+        
+        bool paramUpdated = mParamUpdated;
+        mParamUpdated = false;
+        
+        if (mThread.joinable() && !paramUpdated && !mThreadJoining)
+            mThread.detach();
+        
+        return paramUpdated;
+    };
     
-    return paramUpdated;
+    while (getParamUpdated())
+        LoadIRs();
 }
 
 bool OctetViolins::GetSoloChanged()
