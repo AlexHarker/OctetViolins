@@ -223,7 +223,6 @@ OctetViolins::OctetViolins(InstanceInfo info)
     MakeDefaultPreset("-", kNumPrograms);
     
     ClearParamCache();
-    OnParamReset(kReset);
     
     for (int i = 0; i < numIRParams(); i++)
         mIRDefaultValues[i] = GetParam(kIR1 + i)->Value();
@@ -267,11 +266,11 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
 
     // Main Displays
 
-    mSpectralDisplay = new HISSTools_Spectral_Display(freqDispX, freqDispY, dispWidth, dispHeight, 1050000, 4, 0, &theDesign);
+    HISSTools_Spectral_Display *spectralDisplay = new HISSTools_Spectral_Display(freqDispX, freqDispY, dispWidth, dispHeight, 1050000, 4, 0, &theDesign);
     
-    mSpectralDisplay->SetRanges(20.0, 22050.0, -80.0, 20.0);
+    spectralDisplay->SetRanges(20.0, 22050.0, -80.0, 20.0);
     
-    pGraphics->AttachControl(mSpectralDisplay);
+    pGraphics->AttachControl(spectralDisplay, kSpectralDisplay);
     
     // Num IRs and Selection
     
@@ -307,17 +306,19 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
     
     // Presets
     
-    for (int i = 0; i < 5; i++)
-        mPresetButtons[i + 0] = new PresetButton(this, i + 0, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 20, 20, 20, "tight preset", &theDesign);
+    IControl *presetButtons[10];
     
     for (int i = 0; i < 5; i++)
-        mPresetButtons[i + 5] = new PresetButton(this, i + 5, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 50, 20, 20, "tight preset", &theDesign);
+        presetButtons[i + 0] = new PresetButton(this, i + 0, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 20, 20, 20, "tight preset", &theDesign);
+    
+    for (int i = 0; i < 5; i++)
+        presetButtons[i + 5] = new PresetButton(this, i + 5, freqDispX + 540 + (i * 30), freqDispY + dispHeight + 50, 20, 20, "tight preset", &theDesign);
     
     for (int i = 0; i < 10; i++)
     {
-        pGraphics->AttachControl(mPresetButtons[i]);
-        mPresetButtons[i]->SetValueFromDelegate(i == mPresetIdx);
-        mPresetButtons[i]->SetDisabled(!mGUIPresets[i].Size());
+        pGraphics->AttachControl(presetButtons[i], kPresetButtons + i);
+        presetButtons[i]->SetValueFromDelegate(i == mPresetIdx);
+        presetButtons[i]->SetDisabled(!mGUIPresets[i].Size());
     }
     
     pGraphics->AttachControl(new FileSaveLoad(this, "Save", freqDispX + 540, freqDispY + dispHeight + 90, 65, 20, EFileAction::Save, "tight"));
@@ -445,8 +446,10 @@ void OctetViolins::RemoveIR()
 
 void OctetViolins::SavePreset(int idx)
 {
+    IControl *presetButton = GetUI()->GetControlWithTag(kPresetButtons + idx);
+    
     SerializeParams(mGUIPresets[idx]);
-    mPresetButtons[idx]->SetDisabled(!mGUIPresets[idx].Size());
+    presetButton->SetDisabled(!mGUIPresets[idx].Size());
     SetPreset(idx);
 }
 
@@ -457,8 +460,10 @@ void OctetViolins::SetPreset(int idx)
     
     for (int i = 0; i < 10; i++)
     {
-        mPresetButtons[i]->SetValueFromDelegate(i == idx);
-        mPresetButtons[i]->SetDisabled(!mGUIPresets[i].Size());
+        IControl *presetButton = GetUI()->GetControlWithTag(kPresetButtons + i);
+
+        presetButton->SetValueFromDelegate(i == idx);
+        presetButton->SetDisabled(!mGUIPresets[i].Size());
     }
     
     if (mGUIPresets[idx].Size())
@@ -469,9 +474,11 @@ void OctetViolins::SetPreset(int idx)
 
 void OctetViolins::RemovePreset(int idx)
 {
+    IControl *presetButton = GetUI()->GetControlWithTag(kPresetButtons + idx);
+
     mGUIPresets[idx].Resize(0);
-    mPresetButtons[idx]->SetValueFromDelegate(0.0);
-    mPresetButtons[idx]->SetDisabled(true);
+    presetButton->SetValueFromDelegate(0.0);
+    presetButton->SetDisabled(true);
     
     if (mPresetIdx == idx)
         mPresetIdx = -1;
@@ -916,12 +923,17 @@ void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long i
     if (!GetUI())
         return;
     
+    HISSTools_Spectral_Display *display = GetUI()->GetControlWithTag(kSpectralDisplay)->As<HISSTools_Spectral_Display>();
+    
+    if (!display)
+        return;
+    
     if (IR.getSize() == 0)
     {
         PowerSpectrum nullSpectrum(0);
         
-        mSpectralDisplay->inputSpectrum(&nullSpectrum, index);
-        mSpectralDisplay->setCurveDisplay(false, index);
+        display->inputSpectrum(&nullSpectrum, index);
+        display->setCurveDisplay(false, index);
     }
     else
     {
@@ -938,8 +950,8 @@ void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long i
         
         pSpectrum.calcPowerSpectrum(&fSpectrum);
         
-        mSpectralDisplay->inputSpectrum(&pSpectrum, index);
-        mSpectralDisplay->setCurveDisplay(true, index);
+        display->inputSpectrum(&pSpectrum, index);
+        display->setCurveDisplay(true, index);
     }
 }
 

@@ -79,7 +79,9 @@ enum ETags
     kDelete,
     kSelect1,
     kSelect2,
-    kSelect3
+    kSelect3,
+    kSpectralDisplay,
+    kPresetButtons
 };
     
 
@@ -152,12 +154,6 @@ private:
     bool UpdateParamCache(int start = 0, int end = kNumParams);
     
     void UpdateControlAndParam(double value, IControl *control, bool paramChange = false);
-
-    // Controls and Display
-    
-    HISSTools_Spectral_Display *mSpectralDisplay;
-    
-    IControl *mPresetButtons[10];
     
     // DSP
     
