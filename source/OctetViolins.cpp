@@ -370,17 +370,17 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
         pGraphics->AttachControl(muteSwitch);
         pGraphics->AttachControl(soloSwitch);
         
-        tab->attachControl(selection, i);
-        tab->attachControl(amp, i);
-        tab->attachControl(transposition, i);
-        tab->attachControl(hpfFreq, i);
-        tab->attachControl(lpfFreq, i);
-        tab->attachControl(hpfSlope, i);
-        tab->attachControl(lpfSlope, i);
-        tab->attachControl(hpfSwitch, i);
-        tab->attachControl(lpfSwitch, i);
-        tab->attachControl(muteSwitch, i);
-        tab->attachControl(soloSwitch, i);
+        tab->AttachControl(selection, i);
+        tab->AttachControl(amp, i);
+        tab->AttachControl(transposition, i);
+        tab->AttachControl(hpfFreq, i);
+        tab->AttachControl(lpfFreq, i);
+        tab->AttachControl(hpfSlope, i);
+        tab->AttachControl(lpfSlope, i);
+        tab->AttachControl(hpfSwitch, i);
+        tab->AttachControl(lpfSwitch, i);
+        tab->AttachControl(muteSwitch, i);
+        tab->AttachControl(soloSwitch, i);
     }
     
     auto remove = new RemoveIRButton(this, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
