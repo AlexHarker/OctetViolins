@@ -88,18 +88,18 @@ namespace HISSTools
 
                 // FIX - this should be intersected with any pre-existing clipping...
                 
-                renderer.setClip(this->getX(), this->getY(), this->getR(), this->getB());
-                renderer.setColor(this->mCurveCS);
+                renderer.SetClip(this->getX(), this->getY(), this->getR(), this->getB());
+                renderer.SetColor(this->mCurveCS);
                 
                 lastX = binToX(beg);
                 
                 if (lastX > this->getX())
                 {
-                    renderer.startMultiLine(this->getX(), powToY(spectrum[beg]), this->mCurveTK);
-                    renderer.continueMultiLine(lastX, powToY(spectrum[beg]));
+                    renderer.StartMultiLine(this->getX(), powToY(spectrum[beg]), this->mCurveTK);
+                    renderer.ContinueMultiLine(lastX, powToY(spectrum[beg]));
                 }
                 else
-                     renderer.startMultiLine(lastX, powToY(spectrum[beg]), this->mCurveTK);
+                     renderer.StartMultiLine(lastX, powToY(spectrum[beg]), this->mCurveTK);
                 
                 for (i = beg + 1; i < end; i++)
                 {
@@ -107,7 +107,7 @@ namespace HISSTools
                     bool exit = (nextX - lastX) < subSampleRender;
                     lastX = nextX;
                     
-                    renderer.continueMultiLine(nextX, powToY(spectrum[i]));
+                    renderer.ContinueMultiLine(nextX, powToY(spectrum[i]));
                     
                     if (exit)
                         break;
@@ -139,18 +139,18 @@ namespace HISSTools
                     
                     if (minPointX < maxPointX)
                     {
-                        renderer.continueMultiLine(minPointX, powToY(minPointY));
-                        renderer.continueMultiLine(maxPointX, powToY(maxPointY));
+                        renderer.ContinueMultiLine(minPointX, powToY(minPointY));
+                        renderer.ContinueMultiLine(maxPointX, powToY(maxPointY));
                     }
                     else
                     {
-                        renderer.continueMultiLine(maxPointX, powToY(maxPointY));
-                        renderer.continueMultiLine(minPointX, powToY(minPointY));
+                        renderer.ContinueMultiLine(maxPointX, powToY(maxPointY));
+                        renderer.ContinueMultiLine(minPointX, powToY(minPointY));
                     }	
                 }
                 
-                renderer.finishMultiLine();
-                renderer.setClip();
+                renderer.FinishMultiLine();
+                renderer.SetClip();
             }
         }
         

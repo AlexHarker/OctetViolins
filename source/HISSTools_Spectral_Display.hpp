@@ -92,7 +92,7 @@ public:
 		// Bounds
 		
 		HISSTools_Bounds fullBounds(x, y, w, h);
-        fullBounds.addThickness(mFrameTK);
+        fullBounds.AddThickness(mFrameTK);
         
         mRECT = fullBounds;
         mTargetRECT = mRECT;
