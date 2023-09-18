@@ -296,64 +296,7 @@
 		B84AC125279991F400466600 /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */; };
 		B84AC127279991F400466600 /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */; };
 		B84AC128279991F400466600 /* OctetViolins_Controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */; };
-		B84AC129279991F400466600 /* Resampler.h in Headers */ = {isa = PBXBuildFile; fileRef = B84AC10B279991F300466600 /* Resampler.h */; };
 		B84AC12A279991F400466600 /* Biquad.h in Headers */ = {isa = PBXBuildFile; fileRef = B84AC10C279991F300466600 /* Biquad.h */; };
-		B84AC13C2799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC13D2799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC13E2799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC13F2799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC1402799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC1412799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC1422799DBD300466600 /* IAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13A2799DBD300466600 /* IAudioFile.cpp */; };
-		B84AC1432799DBD300466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1442799DBD300466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1452799DBD300466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1462799DBD300466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1472799DBD300466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1482799DBD300466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1492799DBD400466600 /* BaseAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */; };
-		B84AC1582799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC1592799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC15A2799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC15B2799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC15C2799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC15D2799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC15E2799DCE200466600 /* NToMonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */; };
-		B84AC15F2799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1602799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1612799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1622799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1632799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1642799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1652799DCE200466600 /* PartitionedConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */; };
-		B84AC1662799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC1672799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC1682799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC1692799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC16A2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC16B2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC16C2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */; };
-		B84AC16D2799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC16E2799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC16F2799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC1702799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC1712799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC1722799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC1732799DCE200466600 /* Convolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1552799DCE200466600 /* Convolver.cpp */; };
-		B84AC1742799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC1752799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC1762799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC1772799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC1782799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC1792799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC17A2799DCE200466600 /* MonoConvolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC1572799DCE200466600 /* MonoConvolve.cpp */; };
-		B84AC17F2799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1802799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1812799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1822799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1832799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1842799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
-		B84AC1852799DCFD00466600 /* HISSTools_FFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */; };
 		B84AC2B62799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
 		B84AC2B72799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
 		B84AC2B82799E6E600466600 /* IRs in Resources */ = {isa = PBXBuildFile; fileRef = B84AC2B52799E6E600466600 /* IRs */; };
@@ -887,32 +830,9 @@
 		B84AC107279991F300466600 /* CrossfadedConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrossfadedConvolution.h; path = ../Source/CrossfadedConvolution.h; sourceTree = "<group>"; };
 		B84AC108279991F300466600 /* HISSTools_Spectral_Display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HISSTools_Spectral_Display.hpp; path = ../Source/HISSTools_Spectral_Display.hpp; sourceTree = "<group>"; };
 		B84AC10A279991F300466600 /* OctetViolins_Controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OctetViolins_Controls.cpp; path = ../Source/OctetViolins_Controls.cpp; sourceTree = "<group>"; };
-		B84AC10B279991F300466600 /* Resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resampler.h; path = ../Source/Resampler.h; sourceTree = "<group>"; };
 		B84AC10C279991F300466600 /* Biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Biquad.h; path = ../Source/Biquad.h; sourceTree = "<group>"; };
-		B84AC1342799DBA900466600 /* Allocator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Allocator.hpp; path = ../source/HISSTools_Library/Allocator.hpp; sourceTree = "<group>"; };
-		B84AC1352799DBB200466600 /* SpectralProcessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SpectralProcessor.hpp; path = ../source/HISSTools_Library/SpectralProcessor.hpp; sourceTree = "<group>"; };
-		B84AC1362799DBB200466600 /* SpectralFunctions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SpectralFunctions.hpp; path = ../source/HISSTools_Library/SpectralFunctions.hpp; sourceTree = "<group>"; };
-		B84AC1382799DBD300466600 /* BaseAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseAudioFile.h; path = ../source/HISSTools_Library/AudioFile/BaseAudioFile.h; sourceTree = "<group>"; };
-		B84AC1392799DBD300466600 /* IAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAudioFile.h; path = ../source/HISSTools_Library/AudioFile/IAudioFile.h; sourceTree = "<group>"; };
-		B84AC13A2799DBD300466600 /* IAudioFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAudioFile.cpp; path = ../source/HISSTools_Library/AudioFile/IAudioFile.cpp; sourceTree = "<group>"; };
-		B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseAudioFile.cpp; path = ../source/HISSTools_Library/AudioFile/BaseAudioFile.cpp; sourceTree = "<group>"; };
-		B84AC14B2799DCE200466600 /* NToMonoConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NToMonoConvolve.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/NToMonoConvolve.h; sourceTree = "<group>"; };
-		B84AC14C2799DCE200466600 /* PartitionedConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartitionedConvolve.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/PartitionedConvolve.h; sourceTree = "<group>"; };
-		B84AC14D2799DCE200466600 /* MonoConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonoConvolve.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/MonoConvolve.h; sourceTree = "<group>"; };
-		B84AC14E2799DCE200466600 /* ConvolveErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolveErrors.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/ConvolveErrors.h; sourceTree = "<group>"; };
-		B84AC14F2799DCE200466600 /* TimeDomainConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDomainConvolve.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/TimeDomainConvolve.h; sourceTree = "<group>"; };
-		B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NToMonoConvolve.cpp; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/NToMonoConvolve.cpp; sourceTree = "<group>"; };
-		B84AC1512799DCE200466600 /* MemorySwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemorySwap.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/MemorySwap.h; sourceTree = "<group>"; };
-		B84AC1522799DCE200466600 /* ConvolveSIMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolveSIMD.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/ConvolveSIMD.h; sourceTree = "<group>"; };
-		B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PartitionedConvolve.cpp; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/PartitionedConvolve.cpp; sourceTree = "<group>"; };
-		B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeDomainConvolve.cpp; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/TimeDomainConvolve.cpp; sourceTree = "<group>"; };
-		B84AC1552799DCE200466600 /* Convolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Convolver.cpp; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/Convolver.cpp; sourceTree = "<group>"; };
-		B84AC1562799DCE200466600 /* Convolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Convolver.h; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/Convolver.h; sourceTree = "<group>"; };
-		B84AC1572799DCE200466600 /* MonoConvolve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MonoConvolve.cpp; path = ../source/HISSTools_Library/HIRT_Multichannel_Convolution/MonoConvolve.cpp; sourceTree = "<group>"; };
-		B84AC17C2799DCFD00466600 /* HISSTools_FFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HISSTools_FFT.h; path = ../source/HISSTools_Library/HISSTools_FFT/HISSTools_FFT.h; sourceTree = "<group>"; };
-		B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HISSTools_FFT.cpp; path = ../source/HISSTools_Library/HISSTools_FFT/HISSTools_FFT.cpp; sourceTree = "<group>"; };
-		B84AC17E2799DCFD00466600 /* HISSTools_FFT_Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HISSTools_FFT_Core.h; path = ../source/HISSTools_Library/HISSTools_FFT/HISSTools_FFT_Core.h; sourceTree = "<group>"; };
 		B84AC2B52799E6E600466600 /* IRs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IRs; path = ../resources/IRs; sourceTree = "<group>"; };
+		B8AFB9CA2A37221900E22A8E /* HISSTools_Library */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HISSTools_Library; path = ../source/HISSTools_Library; sourceTree = "<group>"; };
 		B8F3700923D11B3E00291018 /* pluginfactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pluginfactory.cpp; sourceTree = "<group>"; };
 		B8F3700B23D11B5700291018 /* commoniids.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = commoniids.cpp; sourceTree = "<group>"; };
 		B8F3700D23D11B7500291018 /* IPlugVST3_ControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_ControllerBase.h; path = ../../../IPlug/VST3/IPlugVST3_ControllerBase.h; sourceTree = "<group>"; };
@@ -987,8 +907,8 @@
 		089C166AFE841209C02AAC07 /* IPlugExample */ = {
 			isa = PBXGroup;
 			children = (
+				B8AFB9CA2A37221900E22A8E /* HISSTools_Library */,
 				B81BF0D621F3A588002C1DA6 /* HISSTools_PluginLib */,
-				B84AC1332799DB8900466600 /* HISSTools_Library */,
 				52FBBED30D0CF143001C8B8A /* config.h */,
 				4F3862EE2014BBEC0009F402 /* OctetViolins.h */,
 				4F3862ED2014BBEC0009F402 /* OctetViolins.cpp */,
@@ -998,7 +918,6 @@
 				B84AC107279991F300466600 /* CrossfadedConvolution.h */,
 				B84AC106279991F300466600 /* CrossfadedConvolution.cpp */,
 				B84AC108279991F300466600 /* HISSTools_Spectral_Display.hpp */,
-				B84AC10B279991F300466600 /* Resampler.h */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C1671FE841209C02AAC07 /* Frameworks */,
@@ -1826,60 +1745,6 @@
 			path = HISSTools_Utility;
 			sourceTree = "<group>";
 		};
-		B84AC1332799DB8900466600 /* HISSTools_Library */ = {
-			isa = PBXGroup;
-			children = (
-				B84AC17B2799DCEE00466600 /* HISSTools_FFT */,
-				B84AC14A2799DCCB00466600 /* HIRT_Multichannel_Convolution */,
-				B84AC1372799DBBA00466600 /* AudioFile */,
-				B84AC1342799DBA900466600 /* Allocator.hpp */,
-				B84AC1362799DBB200466600 /* SpectralFunctions.hpp */,
-				B84AC1352799DBB200466600 /* SpectralProcessor.hpp */,
-			);
-			name = HISSTools_Library;
-			sourceTree = "<group>";
-		};
-		B84AC1372799DBBA00466600 /* AudioFile */ = {
-			isa = PBXGroup;
-			children = (
-				B84AC13B2799DBD300466600 /* BaseAudioFile.cpp */,
-				B84AC1382799DBD300466600 /* BaseAudioFile.h */,
-				B84AC13A2799DBD300466600 /* IAudioFile.cpp */,
-				B84AC1392799DBD300466600 /* IAudioFile.h */,
-			);
-			name = AudioFile;
-			sourceTree = "<group>";
-		};
-		B84AC14A2799DCCB00466600 /* HIRT_Multichannel_Convolution */ = {
-			isa = PBXGroup;
-			children = (
-				B84AC14E2799DCE200466600 /* ConvolveErrors.h */,
-				B84AC1552799DCE200466600 /* Convolver.cpp */,
-				B84AC1562799DCE200466600 /* Convolver.h */,
-				B84AC1522799DCE200466600 /* ConvolveSIMD.h */,
-				B84AC1512799DCE200466600 /* MemorySwap.h */,
-				B84AC1572799DCE200466600 /* MonoConvolve.cpp */,
-				B84AC14D2799DCE200466600 /* MonoConvolve.h */,
-				B84AC1502799DCE200466600 /* NToMonoConvolve.cpp */,
-				B84AC14B2799DCE200466600 /* NToMonoConvolve.h */,
-				B84AC1532799DCE200466600 /* PartitionedConvolve.cpp */,
-				B84AC14C2799DCE200466600 /* PartitionedConvolve.h */,
-				B84AC1542799DCE200466600 /* TimeDomainConvolve.cpp */,
-				B84AC14F2799DCE200466600 /* TimeDomainConvolve.h */,
-			);
-			name = HIRT_Multichannel_Convolution;
-			sourceTree = "<group>";
-		};
-		B84AC17B2799DCEE00466600 /* HISSTools_FFT */ = {
-			isa = PBXGroup;
-			children = (
-				B84AC17E2799DCFD00466600 /* HISSTools_FFT_Core.h */,
-				B84AC17D2799DCFD00466600 /* HISSTools_FFT.cpp */,
-				B84AC17C2799DCFD00466600 /* HISSTools_FFT.h */,
-			);
-			name = HISSTools_FFT;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1917,7 +1782,6 @@
 				4FC3EFFA2086CE5700BD11FA /* parameterchanges.h in Headers */,
 				4F9A82F6213DE80400BE63A4 /* IPopupMenuControl.h in Headers */,
 				4F03A5B320A4621100EBDFFB /* IGraphics_include_in_plug_src.h in Headers */,
-				B84AC129279991F400466600 /* Resampler.h in Headers */,
 				4FC3EFFC2086CE5700BD11FA /* plugprovider.h in Headers */,
 				4F63696320A463090022C370 /* IVMeterControl.h in Headers */,
 			);
@@ -2421,32 +2285,24 @@
 			files = (
 				4FDAC0EB207D76C600299363 /* IPlugTimer.cpp in Sources */,
 				4F63696E20A463090022C370 /* IControls.cpp in Sources */,
-				B84AC16E2799DCE200466600 /* Convolver.cpp in Sources */,
 				4F03A5AD20A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				B8F5C9F9228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
 				4F5F344220C0226200487201 /* IPlugPaths.mm in Sources */,
 				4F6369EC20A466470022C370 /* IControl.cpp in Sources */,
 				B84AC110279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
-				B84AC13D2799DBD300466600 /* IAudioFile.cpp in Sources */,
 				4FB1F58A20E4B005004157C8 /* IGraphicsMac.mm in Sources */,
-				B84AC1592799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4FCE29D821D6ED70004BCBA1 /* ITextEntryControl.cpp in Sources */,
 				4F9A82F8213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4F1A527B205D910000CF2908 /* IPlugVST2.cpp in Sources */,
 				4F8C10E120BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
 				4F6369DE20A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
-				B84AC1602799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				4F8D9707209EF5AC006E2A11 /* OctetViolins.cpp in Sources */,
 				4F78D9BB13B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */,
-				B84AC1672799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				4FB1F59020E4B010004157C8 /* IGraphicsMac_view.mm in Sources */,
-				B84AC1752799DCE200466600 /* MonoConvolve.cpp in Sources */,
 				B84AC122279991F400466600 /* OctetViolins_Controls.cpp in Sources */,
 				4F35DEAE207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */,
 				4F78D9C813B63BA50032E0F3 /* IPlugParameter.cpp in Sources */,
-				B84AC1802799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				B8D0830B231DA78900913E5B /* IPlugProcessor.cpp in Sources */,
-				B84AC1442799DBD300466600 /* BaseAudioFile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2456,30 +2312,22 @@
 			files = (
 				4FB1F59520E4B015004157C8 /* IGraphicsMac_view.mm in Sources */,
 				B84AC115279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
-				B84AC16C2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				4F03A5B120A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				4FAEBD30209DAF76002E6392 /* IPlugAUv3.mm in Sources */,
 				4F6369E220A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F6369F020A466470022C370 /* IControl.cpp in Sources */,
-				B84AC15E2799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4F63697220A463090022C370 /* IControls.cpp in Sources */,
 				4FAEBD34209DAF87002E6392 /* IPlugParameter.cpp in Sources */,
 				4F9A82FC213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4F8C10E520BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
 				4FAEBD31209DAF76002E6392 /* IPlugAUAudioUnit.mm in Sources */,
-				B84AC1852799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				B8F5C9FD228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
-				B84AC1652799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				4FAEBD3F209DB12E002E6392 /* OctetViolins.cpp in Sources */,
-				B84AC1732799DCE200466600 /* Convolver.cpp in Sources */,
 				4FAEBD36209DAF95002E6392 /* IPlugPluginBase.cpp in Sources */,
 				4FCE29DC21D6ED70004BCBA1 /* ITextEntryControl.cpp in Sources */,
-				B84AC1492799DBD400466600 /* BaseAudioFile.cpp in Sources */,
 				4FAEBD35209DAF87002E6392 /* IPlugTimer.cpp in Sources */,
 				4F5F344620C0226200487201 /* IPlugPaths.mm in Sources */,
 				4FAEBD32209DAF76002E6392 /* IPlugAUViewController.mm in Sources */,
-				B84AC17A2799DCE200466600 /* MonoConvolve.cpp in Sources */,
-				B84AC1422799DBD300466600 /* IAudioFile.cpp in Sources */,
 				B84AC127279991F400466600 /* OctetViolins_Controls.cpp in Sources */,
 				4FB1F58E20E4B008004157C8 /* IGraphicsMac.mm in Sources */,
 				4FAEBD33209DAF87002E6392 /* IPlugAPIBase.cpp in Sources */,
@@ -2493,30 +2341,22 @@
 			files = (
 				4F03A5AF20A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				B84AC112279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
-				B84AC1692799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				4F6369E020A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F6369EE20A466470022C370 /* IControl.cpp in Sources */,
 				4F1A528C205D916F00CF2908 /* IPlugAU.cpp in Sources */,
 				4F63697020A463090022C370 /* IControls.cpp in Sources */,
-				B84AC15B2799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4FD52131202A5B9B00A4D22A /* IPlugAU_view_factory.mm in Sources */,
 				4F8C10E320BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
 				4F9A82FA213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4FDAC0ED207D76C600299363 /* IPlugTimer.cpp in Sources */,
 				4F78D94513B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */,
-				B84AC1822799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				B8F5C9FB228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
-				B84AC1622799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				4FB1F59320E4B013004157C8 /* IGraphicsMac_view.mm in Sources */,
-				B84AC1702799DCE200466600 /* Convolver.cpp in Sources */,
 				4FD52136202A5BD000A4D22A /* dfx-au-utilities.c in Sources */,
 				4FCE29DA21D6ED70004BCBA1 /* ITextEntryControl.cpp in Sources */,
-				B84AC1462799DBD300466600 /* BaseAudioFile.cpp in Sources */,
 				4F5F344420C0226200487201 /* IPlugPaths.mm in Sources */,
 				4F35DEB0207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */,
 				4F78D95C13B63BA50032E0F3 /* IPlugParameter.cpp in Sources */,
-				B84AC1772799DCE200466600 /* MonoConvolve.cpp in Sources */,
-				B84AC13F2799DBD300466600 /* IAudioFile.cpp in Sources */,
 				B84AC124279991F400466600 /* OctetViolins_Controls.cpp in Sources */,
 				4FB1F58C20E4B006004157C8 /* IGraphicsMac.mm in Sources */,
 				4F3862F22014BBEC0009F402 /* OctetViolins.cpp in Sources */,
@@ -2528,7 +2368,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC1452799DBD300466600 /* BaseAudioFile.cpp in Sources */,
 				4F81597C205D50EB00393585 /* baseiids.cpp in Sources */,
 				4FDAC0EC207D76C600299363 /* IPlugTimer.cpp in Sources */,
 				4F3862F12014BBEC0009F402 /* OctetViolins.cpp in Sources */,
@@ -2546,8 +2385,6 @@
 				4F81591A205D50EB00393585 /* pluginview.cpp in Sources */,
 				4F815982205D50EB00393585 /* fstring.cpp in Sources */,
 				4F815995205D51F000393585 /* vstpresetfile.cpp in Sources */,
-				B84AC1682799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
-				B84AC16F2799DCE200466600 /* Convolver.cpp in Sources */,
 				4F815983205D50EB00393585 /* timer.cpp in Sources */,
 				4F815989205D50EB00393585 /* funknown.cpp in Sources */,
 				4FB1F58B20E4B006004157C8 /* IGraphicsMac.mm in Sources */,
@@ -2557,20 +2394,16 @@
 				4F81591E205D50EB00393585 /* macmain.cpp in Sources */,
 				4F815986205D50EB00393585 /* flock.cpp in Sources */,
 				4FCE29D921D6ED70004BCBA1 /* ITextEntryControl.cpp in Sources */,
-				B84AC13E2799DBD300466600 /* IAudioFile.cpp in Sources */,
 				4F5F344320C0226200487201 /* IPlugPaths.mm in Sources */,
 				4F81598A205D50EB00393585 /* ustring.cpp in Sources */,
 				4F815980205D50EB00393585 /* fobject.cpp in Sources */,
 				4F815994205D51F000393585 /* vstparameters.cpp in Sources */,
 				4F6369DF20A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
-				B84AC1612799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				B84AC111279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
 				4F815991205D51F000393585 /* vstcomponentbase.cpp in Sources */,
 				4F03A5AE20A4621100EBDFFB /* IGraphics.cpp in Sources */,
-				B84AC15A2799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4F815987205D50EB00393585 /* conststringtable.cpp in Sources */,
 				4FB1F59220E4B012004157C8 /* IGraphicsMac_view.mm in Sources */,
-				B84AC1812799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				4F81598D205D51F000393585 /* vstaudioeffect.cpp in Sources */,
 				4F81598C205D51CF00393585 /* vstsinglecomponenteffect.cpp in Sources */,
 				B8F5C9FA228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
@@ -2581,7 +2414,6 @@
 				4F815985205D50EB00393585 /* fcondition.cpp in Sources */,
 				4F9A82F9213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4F8C10E220BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
-				B84AC1762799DCE200466600 /* MonoConvolve.cpp in Sources */,
 				4F81597D205D50EB00393585 /* fbuffer.cpp in Sources */,
 				4F1A527E205D911A00CF2908 /* IPlugVST3.cpp in Sources */,
 				4F815988205D50EB00393585 /* coreiids.cpp in Sources */,
@@ -2594,28 +2426,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC1782799DCE200466600 /* MonoConvolve.cpp in Sources */,
-				B84AC1712799DCE200466600 /* Convolver.cpp in Sources */,
 				4F3862F32014BBEC0009F402 /* OctetViolins.cpp in Sources */,
 				4F35DEB1207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */,
 				4F9A82FB213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4FDAC0EE207D76C600299363 /* IPlugTimer.cpp in Sources */,
-				B84AC15C2799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4F8C10E420BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
 				4F6369E120A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F63697120A463090022C370 /* IControls.cpp in Sources */,
 				4FB6001A1567CB0A0020189A /* IPlugAPIBase.cpp in Sources */,
 				B84AC125279991F400466600 /* OctetViolins_Controls.cpp in Sources */,
-				B84AC1832799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				4F6369EF20A466470022C370 /* IControl.cpp in Sources */,
-				B84AC1402799DBD300466600 /* IAudioFile.cpp in Sources */,
 				4F03A5B020A4621100EBDFFB /* IGraphics.cpp in Sources */,
 				B8F5C9FC228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
 				4F5F344520C0226200487201 /* IPlugPaths.mm in Sources */,
-				B84AC1632799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				4F1A5285205D914A00CF2908 /* IPlugAAX.cpp in Sources */,
-				B84AC1472799DBD300466600 /* BaseAudioFile.cpp in Sources */,
-				B84AC16A2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				4F0848292015129A00F9E881 /* IPlugAAX_Parameters.cpp in Sources */,
 				4FB1F59420E4B014004157C8 /* IGraphicsMac_view.mm in Sources */,
 				4FCE29DB21D6ED70004BCBA1 /* ITextEntryControl.cpp in Sources */,
@@ -2660,7 +2484,6 @@
 				4F6369EB20A466470022C370 /* IControl.cpp in Sources */,
 				4FD16D0513B634AA001D0217 /* swell-dlg.mm in Sources */,
 				4FD16D1613B634D2001D0217 /* swell-ini.cpp in Sources */,
-				B84AC1432799DBD300466600 /* BaseAudioFile.cpp in Sources */,
 				4F5C5F6921BED05B00E024A7 /* swellappmain.mm in Sources */,
 				4FD16D3A13B63582001D0217 /* swell-kb.mm in Sources */,
 				4FCE29D721D6ED70004BCBA1 /* ITextEntryControl.cpp in Sources */,
@@ -2671,26 +2494,19 @@
 				4F5C5F6B21BED08700E024A7 /* swell-appstub.mm in Sources */,
 				4FD16D4013B635A0001D0217 /* swell-misc.mm in Sources */,
 				B84AC121279991F400466600 /* OctetViolins_Controls.cpp in Sources */,
-				B84AC16D2799DCE200466600 /* Convolver.cpp in Sources */,
-				B84AC17F2799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				4FD16D4213B635AB001D0217 /* swell-wnd.mm in Sources */,
 				B84AC10F279991F300466600 /* CrossfadedConvolution.cpp in Sources */,
-				B84AC13C2799DBD300466600 /* IAudioFile.cpp in Sources */,
 				4FD16D4413B635B2001D0217 /* swell.cpp in Sources */,
-				B84AC1742799DCE200466600 /* MonoConvolve.cpp in Sources */,
 				4F690CA3203A45C700A4A13E /* IPlugAPP_host.cpp in Sources */,
 				4F1A5282205D913300CF2908 /* IPlugAPP.cpp in Sources */,
 				4F03A5AC20A4621100EBDFFB /* IGraphics.cpp in Sources */,
-				B84AC15F2799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				4F2EA978203A50EA008E4850 /* IPlugAPP_dialog.cpp in Sources */,
 				4FAFFE5821495A4800A6E72D /* RtAudio.cpp in Sources */,
 				4F690C9B203A345100A4A13E /* IPlugAPP_main.cpp in Sources */,
-				B84AC1662799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				B8F5C9F8228825F000BAA6F8 /* IGraphicsCoreText.mm in Sources */,
 				4F63696D20A463090022C370 /* IControls.cpp in Sources */,
 				4FB1F58920E4B004004157C8 /* IGraphicsMac.mm in Sources */,
 				4F3862EF2014BBEC0009F402 /* OctetViolins.cpp in Sources */,
-				B84AC1582799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4F9A82F7213DE80400BE63A4 /* IPopupMenuControl.cpp in Sources */,
 				4F78D90B13B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */,
 				4F35DEAD207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */,
@@ -2706,7 +2522,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84AC16B2799DCE200466600 /* TimeDomainConvolve.cpp in Sources */,
 				4FFBB90520863B0E00DDD0E7 /* baseiids.cpp in Sources */,
 				4FFBB90620863B0E00DDD0E7 /* IPlugTimer.cpp in Sources */,
 				4FFBB90720863B0E00DDD0E7 /* OctetViolins.cpp in Sources */,
@@ -2719,11 +2534,8 @@
 				4FFBB90F20863B0E00DDD0E7 /* IPlugParameter.cpp in Sources */,
 				4FFBB91020863B0E00DDD0E7 /* pluginview.cpp in Sources */,
 				4FFBB91120863B0E00DDD0E7 /* fstring.cpp in Sources */,
-				B84AC1842799DCFD00466600 /* HISSTools_FFT.cpp in Sources */,
 				4FFBB91320863B0E00DDD0E7 /* vstpresetfile.cpp in Sources */,
-				B84AC1412799DBD300466600 /* IAudioFile.cpp in Sources */,
 				4FFBB91520863B0E00DDD0E7 /* timer.cpp in Sources */,
-				B84AC1482799DBD300466600 /* BaseAudioFile.cpp in Sources */,
 				4FFBB91720863B0E00DDD0E7 /* funknown.cpp in Sources */,
 				B8E42C8523D1F30D00FFE184 /* commoniids.cpp in Sources */,
 				4FFBB91820863B0E00DDD0E7 /* vstbus.cpp in Sources */,
@@ -2735,12 +2547,9 @@
 				4FFBB91F20863B0E00DDD0E7 /* vstparameters.cpp in Sources */,
 				4FFBB92120863B0E00DDD0E7 /* vstcomponentbase.cpp in Sources */,
 				4FFBB92220863B0E00DDD0E7 /* IPlugVST3_Processor.cpp in Sources */,
-				B84AC1642799DCE200466600 /* PartitionedConvolve.cpp in Sources */,
 				4FFBB92320863B0E00DDD0E7 /* conststringtable.cpp in Sources */,
-				B84AC1792799DCE200466600 /* MonoConvolve.cpp in Sources */,
 				4FFBB92420863B0E00DDD0E7 /* vstaudioeffect.cpp in Sources */,
 				4FFBB92520863B0E00DDD0E7 /* vstsinglecomponenteffect.cpp in Sources */,
-				B84AC1722799DCE200466600 /* Convolver.cpp in Sources */,
 				4FFBB92620863B0E00DDD0E7 /* updatehandler.cpp in Sources */,
 				4FFBB92820863B0E00DDD0E7 /* vstcomponent.cpp in Sources */,
 				4FFBB92C20863B0E00DDD0E7 /* fstreamer.cpp in Sources */,
@@ -2748,7 +2557,6 @@
 				4FFBB92E20863B0E00DDD0E7 /* fcondition.cpp in Sources */,
 				4FFBB93020863B0E00DDD0E7 /* fbuffer.cpp in Sources */,
 				4FFBB93420863B0E00DDD0E7 /* coreiids.cpp in Sources */,
-				B84AC15D2799DCE200466600 /* NToMonoConvolve.cpp in Sources */,
 				4F5F344720C0226200487201 /* IPlugPaths.mm in Sources */,
 				4FFBB93520863B0E00DDD0E7 /* vstnoteexpressiontypes.cpp in Sources */,
 				B8D0830F231DA7AE00913E5B /* IPlugProcessor.cpp in Sources */,

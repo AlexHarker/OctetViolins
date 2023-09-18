@@ -4,7 +4,7 @@
 #define __HISSTOOLS_POWERSPECTRUM__
 
 
-#include "../HISSTools_Library/HISSTools_FFT/HISSTools_FFT.h"
+#include <fft/fft.hpp>
 #include "Spectrum.hpp"
 #include <vector>
 
@@ -40,7 +40,7 @@ public:
 	
 	bool calcPowerSpectrum(Spectrum *inSpectrum, double scale = 0.)
 	{
-		FFT_SPLIT_COMPLEX_D in = *inSpectrum->getSpectrum();
+        htl::split_type<double> in = *inSpectrum->getSpectrum();
 		
 		double *spectrum = getSpectrum();
 		unsigned long FFTSize = inSpectrum->getFFTSize();

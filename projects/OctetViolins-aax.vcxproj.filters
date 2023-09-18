@@ -73,36 +73,12 @@
     <ClCompile Include="..\..\..\IGraphics\Drawing\IGraphicsSkia.cpp">
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\AudioFile\BaseAudioFile.cpp">
-      <Filter>HISSTools_Library</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\AudioFile\IAudioFile.cpp">
-      <Filter>HISSTools_Library</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\OctetViolins.cpp" />
-    <ClCompile Include="..\source\HISSTools_Library\HISSTools_FFT\HISSTools_FFT.cpp">
-      <Filter>HISSTools_Library</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\CrossfadedConvolution.cpp">
       <Filter>Plugin</Filter>
     </ClCompile>
     <ClCompile Include="..\source\OctetViolins_Controls.cpp">
       <Filter>Plugin</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\Convolver.cpp">
-      <Filter>HISSTools_Library\Convolution</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\MonoConvolve.cpp">
-      <Filter>HISSTools_Library\Convolution</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\NToMonoConvolve.cpp">
-      <Filter>HISSTools_Library\Convolution</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\PartitionedConvolve.cpp">
-      <Filter>HISSTools_Library\Convolution</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\HISSTools_Library\HIRT_Multichannel_Convolution\TimeDomainConvolve.cpp">
-      <Filter>HISSTools_Library\Convolution</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,14 +302,8 @@
     <Filter Include="IGraphics\Controls">
       <UniqueIdentifier>{3c740de7-2371-4065-bf3d-5af9193c7b7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="HISSTools_Library">
-      <UniqueIdentifier>{06a9b599-cccd-4231-af24-9c1f78138c82}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Plugin">
       <UniqueIdentifier>{b0299b6a-5f4e-48a7-94a0-80fa019d47b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="HISSTools_Library\Convolution">
-      <UniqueIdentifier>{4e4afe02-df50-4316-97b2-0de4d0b9a079}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

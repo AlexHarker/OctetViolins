@@ -9,11 +9,11 @@
 #include <algorithm>
 #include <cmath>
 
-#include "Resampler.h"
 #include "Biquad.h"
 
-#include "HISSTools_Library/AudioFile/IAudioFile.h"
-#include "HISSTools_Library/SpectralProcessor.hpp"
+#include <audio_file/in_file.hpp>
+#include <resampler.hpp>
+#include <spectral_processor.hpp>
 
 // Number of Programs
 
@@ -630,8 +630,6 @@ long OctetViolins::DelayInSamps(int i)
 
 void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTools_RefPtr<double> &IRR)
 {
-    unsigned long outLength;
-    
     double outSR = mSamplingRate * pow(2.0, -GetParam(kIRTransposition1 + offset)->Value() / 12.0);
     
     HISSTools_RefPtr<double> filesL[4];
@@ -645,34 +643,28 @@ void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTool
         
         GetIRPath(filePath, paths[i][GetParam(kIR1 + offset)->Int()]);
         
-        HISSTools::IAudioFile file(filePath.Get());
+        htl::in_audio_file file(filePath.Get());
         
-        if (GetParam(kSource1 + i)->Value() && file.isOpen() && !file.getErrorFlags() )
+        if (GetParam(kSource1 + i)->Value() && file.is_open() && !file.is_error())
         {
             // FIX - transpose after combining...
             
             // Read and Transpose
-
-            Resampler resampler;
-            HISSTools_RefPtr<float> baseIR(file.getFrames());
+            
+            htl::resampler<double, float, false> resample;
+            HISSTools_RefPtr<float> baseIR(file.frames());
         
-            file.readChannel(baseIR.get(), file.getFrames(), 0);
-            float *IRTempL = resampler.process(baseIR.get(), file.getFrames(), outLength, file.getSamplingRate(), outSR);
+            file.read_channel(baseIR.get(), file.frames(), 0);
+            auto IRTempL = resample.process(baseIR.get(), file.frames(), file.sampling_rate(), outSR);
             file.seek();
-            file.readChannel(baseIR.get(), file.getFrames(), 1 % file.getChannels());
-            float *IRTempR = resampler.process(baseIR.get(), file.getFrames(), outLength, file.getSamplingRate(), outSR);
+            file.read_channel(baseIR.get(), file.frames(), 1 % file.channels());
+            auto IRTempR = resample.process(baseIR.get(), file.frames(), file.sampling_rate(), outSR);
         
-            filesL[i] = HISSTools_RefPtr<double>(outLength);
-            filesR[i] = HISSTools_RefPtr<double>(outLength);
+            filesL[i] = HISSTools_RefPtr<double>(IRTempL.size());
+            filesR[i] = HISSTools_RefPtr<double>(IRTempR.size());
             
-            for (unsigned long j = 0; j < outLength; j++)
-                filesL[i][j] = IRTempL[j];
-            
-            for (unsigned long j = 0; j < outLength; j++)
-                filesR[i][j] = IRTempR[j];
-            
-            delete[] IRTempL;
-            delete[] IRTempR;
+            std::copy_n(IRTempL.begin(), IRTempL.size(), filesL[i].get());
+            std::copy_n(IRTempR.begin(), IRTempR.size(), filesR[i].get());
         }
     }
     
@@ -804,7 +796,7 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
     bool normalise = true;
     double gain = normalise ? 1.0 / numIRs : 1.0;
     
-    HISSTools_RefPtr <double> correction(1);
+    HISSTools_RefPtr<double> correction(1);
     
     long maxLength = 0;
     
@@ -816,23 +808,19 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
         
         GetIRPath(filePath, correctionPath);
     
-        HISSTools::IAudioFile file(filePath.Get());
+        htl::in_audio_file file(filePath.Get());
         
-        if (file.isOpen() && !file.getErrorFlags())
+        if (file.is_open() && !file.is_error())
         {
-            Resampler resampler;
-            HISSTools_RefPtr<float> correctionRaw(file.getFrames());
-            unsigned long outLength;
+            htl::resampler<double, float, false> resample;
+            HISSTools_RefPtr<float> correctionRaw(file.frames());
 
-            file.readChannel(correctionRaw.get(), file.getFrames(), 0);
-            float *resampledTemp = resampler.process(correctionRaw.get(), file.getFrames(), outLength, file.getSamplingRate(), mSamplingRate);
+            file.read_channel(correctionRaw.get(), file.frames(), 0);
+            auto resampledTemp = resample.process(correctionRaw.get(), file.frames(), file.sampling_rate(), mSamplingRate);
 
-            correction = HISSTools_RefPtr <double>(outLength);
+            correction = HISSTools_RefPtr<double>(resampledTemp.size());
 
-            for (unsigned long i = 0; i < outLength; i++)
-                correction[i] = resampledTemp[i];
-
-            delete[] resampledTemp;
+            std::copy_n(resampledTemp.begin(), resampledTemp.size(), correction.get());
         }
     }
     
@@ -871,10 +859,10 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
     
     if (correctionOn && (correction.getSize() > 1))
     {
-        auto edgeMode = spectral_processor<double>::EdgeMode::Linear;
+        auto edgeMode = htl::spectral_processor<double>::edge_mode::linear;
         auto length = static_cast<uintptr_t>(maxLength);
-        spectral_processor<double>::in_ptr correctPtr { correction.get(), correction.getSize() };
-        spectral_processor<double> processor(finalLength);
+        htl::spectral_processor<double>::in_ptr correctPtr { correction.get(), correction.getSize() };
+        htl::spectral_processor<double> processor(finalLength);
                 
         // Apply Correction
                 
@@ -902,7 +890,7 @@ void OctetViolins::UpdateIRsAndDisplay(bool displayOnly)
             DisplaySpectrum(mIRs[i], i, mSamplingRate);
 }
 
-void OctetViolins::FadeIR(HISSTools_RefPtr <double> ir,  uintptr_t fadeIn,  uintptr_t fadeOut)
+void OctetViolins::FadeIR(HISSTools_RefPtr<double> ir,  uintptr_t fadeIn,  uintptr_t fadeOut)
 {
     uintptr_t sizeM1 = ir.getSize() - 1;
     
@@ -918,7 +906,7 @@ void OctetViolins::FadeIR(HISSTools_RefPtr <double> ir,  uintptr_t fadeIn,  uint
 }
 
 
-void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long index, double samplingRate)
+void OctetViolins::DisplaySpectrum(HISSTools_RefPtr<double> IR, unsigned long index, double samplingRate)
 {
     if (!GetUI())
         return;
@@ -944,7 +932,7 @@ void OctetViolins::DisplaySpectrum(HISSTools_RefPtr <double> IR, unsigned long i
         fSpectrum.setSamplingRate(mSamplingRate);
         pSpectrum.setSamplingRate(mSamplingRate);
 
-        spectral_processor<double> processor(fSpectrum.getFFTSize());
+        htl::spectral_processor<double> processor(fSpectrum.getFFTSize());
         auto FFTSizeLog2 = processor.calc_fft_size_log2(IR.getSize());
         processor.rfft(*fSpectrum.getSpectrum(), IR.get(), IR.getSize(), FFTSizeLog2);
         

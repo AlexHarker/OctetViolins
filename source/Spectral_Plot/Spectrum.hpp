@@ -1,7 +1,7 @@
 #ifndef __HISSTOOLS_SPECTRUM__
 #define __HISSTOOLS_SPECTRUM__
 
-#include "../HISSTools_Library/HISSTools_FFT/HISSTools_FFT.h"
+#include <fft/fft.hpp>
 
 class Spectrum
 {
@@ -75,7 +75,7 @@ public:
 	bool setFFTSize(unsigned long FFTSize)      { return setParams(FFTSize, mSamplingRate); }
 	void setSamplingRate(double samplingRate)   { mSamplingRate = fabs(samplingRate); }
 	
-    FFT_SPLIT_COMPLEX_D *getSpectrum()          { return &mSpectrum; }
+    htl::split_type<double> *getSpectrum()      { return &mSpectrum; }
 	unsigned long getFFTSize() const            { return mFFTSize; }
 	unsigned long getMaxBin() const             { return calcMaxBin(mFFTSize); }
 	double getSamplingRate() const              { return mSamplingRate; }
@@ -103,7 +103,7 @@ private:
 
 	// The Spectrum
 	
-	FFT_SPLIT_COMPLEX_D mSpectrum;
+    htl::split_type<double> mSpectrum;
 	
 	// Parameters
 		
