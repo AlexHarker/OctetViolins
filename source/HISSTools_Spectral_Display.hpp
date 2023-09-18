@@ -45,32 +45,32 @@ public:
 	HISSTools_Spectral_Display(double x, double y, double w, double h, unsigned long maxFFTSize, int numCurves = 1, const char *type = "", HISSTools_Design_Scheme *designScheme = &DefaultDesignScheme)
 	: HISSTools::SpectrumPlot<HISSTools_Color_Spec *, HISSTools_VecLib>(x, y, w, h), IControl( IRECT()), HISSTools_Control_Layers()
 	{
-		mFreqMin = designScheme->getDimension("SpectralDisplayFreqMin", type);
-		mFreqMax = designScheme->getDimension("SpectralDisplayFreqMax", type);
-		mDBMin = designScheme->getDimension("SpectralDisplayDbMin", type);
-		mDBMax = designScheme->getDimension("SpectralDisplayDbMax", type);
+		mFreqMin = designScheme->GetDimension("SpectralDisplayFreqMin", type);
+		mFreqMax = designScheme->GetDimension("SpectralDisplayFreqMax", type);
+		mDBMin = designScheme->GetDimension("SpectralDisplayDbMin", type);
+		mDBMax = designScheme->GetDimension("SpectralDisplayDbMax", type);
 
         setRangeX(mFreqMin, mFreqMax, true);
         setRangeY(mDBMin, mDBMax, false);
         
-		mFrameCS = designScheme->getColorSpec("SpectralDisplayFrame", type);
-		mGridCS = designScheme->getColorSpec("SpectralDisplayGrid", type);
-		mTickCS = designScheme->getColorSpec("SpectralDisplayTick", type);
-		mBackgroundCS = designScheme->getColorSpec("SpectralDisplayBackground", type);
+		mFrameCS = designScheme->GetColorSpec("SpectralDisplayFrame", type);
+		mGridCS = designScheme->GetColorSpec("SpectralDisplayGrid", type);
+		mTickCS = designScheme->GetColorSpec("SpectralDisplayTick", type);
+		mBackgroundCS = designScheme->GetColorSpec("SpectralDisplayBackground", type);
 		
-		double gridOctaveSpacing = designScheme->getDimension("SpectralDisplayGridOctaveSpacing", type);
-		double gridFreqReference = designScheme->getDimension("SpectralDisplayGridFreqReference", type);
-		double gridDbSpacing =  designScheme->getDimension("SpectralDisplayGridDbSpacing", type);
-		double gridDbReference =  designScheme->getDimension("SpectralDisplayGridDbReference", type);
+		double gridOctaveSpacing = designScheme->GetDimension("SpectralDisplayGridOctaveSpacing", type);
+		double gridFreqReference = designScheme->GetDimension("SpectralDisplayGridFreqReference", type);
+		double gridDbSpacing =  designScheme->GetDimension("SpectralDisplayGridDbSpacing", type);
+		double gridDbReference =  designScheme->GetDimension("SpectralDisplayGridDbReference", type);
 	
         setGridX(gridFreqReference, pow(2.0, gridOctaveSpacing), true);
         setGridY(gridDbReference, gridDbSpacing, false);
 
-        mFrameTK = designScheme->getDimension("SpectralDisplayFrame", type);
-        mGridTK = designScheme->getDimension("SpectralDisplayGrid", type);
-		mTickTK = designScheme->getDimension("SpectralDisplayTick", type);
+        mFrameTK = designScheme->GetDimension("SpectralDisplayFrame", type);
+        mGridTK = designScheme->GetDimension("SpectralDisplayGrid", type);
+		mTickTK = designScheme->GetDimension("SpectralDisplayTick", type);
 
-		mSubSampleRender = designScheme->getDimension("SpectralCurveSubSample");
+		mSubSampleRender = designScheme->GetDimension("SpectralCurveSubSample");
 		
 		numCurves = numCurves < 1 ? 1 : numCurves;
 		
@@ -80,11 +80,11 @@ public:
 			
 			sprintf(curveName, "SpectralCurve%d", i + 1);
 			
-			double curveTK = designScheme->getDimension(curveName, type);
-			HISSTools_Color_Spec *curveCS = designScheme->getColorSpec(curveName, type);
+			double curveTK = designScheme->GetDimension(curveName, type);
+			HISSTools_Color_Spec *curveCS = designScheme->GetColorSpec(curveName, type);
 			
-			curveTK = (curveTK == 0.0) ? designScheme->getDimension("SpectralCurve", type) : curveTK;
-			curveCS = (curveCS == NULL) ? designScheme->getColorSpec("SpectralCurve", type) : curveCS;
+			curveTK = (curveTK == 0.0) ? designScheme->GetDimension("SpectralCurve", type) : curveTK;
+			curveCS = (curveCS == NULL) ? designScheme->GetColorSpec("SpectralCurve", type) : curveCS;
 			
             addCurve(curveTK, curveCS, maxFFTSize);
 		}
@@ -92,7 +92,7 @@ public:
 		// Bounds
 		
 		HISSTools_Bounds fullBounds(x, y, w, h);
-        fullBounds.addThickness(mFrameTK);
+        fullBounds.AddThickness(mFrameTK);
         
         mRECT = fullBounds;
         mTargetRECT = mRECT;

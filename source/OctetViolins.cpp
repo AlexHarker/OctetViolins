@@ -90,12 +90,12 @@ public:
     {
         // FIX - why goes to default?
         
-        addColorSpec("SpectralDisplayBackground", new HISSTools_Color_Spec(1.0, 1.0, 1.0, 1.0));
+        AddColorSpec("SpectralDisplayBackground", new HISSTools_Color_Spec(1.0, 1.0, 1.0, 1.0));
         
-        addDimension("SpectralCurve1", 1.2);
-        addDimension("SpectralCurve2", 1.2);
-        addDimension("SpectralCurve3", 1.2);
-        addDimension("SpectralCurve4", 2.5);
+        AddDimension("SpectralCurve1", 1.2);
+        AddDimension("SpectralCurve2", 1.2);
+        AddDimension("SpectralCurve3", 1.2);
+        AddDimension("SpectralCurve4", 2.5);
         
         HISSTools_Color_Spec *col1 = new HISSTools_Color_Spec(0.7, 0.0, 0.0, 0.9);
         HISSTools_Color_Spec *col2 = new HISSTools_Color_Spec(0.2, 0.7, 0.3, 0.9);
@@ -105,25 +105,25 @@ public:
         HISSTools_Color_Spec *col6 = new HISSTools_Color_Spec(1.0, 0.1, 0.1, 0.9);
         HISSTools_Color_Spec *col7 = new HISSTools_Color_Spec(0.4, 0.4, 0.9, 0.9);
         
-        addColorSpec("SpectralCurve1", col1);
-        addColorSpec("SpectralCurve2", col2);
-        addColorSpec("SpectralCurve3", col3);
-        addColorSpec("SpectralCurve4", col4);
+        AddColorSpec("SpectralCurve1", col1);
+        AddColorSpec("SpectralCurve2", col2);
+        AddColorSpec("SpectralCurve3", col3);
+        AddColorSpec("SpectralCurve4", col4);
         
-        addColorSpec("ButtonHandleOn", "1", col1);
-        addColorSpec("ButtonHandleOn", "2", col2);
-        addColorSpec("ButtonHandleOn", "3", col3);
-        addColorSpec("ButtonHandleOn", "preset", col7);
+        AddColorSpec("ButtonHandleOn", "1", col1);
+        AddColorSpec("ButtonHandleOn", "2", col2);
+        AddColorSpec("ButtonHandleOn", "3", col3);
+        AddColorSpec("ButtonHandleOn", "preset", col7);
         
-        addColorSpec("DialIndicator", "1",  col1);
-        addColorSpec("DialIndicator", "2", col2);
-        addColorSpec("DialIndicator", "3", col3);
+        AddColorSpec("DialIndicator", "1",  col1);
+        AddColorSpec("DialIndicator", "2", col2);
+        AddColorSpec("DialIndicator", "3", col3);
         
-        addColorSpec("ButtonHandleOff", "remove", col5);
-        addColorSpec("ButtonHandleOn", "remove", col6);
+        AddColorSpec("ButtonHandleOff", "remove", col5);
+        AddColorSpec("ButtonHandleOn", "remove", col6);
         
-        addFlag("ValueDrawTriangle", "small", false);
-        addFlag("ValueDrawLabel", "nolabel", false);
+        AddFlag("ValueDrawTriangle", "small", false);
+        AddFlag("ValueDrawLabel", "nolabel", false);
     }
 };
 
@@ -370,17 +370,17 @@ void OctetViolins::LayoutUI(IGraphics *pGraphics)
         pGraphics->AttachControl(muteSwitch);
         pGraphics->AttachControl(soloSwitch);
         
-        tab->attachControl(selection, i);
-        tab->attachControl(amp, i);
-        tab->attachControl(transposition, i);
-        tab->attachControl(hpfFreq, i);
-        tab->attachControl(lpfFreq, i);
-        tab->attachControl(hpfSlope, i);
-        tab->attachControl(lpfSlope, i);
-        tab->attachControl(hpfSwitch, i);
-        tab->attachControl(lpfSwitch, i);
-        tab->attachControl(muteSwitch, i);
-        tab->attachControl(soloSwitch, i);
+        tab->AttachControl(selection, i);
+        tab->AttachControl(amp, i);
+        tab->AttachControl(transposition, i);
+        tab->AttachControl(hpfFreq, i);
+        tab->AttachControl(lpfFreq, i);
+        tab->AttachControl(hpfSlope, i);
+        tab->AttachControl(lpfSlope, i);
+        tab->AttachControl(hpfSwitch, i);
+        tab->AttachControl(lpfSwitch, i);
+        tab->AttachControl(muteSwitch, i);
+        tab->AttachControl(soloSwitch, i);
     }
     
     auto remove = new RemoveIRButton(this, freqDispX + 460, freqDispY + dispHeight + 150, 70, 20, &theDesign);
