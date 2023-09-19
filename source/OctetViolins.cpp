@@ -651,7 +651,7 @@ void OctetViolins::LoadFiles(int offset, HISSTools_RefPtr<double> &IRL, HISSTool
             
             // Read and Transpose
             
-            htl::resampler<double, float, false> resample;
+            htl::resampler<double, float> resample;
             HISSTools_RefPtr<float> baseIR(file.frames());
         
             file.read_channel(baseIR.get(), file.frames(), 0);
@@ -812,7 +812,7 @@ void OctetViolins::MixIRs(int numIRs, bool correctionOn)
         
         if (file.is_open() && !file.is_error())
         {
-            htl::resampler<double, float, false> resample;
+            htl::resampler<double, float> resample;
             HISSTools_RefPtr<float> correctionRaw(file.frames());
 
             file.read_channel(correctionRaw.get(), file.frames(), 0);
