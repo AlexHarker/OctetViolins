@@ -458,12 +458,15 @@ void OctetViolins::SetPreset(int idx)
     if (idx < 0)
         return;
     
-    for (int i = 0; i < 10; i++)
+    if (GetUI())
     {
-        IControl *presetButton = GetUI()->GetControlWithTag(kPresetButtons + i);
+        for (int i = 0; i < 10; i++)
+        {
+            IControl *presetButton = GetUI()->GetControlWithTag(kPresetButtons + i);
 
-        presetButton->SetValueFromDelegate(i == idx);
-        presetButton->SetDisabled(!mGUIPresets[i].Size());
+            presetButton->SetValueFromDelegate(i == idx);
+            presetButton->SetDisabled(!mGUIPresets[i].Size());
+        }
     }
     
     if (mGUIPresets[idx].Size())
